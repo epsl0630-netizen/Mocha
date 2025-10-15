@@ -1,0 +1,13 @@
+package mocha.ezen.com.home;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class HomeController {
+	@RequestMapping("/a")
+	public String aa()
+	{
+		return "home";
+	}
+}
