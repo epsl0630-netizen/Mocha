@@ -4,5 +4,56 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/boarddb?serverTimezone=Asia/Seoul&amp;useSSL=false&amp;allowPublicKeyRetrieval=true" />
+		<property name="username" value="root" />
+		<property name="password" value="ezen" />
+	</bean>
+	
+	<!-- 
+		DriverManagerDataSource dataSource = new DriverManagerDataSource() 
+		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver")
+		dataSource.setUrl("jdbc....")
+		dataSource.setUserName("root")
+		dataSource.setPassword("ezen")
+	-->
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath*:mapper/**/*.xml" />
+	</bean>
+	
+	<!--
+		SqlSessionFactoryBean sqlSessionFactory = SqlSessionFactoryBean();
+		sqlSessionFactory.setDataSource(dataSource);
+		sqlSessionFactory.setMapperLocations("classpath*:mapper/**/*.xml")
+	-->
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg ref="sqlSessionFactory" name="sqlSessionFactory" />
+	</bean>
+	
+	<!-- 
+		SqlSessionTemplate sqlSession = new SqlSessionTemplate(sqlSessionFactory);
+	-->
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.naver.com" />
+		<property name="port" value="465" />
+		<property name="username" value="mailguru" />
+		<property name="password" value="6MQ9RBLL2U2K" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.debug">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtps.ssl.checkserveridentity">true</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtps.ssl.trust">*</prop>
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+			</props>
+		</property>
+	</bean>
 </beans>
