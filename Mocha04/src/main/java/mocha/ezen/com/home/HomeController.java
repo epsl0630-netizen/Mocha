@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
-	@RequestMapping("/a")
-	public String aa()
+	@RequestMapping("/")
+	public String Index()
 	{
-		return "home";
+		return "home/index";
 	}
 }

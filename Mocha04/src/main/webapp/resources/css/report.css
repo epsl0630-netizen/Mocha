@@ -1,0 +1,236 @@
+/* ===========================
+   Document Page (document.css)
+   =========================== */
+
+/* ---- CSS 변수 ---- */
+
+/* ---- 메뉴 아코디언/링크 ---- */
+#menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 16px;
+}
+
+#menu details {
+    margin: 4px 0;
+}
+
+#menu summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 4px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#menu summary::-webkit-details-marker {
+    display: none;
+}
+
+#menu summary::marker {
+    content: none;
+}
+
+#menu summary::after {
+    content: '▸';
+    font-size: 30px;
+    line-height: 1;
+    margin-left: 8px;
+    color: #fff;
+}
+
+#menu details[open]>summary::after {
+    content: '▾';
+}
+
+#menu .menu-sub>ul {
+    padding-left: 1rem;
+}
+
+/* ---- 사이드 드로어(좌측) ---- */
+#menu-board-drawer {
+    position: absolute;
+    inset: 0;
+    background: var(--sub-color-a);
+    color: #fff;
+    padding: 12px 16px;
+    overflow: auto;
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+}
+
+#menu-board-drawer.show {
+    transform: translateX(0);
+}
+
+#menu-board-drawer h2 {
+    margin: 0 0 .75rem 0;
+    font-size: clamp(14px, 2.2vw, 18px);
+}
+
+#menu-board-drawer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+#menu-board-drawer .btn-back {
+    border: 1px solid rgba(255, 255, 255, .6);
+    color: #fff;
+    background: transparent;
+}
+
+#menu-board-drawer ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+/* ---- 보고서 페이지(문서) ---- */
+#page-report .table {
+    margin-bottom: .5rem !important;
+}
+
+#page-report thead th {
+    white-space: nowrap;
+}
+
+#page-report td,
+#page-report th {
+    line-height: 1.25;
+}
+
+.report-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+}
+
+#page-report .pagination {
+    margin: 0;
+}
+
+.search-wrap {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+/* ---- 기타 UI 조각 ---- */
+.gadget-container {
+    overflow-x: hidden;
+}
+
+.gadget {
+    width: var(--gadget-basic-width);
+    height: 360px;
+    margin: 20px;
+    padding: 20px;
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    background: #fff;
+    border: 1px solid var(--frame-color);
+    border-radius: 3%;
+}
+
+.gadget-buttons {
+    height: 150px;
+}
+
+.gadget-noti {
+    height: 170px;
+}
+
+#board-table td .cmt {
+    color: #ff5a00;
+    font-weight: 600;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .25rem .5rem;
+    border: 1px solid var(--frame-color);
+    border-radius: 999px;
+    background: #fff;
+    font-size: .9rem;
+}
+
+.chip button {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.form-section-title {
+    font-weight: 700;
+    margin-bottom: .5rem;
+}
+
+.card+.card {
+    margin-top: 1rem;
+}
+
+.preview-item {
+    display: flex;
+    gap: .5rem;
+}
+
+.preview-item .label {
+    min-width: 72px;
+    color: #666;
+}
+
+/* ---- 타이포 ---- */
+h2 {
+    font-size: clamp(14px, 2.2vw, 18px);
+}
+
+h3 {
+    font-size: clamp(10px, 1.9vw, 16px);
+}
+
+/* ---- 반응형 ---- */
+@media (max-width:900px) {
+    #search-container {
+        display: none;
+    }
+
+    .ml-logo {
+        width: 80px;
+        height: 80px;
+        background-size: 80px;
+    }
+}
+
+@media (max-width:625px) {
+    #header-list {
+        display: none;
+    }
+}
+
+/* ---- 보드 테이블(간격 타이트) ---- */
+#board-table.table>:not(caption)>*>* {
+    padding: .35rem .5rem;
+}
+
+#board-table td,
+#board-table th {
+    line-height: 1.2;
+}
+
+/* ---- 부트스트랩 구터/좌측폭 보정 ---- */
+.row:has(#nav) {
+    --bs-gutter-x: 0;
+}
+
+.row:has(#nav)>.col-3 {
+    flex: 0 0 calc(var(--nav-width) + var(--menu-width));
+    max-width: calc(var(--nav-width) + var(--menu-width));
+}
+/* '문서 조회' 아래 탭 버튼 그룹 감추기 */
+#page-report [aria-label="report tabs"] { display: none !important; }

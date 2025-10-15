@@ -1,0 +1,136 @@
+/* ========== 보고서 전용 ========== */
+.report-wrap {
+    max-width: 920px;
+    margin: 0 auto;
+    /* 좌측 메뉴 시각 보정 필요 시 아래 주석 해제
+     margin-left:-150px;
+  */
+}
+
+.report-title {
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: .02em;
+    margin: 18px 0 16px;
+    font-size: clamp(22px, 2.6vw, 32px);
+}
+
+.report-divider {
+    border-top: 2px solid #cfcfcf;
+    margin: 10px 0 24px;
+}
+
+.report-box {
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .06);
+}
+
+/* 소제목 */
+.section-h2 {
+    font-size: clamp(18px, 2.1vw, 24px);
+    font-weight: 700;
+    margin: 22px 0 10px;
+}
+
+.report-box .section-h2 {
+    margin-top: 14px;
+}
+
+/* 작성자/부서/직책/작성일 표 */
+.meta-table {
+    width: 100%;
+    border: 1px solid #dee2e6;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin-bottom: 24px;
+    background: #fff;
+}
+
+.meta-table th,
+.meta-table td {
+    border: 1px solid #dee2e6;
+    padding: .7rem .9rem;
+    height: 44px;
+}
+
+.meta-table th {
+    width: 120px;
+    background: #f1f3f5;
+    color: #333;
+    font-weight: 600;
+}
+
+/* 금일 업무/결과 */
+.work-table {
+    width: 100%;
+    border: 1px solid #dee2e6;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin-bottom: 24px;
+    background: #fff;
+}
+
+.work-table th,
+.work-table td {
+    border: 1px solid #dee2e6;
+}
+
+.work-table th {
+    width: 110px;
+    background: #e9ecef;
+    text-align: center;
+    color: #333;
+    font-weight: 600;
+}
+
+.work-table .cell {
+    padding: 0;
+}
+
+.work-table .cell .area {
+    min-height: 220px;
+    padding: 12px 14px;
+    resize: vertical;
+    border: 0;
+    width: 100%;
+    outline: none;
+}
+
+/* 참고/기타 */
+.note-table {
+    width: 100%;
+    border: 1px solid #dee2e6;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin-top: 8px;
+    background: #fff;
+}
+
+.note-table th,
+.note-table td {
+    border: 1px solid #dee2e6;
+    padding: .6rem .8rem;
+    height: 46px;
+}
+
+.note-table th {
+    width: 140px;
+    background: #f8f9fa;
+    font-weight: 600;
+}
+
+/* 버튼 영역 */
+.report-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: .5rem;
+    margin-top: 18px;
+}
+
+/* reportView */
+textarea {
+  resize: none !important;
+}

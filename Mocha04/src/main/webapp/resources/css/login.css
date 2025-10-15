@@ -1,0 +1,73 @@
+#section {
+      padding-left: unset !important;
+}
+
+.section-title {
+  font-size: x-large;
+  font-weight: bolder;
+}
+
+.login-input-container {
+  margin: auto;
+
+  width: 450px;
+  padding: 20px;
+  border: 1px solid var(--frame-color);
+  border-radius: 5px;
+
+  display: flex; 
+  flex-direction: column;
+
+  justify-content: center;
+  align-items : center;
+}
+.login-input-container form {
+
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+}
+.login-input-container form > input {
+  width: 100%;
+  margin: 10px;
+}
+
+.login-input-container form > *{
+  display: flex;
+}
+
+.login-input-container form > span{
+  align-self: flex-start;
+}
+
+#login-btn {
+  width: 100%;
+  margin: 10px;
+
+  font-weight: bold;
+  margin-top: 100px;
+  background-color: var(--sub-color-1);
+  
+  /* 아이콘 가운데 정렬 start */
+    display : flex;
+    justify-content: center;
+    align-items : center;
+  /* 아이콘 가운데 정렬 end */
+}
+.login-img img{
+  width: 100px;
+  height: 100px;
+
+  margin: 20px;
+}
+.section-title {
+  text-align: left;
+}
+.login-container {
+  background-color: white;
+  
+  text-align: center;
+}

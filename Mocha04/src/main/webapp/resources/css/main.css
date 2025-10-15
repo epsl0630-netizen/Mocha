@@ -1,0 +1,451 @@
+:root {
+  --main-color: #8bc2f8; /* 메인색을 변수로 정의 */
+  --main-color-dark: #5896d4; /* 메인색에서 채도를 올리고 명도를 낮춘다 ↘방향 */
+  --main-color-darker: #3678b9; /* 메인색에서 채도를 올리고 명도를 낮춘다 ↘방향 */
+  --sub-color-1: #d8e5fd;
+  --sub-color-2: #d8e5fd;
+
+  --menu-color: #fff;
+  --nav-color: #fff;
+  --menu-font-color: #222222;
+  --footer-color: #fff;
+
+  --frame-color: #dadce0;
+  
+  --header-height: 100px;
+  --nav-width: 100px;
+  --menu-width: 220px;
+  --footer-height: 100px;
+
+  --gadget-basic-width: 300px;
+}
+
+body,html {
+  margin: 0;
+  height: 100%;
+}
+#wrap {
+  width: 100%;
+  height: 100%;
+  overflow: hidden
+}
+#header {
+  width: 100%;
+  height: var(--header-height);
+  background-color: white;
+  z-index: 101;
+  position: fixed;
+  top: 0;
+  padding: 20px;
+
+  border-bottom: 1px solid var(--frame-color);
+}
+#nav, #menu , #section {
+  margin-top: var(--header-height);
+}
+
+/* 헤더 로고 */
+.m-logo {
+  width: 50px;
+  height: 50px;
+  background-size: 50px;
+  background-image: url(../img/logo.png);
+  background-repeat: no-repeat;
+  object-fit: contain;
+  float: left;
+}
+
+#header-list {
+
+  float: right;
+  text-align: right;
+  width: 130px;
+  padding-right: 20px;
+
+  /* 아이콘 가운데 정렬 start */
+  display : flex;
+  justify-content: center;
+  align-items : center;
+  /* 아이콘 가운데 정렬 end */
+}
+#header-list > * {
+display: inline-block;
+}
+.profile-circle {
+  border: 1px solid var(--frame-color);
+  border-radius: 50%;
+  width: fit-content;
+  overflow: hidden;
+}
+.profile-square {
+    border: 1px solid var(--frame-color);
+    
+    width: fit-content;
+    overflow: hidden;
+}
+.profile-rsquare {
+    border: 1px solid var(--frame-color);
+    border-radius: 10px;
+
+    width: fit-content;
+    overflow: hidden;
+}
+
+/* 프로필 이미지 */
+.profile-img-sm {
+  width : 30px;
+  height : 30px;
+  content : url("../img/profile.png");
+  object-fit: cover;
+}
+
+.profile-img-md {
+  width : 100px;
+  height : 100px;
+  content : url("../img/profile.png");
+  object-fit: cover;
+}
+.profile-img {
+  width: 120px;
+  height: 153px;
+  content : url("../img/profile.png");
+  object-fit: cover;
+}
+/* nav */
+#nav {
+  width: var(--nav-width);
+  overflow: hidden;
+  background-color: var(--nav-color);
+  justify-content: center;
+  align-items : center;
+}
+
+#nav ul, #menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#nav ul {
+  padding: 10px;
+  text-align: center;
+}
+
+#nav li {
+  display: inline-block;
+}
+#nav a {
+  color: black;
+  text-decoration: none;
+}
+.nav-icon {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+
+  border-radius: 10px;
+  /* 아이콘 가운데 정렬 start */
+  display : flex;
+  justify-content: center;
+  align-items : center;
+  /* 아이콘 가운데 정렬 end */
+}
+.btn-icon {
+  width: 40px;
+  height: 40px;
+
+  background-color: gainsboro;
+
+  border-radius: 10px;
+  /* 아이콘 가운데 정렬 start */
+  display : flex;
+  justify-content: center;
+  align-items : center;
+  /* 아이콘 가운데 정렬 end */
+}
+
+/* icon selected */
+.icon-selected > .nav-icon {
+  background-color: var(--main-color);
+  color: #fff;
+}
+.nav-btn {
+  margin: 3px 0px;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 30%;
+
+  font-size: smaller;
+}
+.nav-btn:hover{
+  background: gainsboro;
+}
+.nav-btn i {
+  font-size: 28px;
+}
+
+#nav-menu-btn {
+  display: none;
+}
+
+/* menu */
+#menu {
+  margin-left: var(--nav-width);
+  width: var(--menu-width);
+
+  background-color: var(--menu-color);
+  color: var(--menu-font-color);
+  border: 0px solid var(--frame-color);
+  border-right-width: 1px;
+  overflow: hidden;
+}
+
+.menu-title {
+  display: block;
+  padding: 20px 0px;
+  font-size: large;
+  font-weight: bold;
+}
+
+#menu > div {
+  width: var(--menu-width);
+  margin: 0px 0px 20px 20px;
+}
+/* 1. 메뉴 기본 및 링크 스타일 */
+  #menu { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 8px; 
+      padding: 12px 16px; 
+  }
+  #menu a:link, #menu a:visited { 
+      color: black; 
+      text-decoration: none; 
+  }
+  #new-approval { 
+      margin-bottom: 8px; 
+  }
+  
+  /* 2. ul / li / a 공통 스타일 */
+  ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0; /* #menu ul의 margin:0 통합 */
+  }
+  #menu li::marker, #menu li::before { 
+      content: none !important; 
+  }
+  li a {
+      text-decoration: none;
+  }
+/* nav menu */
+#nav, #menu {
+  vertical-align: top;
+  float: left;
+  position: fixed;
+  height: 100%;
+  /* height: calc(100% - (var(--footer-height) + var(--header-height))); */
+  z-index: 100;
+}
+/* section */
+#section {
+  width: 100%;
+  padding-left: calc(var(--nav-width) + var(--menu-width) );
+  float: left;
+}
+#section > * {
+  width: 1280px;
+  table-layout : fixed;
+  margin-top : 20px;
+  margin: 0 auto;
+}
+/* footer */
+#footer {
+  position: relative;
+  bottom: 0px;
+
+  z-index: 101;
+  height: var(--footer-height);
+
+  border-top: 1px solid var(--frame-color);
+  background-color: var(--footer-color);
+}
+/* 스크린이 625px 이상 */
+@media screen and (min-width:625px) {
+  
+}
+/* 스크린이 625px 이하 */
+@media screen and (max-width:900px) {
+  .ml-logo {
+    width: 80px;
+    height: 80px;
+    background-size: 80px;
+  }
+}
+@media screen and (max-width:625px) {
+  #header-list {
+    display: none;
+  }
+}
+
+  /* profile nav */
+  .profile-nav {
+  position: absolute;
+  float: right;
+  right: 5px;
+  top: calc(var(--header-height) - 20px);
+  border: 1px solid var(--frame-color);
+  background-color: #fff;
+  width: 300px;
+  height: 360px;
+  border-radius: 10px;
+
+  padding: 30px;
+  /* 아이콘 가운데 정렬 start */
+  display : none;
+  /* 아이콘 가운데 정렬 end */
+
+  box-shadow: var(--bs-box-shadow);
+}
+.profile-nav-body {
+  /* 아이콘 가운데 정렬 start */
+  display : flex;
+  justify-content: center;
+  align-items : center;
+  /* 아이콘 가운데 정렬 end */
+  flex-direction: column;
+}
+.profile-nav-btn {
+  margin: 20px 0px;
+  display: flex;
+}
+
+.profile-nav-close-btn {
+  position: absolute;
+  float: right;
+  top: 15px;
+  right: 15px;
+}
+
+.profile-nav-open-btn {
+  background: transparent;
+  border: 0px solid transparent;
+}
+
+/* myinfo */
+.profile-container {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  margin: 5px;
+  /* 아이콘 가운데 정렬 start */
+  display : flex;
+  justify-content: center;
+  align-items : center;
+  /* 아이콘 가운데 정렬 end */
+}
+#myinfo-modal .modal-content {
+  width: 630px;
+}
+
+.user-info-container td{
+  height: 40px;
+}
+.user-info-container {
+  padding: 20px;
+}
+.user-info-container td:nth-child(odd){
+  width: 155px;
+
+}
+
+.personal-info, .employee-info {
+  width: 100%;
+}
+.personal-info td:nth-child(odd), .employee-info td:nth-child(odd) {
+  padding-left: 10px;
+}
+.personal-info td:nth-child(even), .employee-info td:nth-child(even) {
+  width: 185px;
+}
+.user-info input,.user-info select, .personal-info input, .employee-info input{
+  width: 90%;
+}
+.personal-info select, .employee-info select{
+  width: 80px;
+}
+.user-info-button {
+  text-align: right;
+}
+.user-info-button > button {
+  margin: 10px;
+  width: 100px;
+}
+.sub-title {
+  display: inline-block;
+  margin: 15px 0px;
+  background-color: var(--sub-color-2);
+  border-radius: 30px;
+}
+.myinfo-fix-btn {
+  background-color: var(--main-color);
+  float: right;
+}
+.pw-change {
+  display: none;
+}
+/* myinfo end */
+
+.btn-main {
+  background-color: var(--main-color);
+  color: white;
+  border: 1px solid var(--main-color);
+}
+.btn-main:hover {
+  background-color: var(--main-color-dark);
+  border: 1px solid var(--main-color-dark);
+  color: white;
+}
+.btn-main:active {
+  background-color: var(--main-color-darker) !important;
+  border: 1px solid var(--main-color-darker) !important;
+  color: white !important;
+}
+.btn-sub {
+  background-color: transparent;
+  display: flex;
+  /* 아이콘 가운데 정렬 start */
+  display : flex;
+  justify-content: center;
+  align-items : center;
+  /* 아이콘 가운데 정렬 end */
+}
+.btn-right {
+  float: right;
+}
+
+.profile-img-edit-btn {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid var(--frame-color);
+  bottom: 2px;
+  right: 2px;
+  /* 아이콘 가운데 정렬 start */
+  display : flex;
+  justify-content: center;
+  align-items : center;
+  /* 아이콘 가운데 정렬 end */
+}
+.profile-img-edit-btn:hover, .profile-img-edit-btn:active  {
+  cursor: pointer;
+}
+#profile-img-file {
+display: none;
+}
