@@ -4,7 +4,6 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css"/>
 <script src="${pageContext.request.contextPath}/resources/js/index.js"></script>
-<!DOCTYPE html>
       <!-- section start -->
       <td id="section">
         <table class="gadget-container">
@@ -35,7 +34,7 @@
             <td class="gadget-calendar-td">
               <div class="gadget">
                 <span  class="gadget-title">캘린더</span>
-                <a href="../schedule/scheduleList.html" class="gadget-detail-btn  gadget--detail-btn-schedule">더 보기 
+                <a href=${pageContext.request.contextPath}/schedule" class="gadget-detail-btn  gadget--detail-btn-schedule">더 보기 
                   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="15px"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/>
                   </svg>
                 </a>
@@ -161,7 +160,7 @@
                   </a>
                 </div>
               </div>
-                <div class="gadget gadget-alarm">
+              <div class="gadget gadget-alarm">
                   <span  class="gadget-title">최근 알림</span>
                   <div class="alarm-container">
                     <!-- 알림 내용 start-->
@@ -209,17 +208,17 @@
                     </div>
                     <!-- 알림 내용 end -->
                   </div>
-                </div>
+               </div>
               </div>
               <div class="gadget gadget-noti">
                 <span  class="gadget-title">공지사항</span>
-                <a href="../board/boardList.html" class="gadget-detail-btn">더 보기 
+                <a href="${pageContext.request.contextPath}/board" class="gadget-detail-btn">더 보기 
                   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="15px"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/>
                   </svg>
                 </a>
                 <div class="noti-container">
                   <!-- 공지 내용 start-->
-                  <a href="../board/boardView.html">
+                  <a href="${pageContext.request.contextPath}/board/boardView">
                     <div class="noti">
                       <div class="noti-icon">
                         <i class="bi bi-exclamation-diamond"></i>
@@ -232,7 +231,7 @@
                   </a>
                   <!-- 공지 내용 end -->
                   <!-- 공지 내용 start-->
-                  <a href="../board/boardView.html">
+                  <a href="${pageContext.request.contextPath}/board/boardView">
                     <div class="noti">
                       <div class="noti-icon">
                         <i class="bi bi-exclamation-diamond"></i>
@@ -245,7 +244,7 @@
                   </a>
                   <!-- 공지 내용 end -->
                   <!-- 공지 내용 start-->
-                  <a href="../board/boardView.html">
+                  <a href="${pageContext.request.contextPath}/board/boardView">
                     <div class="noti">
                       <div class="noti-icon">
                         <i class="bi bi-exclamation-diamond"></i>
@@ -264,7 +263,7 @@
             <td colspan="2" class="gadget-td">
               <div class="gadget g-long">
                 <span  class="gadget-title">결재 대기 문서</span>
-                <a href="../approval/approvalList.html" class="gadget-detail-btn">더 보기 
+                <a href="${pageContext.request.contextPath}/approval/approvalList" class="gadget-detail-btn">더 보기 
                   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="15px"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/>
                   </svg>
                 </a>

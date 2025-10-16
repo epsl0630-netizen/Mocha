@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자 페이지</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <link rel="icon" href="favicon.ico"/>
+    <style>
+
+    :root {
+      --main-color: #1e90ff; /* 메인색을 변수로 정의 */
+      --sub-color-a: #0B84E1;;
+      --sub-color-b: #1e90ff;
+
+      --footer-color: white;
+
+      --frame-color: #dadce0;
+      
+      --header-height: 100px;
+      --nav-width: 100px;
+      --menu-width: 200px;
+      --footer-height: 100px;
+
+      --gadget-basic-width: 300px;
+    }
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+
+    }
+    #wrap {
+      height: 100%;
+      min-width: 1050px;
+    }
+    #section{
+      overflow-x: hidden;
+    }
+    #header, #section, #side, #footer {
+      margin: 0 auto;
+    }
+
+    #header {
+      height: var(--header-height);
+      background-color: white;
+      z-index: 5;
+      position: fixed;
+      top: 0;
+      padding: 20px;
+
+      border: 1px solid var(--frame-color);
+    }
+
+    #nav, #menu {
+      margin-top: var(--header-height);
+      height: 100%;
+    }
+
+    #nav {
+      width: var(--nav-width);
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #menu {
+      margin-left: var(--nav-width);
+      width: var(--menu-width);
+
+      background-color: var(--sub-color-a);
+      color: white;
+    }
+    #nav, #menu {
+      float: left;
+      position: fixed;
+    }
+
+    
+    #header, #footer {
+      width: 100%;
+    }
+    #footer {
+      position: fixed;             /* 기존 relative/bottom:-70px 제거 */
+      /* margin-left: calc(var(--nav-width) + var(--menu-width)); */
+      width: calc(100% - (var(--nav-width) + var(--menu-width)));
+      height: var(--footer-height);
+      border-top: 1px solid var(--frame-color);
+      background-color: var(--footer-color);
+      /* display: flex; */
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;   
+      bottom: 0; 
+    }
+    #section{
+      padding-top: var(--header-height);
+      padding-left: 12px;
+      padding-right: 12px;
+}
+    /* 헤더 로고 */
+    .m-logo {
+      width: 50px;
+      height: 50px;
+      background-size: 50px;
+      background-image: url(logo.png);
+      background-repeat: no-repeat;
+      object-fit: contain;
+      float: left;
+    }
+    
+    #header-list {
+      text-align: right;
+      width: 300px;
+      padding-right: 20px;
+    }
+    #header-list > * {
+    display: inline-block;
+    }
+
+    #search-container {
+      margin-right: 10px;
+      position: relative;
+     }
+
+    #search {
+      width: 200px;
+    }
+    
+    #search-btn {
+      position: absolute;
+      right: 1%;
+    }
+
+    /* 프로필 이미지 */
+    .profile-img-sm {
+      width : 30px;
+      height : 30px;
+      border: 1px solid var(--frame-color);
+      border-radius: 50%;
+    }
+  
+    #nav > ul , #menu > ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    #nav ul ul, #menu ul ul {
+      list-style: none;
+      padding-left: 1.2rem;
+      margin-top: .25rem;
+    }
+    
+    #nav ul ul ul, #menu ul ul ul {
+      list-style: none;
+      padding-left: 1.2rem;
+    }
+
+    #nav ul, #nav li { list-style: none; margin: 0; padding: 0; }
+    #nav li::marker { content: none; }                
+    #nav li::before { content: none !important; } 
+
+    #nav a {
+      color: black;
+      text-decoration: none;
+    }
+    .nav-icon { 
+      width: 40px;
+      height: 40px;
+
+      border-radius: 20%;
+      /* 아이콘 가운데 정렬 start */
+      display : flex;
+      justify-content: center;
+      align-items : center;
+      /* 아이콘 가운데 정렬 end */
+    }
+    
+    /* .nav-icon.admin {
+      background-color: coral;
+    } */
+
+    .nav-btn {
+      margin: 10px 0px;
+
+      width: 64px;
+      height: 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      border-radius: 30%;
+
+      font-size: smaller;
+    }
+    .nav-btn:hover{
+      background: gainsboro;
+    }
+
+    #nav-icon>svg {
+      fill: #1f1f1f;
+    }
+
+    #search-btn {
+      cursor : pointer;
+      border: 0;
+      background-color: transparent;
+    }
+
+    .nav-icon > img {
+      position: absolute;
+    }
+
+    .menu-title {
+      display: block;
+      padding: 20px 0px;
+      font-size: large;
+      font-weight: bold;
+    }
+
+    #menu > div {
+      margin: 0px 0px 20px 20px;
+    }
+
+    #nav-menu-btn {
+      display: none;
+    }
+
+    /* gadget */
+    .gadget-container {
+      overflow-x: hidden;
+    }
+
+    .gadget {
+      width: var(--gadget-basic-width);
+      height: 360px;
+
+      margin: 20px;
+      padding: 20px;
+      
+      text-align: center;
+      font-size: large;
+      font-weight: bold;
+
+      background-color: white;
+
+      border: 1px solid var(--frame-color);
+      border-radius: 3%;
+    }
+
+    .gadget-buttons {
+      height: 150px;
+    }
+
+    .gadget-noti  {
+      height: 170px;
+    }
+    /* 스크린이 625px 이상 */
+    @media screen and (min-width:625px) {
+      
+    }
+    /* 스크린이 625px 이하 */
+    @media screen and (max-width:900px) {
+      #search-container {
+        display: none;
+      }
+      .ml-logo {
+        width: 80px;
+        height: 80px;
+        background-size: 80px;
+      }
+    }
+    @media screen and (max-width:625px) {
+      #header-list {
+        display: none;
+      }
+    }
+  </style>
+  <style>
+    h2 { font-size: clamp(14px, 2.2vw, 18px); }
+    h3 { font-size: clamp(10px, 1.9vw, 16px); }
+
+    #menu li::marker { content: none; }
+    #menu li::before { content: none !important; }
+
+    #menu a:link, #menu a:visited {
+       color: #fff;
+    }
+    #menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;                 /* 요소 사이 간격 */
+  padding: 12px 16px;
+}
+
+/* 버튼 아래 약간 여백 주고 싶다면 */
+#new-approval { margin-bottom: 8px; }
+
+/* details/summary 스타일(마커 제거 포함) */
+#menu .menu-static { margin: 4px 0; }   /* 선택 */
+
+#menu details { margin: 4px 0; }
+#menu summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 4px 0;
+}
+#menu summary::-webkit-details-marker { display: none; }
+#menu summary::marker { content: none; }
+#menu summary::after { content: '▸'; margin-left: .4rem; color:#666; }
+#menu details[open] > summary::after { content: '▾'; }
+
+/* 목록 불릿 제거 + 들여쓰기 */
+#menu ul { list-style: none; padding-left: 0; margin: 0; }
+#menu .menu-sub > ul { padding-left: 1rem; }
+   
+/* 기본 마커 숨기기 (중복 방지) */
+#menu summary::-webkit-details-marker { display: none; }
+#menu summary::marker { content: none; }
+
+/* summary 줄 정렬 + 오른쪽에 큰 화살표 배치 */
+#menu summary{
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 텍스트 ─────▶ 화살표 */
+  padding: 4px 0;
+}
+
+/* 화살표 크기/색/간격 */
+#menu summary::after{
+  content: '▸';            /* 닫힘 상태 */
+  font-size: 30px;         /* ← 여기 숫자 키우면 더 큼 */
+  line-height: 1;
+  margin-left: 8px;
+  color: #fff;             /* 파란 배경이면 흰색 추천 */
+}
+
+/* 열린 상태 화살표 */
+#menu details[open] > summary::after{
+  content: '▾';
+}
+  </style>
+
+  <style>
+  #board-table td .cmt { color:#ff5a00; font-weight:600; }
+</style>
+<style>
+  /* 일정 폼 전용 스타일 */
+  .chip {
+    display:inline-flex; align-items:center; gap:.35rem;
+    padding:.25rem .5rem; border:1px solid var(--frame-color);
+    border-radius:999px; background:#fff; font-size:.9rem;
+  }
+  .chip button { border:0; background:transparent; cursor:pointer; }
+  .form-section-title{ font-weight:700; margin-bottom:.5rem; }
+  .card + .card { margin-top:1rem; }
+  .preview-item{ display:flex; gap:.5rem; }
+  .preview-item .label{ min-width:72px; color:#666; }
+</style>
+
+<style>
+  /* 사이드에 겹쳐 뜨는 보드용 드로어 */
+  #menu { position: fixed; overflow: hidden; } /* 이미 있음: 중복 OK */
+  /* 사이드 드로어: 화면 높이에 딱 맞추고 내부만 스크롤 */
+#menu-board-drawer{
+  position: fixed;                          /* 부모 높이 영향 X */
+  top: var(--header-height);                /* 헤더 바로 아래에서 시작 */
+  left: var(--nav-width);                   /* 아이콘 nav 오른쪽에서 시작 */
+  width: var(--menu-width);                 /* 파란 드로어 너비 */
+  height: calc(100vh - var(--header-height)); /* 화면 전체 높이에서 헤더만 제외 */
+
+  background: var(--sub-color-a);
+  color: #fff;
+  padding: 12px 16px;
+
+  overflow-y: auto;                         /* 내용이 넘치면 이 영역만 스크롤 */
+  overflow-x: hidden;
+
+  /* 슬라이드 인/아웃(옵션: 기존 show 클래스 유지) */
+  transform: translateX(-100%);
+  transition: transform .25s ease;
+}
+  #menu-board-drawer.show{ transform: translateX(0); }
+  #menu-board-drawer h2{ margin:0 0 .75rem 0; font-size: clamp(14px,2.2vw,18px); }
+  #menu-board-drawer a{ color:#fff; text-decoration:none; }
+  #menu-board-drawer .btn-back{
+    border:1px solid rgba(255,255,255,.6); color:#fff; background:transparent;
+  }
+  #menu-board-drawer ul{ list-style:none; padding-left:0; margin:0; }
+</style>
+
+<style>
+  /* nav가 들어있는 그 row만 구터 0 */
+  .row:has(#nav){ --bs-gutter-x: 0; }
+
+  /* col-3 폭을 nav(100) + menu(200) = 300px로 고정 */
+  .row:has(#nav) > .col-3 { 
+  flex: 0 0 calc(var(--nav-width) + var(--menu-width)); 
+  max-width: calc(var(--nav-width) + var(--menu-width));
+}
+</style>
+
+<style>
+  /* 헤더 아래 여백: #section은 margin-top 제거, padding-top만 사용 */
+  #section{ 
+    margin-top: 0 !important; 
+    padding-top: calc(var(--header-height) + 4px) !important; 
+  }
+
+/* --- Dashboard (center + pretty cards) --- */
+:root{
+  --card-bg:#fff;
+  --card-border:#e5e7eb;
+  --card-shadow:0 6px 18px rgba(0,0,0,.06);
+  --accent:#2a7be4;
+  --muted:#6b7280;
+}
+
+#dashboard{
+  width:100%;
+  max-width:960px;                 /* 가운데 폭을 조금 키워서 넉넉하게 */
+  margin:0 auto;
+  padding:28px 16px;
+}
+
+#dashboard .dash-title{ text-align:center; letter-spacing:.05em; }
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(320px, 1fr));
+  gap:24px;
+  justify-content:center;
+}
+
+.dashboard-card{
+  background:var(--card-bg);
+  border:1px solid var(--card-border);
+  border-radius:16px;
+  box-shadow:var(--card-shadow);
+  padding:16px 18px;
+}
+
+.dashboard-card .card-title{
+  margin:2px 0 10px;
+  font-weight:700;
+  color:#111827;
+}
+
+.dashboard-card canvas{ width:100%; height:220px; }
+
+.dashboard-kpi{
+  display:flex; align-items:center; justify-content:center;
+  height:220px;
+  font-size:64px; font-weight:800; letter-spacing:.02em;
+}
+
+/* 파이 차트 범례 */
+.legend{ display:flex; gap:12px; flex-wrap:wrap; margin-top:10px; color:var(--muted); font-size:13px; }
+.legend .dot{ width:10px; height:10px; border-radius:50%; display:inline-block; margin-right:6px; }
+.legend .item{ display:flex; align-items:center; gap:6px; }
+.legend .val{ color:#111; font-weight:600; }
+
+@media (max-width:640px){
+  .dashboard-grid{ grid-template-columns:1fr; }
+}
+
+</style>
+
+</head>
+<body>
+  <!-- wrap start -->
+  <div id="wrap">
+    <!-- Header start --> 
+    <div id="header" class="row">
+        <div class="col">
+          <a href="#" class="m-logo"></a>
+        </div>
+        <!-- headerlist start -->
+        <div id="header-list" class="col">
+
+          <div id="search-container"> 
+            <input id="search" type="text" placeholder="검색어를 입력하세요."/>
+            <button id="search-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
+              </svg>
+            </button>
+          </div>
+          <div id="header-profile">
+            <a href="#"><img class="profile-img-sm" src="profile.png"></a>
+          </div>
+         </div> 
+        <!-- search start --> 
+    </div>
+    <!--  header  end   -->
+    <!-- side, section start -->
+    <div class="row">
+      <div class="col-3">
+        <!-- nav start -->
+        <div id="nav">
+          <div>
+            <ul>
+              <li>
+                <a href="#" class="nav-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                    <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/>
+                  </svg>
+                </a>
+                <input type="button" id="nav-menu-btn">
+              </li>
+              <li>
+                <a href="#" class="nav-btn">
+                  <div class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>
+                  </div>
+                  홈
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-btn">
+                  <div class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M240-360h280l80-80H240v80Zm0-160h240v-80H240v80Zm-80-160v400h280l-80 80H80v-560h800v120h-80v-40H160Zm756 212q5 5 5 11t-5 11l-36 36-70-70 36-36q5-5 11-5t11 5l48 48ZM520-120v-70l266-266 70 70-266 266h-70ZM160-680v400-400Z"/></svg>
+                  </div>
+                  결재
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-btn">
+                  <div class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="m200-120-80-480h720l-80 480H200Zm67-80h426l51-320H216l51 320Zm133-160h160q17 0 28.5-11.5T600-400q0-17-11.5-28.5T560-440H400q-17 0-28.5 11.5T360-400q0 17 11.5 28.5T400-360ZM240-640q-17 0-28.5-11.5T200-680q0-17 11.5-28.5T240-720h480q17 0 28.5 11.5T760-680q0 17-11.5 28.5T720-640H240Zm80-120q-17 0-28.5-11.5T280-800q0-17 11.5-28.5T320-840h320q17 0 28.5 11.5T680-800q0 17-11.5 28.5T640-760H320Zm-53 560h426-426Z"/></svg>
+                  </div> 
+                  문서
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-btn">
+                  <div class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"/></svg>
+                  </div>
+                  캘린더
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-btn" id="nav-board">
+                  <div class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h168q13-36 43.5-58t68.5-22q38 0 68.5 22t43.5 58h168q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm80-80h280v-80H280v80Zm0-160h400v-80H280v80Zm0-160h400v-80H280v80Zm200-190q13 0 21.5-8.5T510-820q0-13-8.5-21.5T480-850q-13 0-21.5 8.5T450-820q0 13 8.5 21.5T480-790ZM200-200v-560 560Z"/></svg>
+                  </div>
+                  게시판
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-btn">
+                  <div class="nav-icon admin">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M400-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM80-160v-112q0-33 17-62t47-44q51-26 115-44t141-18h14q6 0 12 2-8 18-13.5 37.5T404-360h-4q-71 0-127.5 18T180-306q-9 5-14.5 14t-5.5 20v32h252q6 21 16 41.5t22 38.5H80Zm560 40-12-60q-12-5-22.5-10.5T584-204l-58 18-40-68 46-40q-2-14-2-26t2-26l-46-40 40-68 58 18q11-8 21.5-13.5T628-460l12-60h80l12 60q12 5 22.5 11t21.5 15l58-20 40 70-46 40q2 12 2 25t-2 25l46 40-40 68-58-18q-11 8-21.5 13.5T732-180l-12 60h-80Zm40-120q33 0 56.5-23.5T760-320q0-33-23.5-56.5T680-400q-33 0-56.5 23.5T600-320q0 33 23.5 56.5T680-240ZM400-560q33 0 56.5-23.5T480-640q0-33-23.5-56.5T400-720q-33 0-56.5 23.5T320-640q0 33 23.5 56.5T400-560Zm0-80Zm12 400Z"/></svg>
+                  </div>
+                  관리자
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- nav end -->
+        <!-- menu start -->
+        <div id="menu">
+          <div>
+            <!-- 게시판 사이드 드로어 (처음엔 숨김) -->
+<section id="menu-board-drawer" class="show" aria-hidden="false">
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <h2>보 고</h2>
+    <!-- <button type="button" class="btn btn-sm btn-back" id="btn-board-back">← 일정메뉴</button> -->
+  </div>
+
+  <button type="button" class="btn btn-outline-light btn-sm mb-3" id="btn-board-new">문서 등록</button>
+              <!-- 관리자 관리 -->
+              <details class="menu-sub">
+                <summary>관리자 관리</summary>
+                <ul>
+                  <li><a href="#" class="text-white">등록</a></li>
+                  <li><a href="#" class="text-white">삭제</a></li>
+                  <li><a href="#" class="text-white">수정</a></li>
+                  <li><a href="#" class="text-white">조회</a></li>
+                </ul>
+              </details>
+
+              <!-- 관리자 권한 -->
+              <details class="menu-sub">
+                <summary>관리자 권한</summary>
+                <ul>
+                  <li><a href="#" class="text-white">등록</a></li>
+                  <li><a href="#" class="text-white">삭제</a></li>
+                  <li><a href="#" class="text-white">수정</a></li>
+                  <li><a href="#" class="text-white">조회</a></li>
+                </ul>
+              </details>
+
+                <!-- 사원 권한 -->
+              <details class="menu-sub">
+                <summary>사원 권한</summary>
+                <ul>
+                  <li><a href="#" class="text-white">등록</a></li>
+                  <li><a href="#" class="text-white">삭제</a></li>
+                  <li><a href="#" class="text-white">수정</a></li>
+                  <li><a href="#" class="text-white">조회</a></li>
+                </ul>
+              </details>
+
+              <!-- 전자 결재 -->
+              <details class="menu-sub">
+                <summary>전자 결재</summary>
+                <ul>
+                  <li><a href="#" class="text-white">승인</a></li>
+                  <li><a href="#" class="text-white">반려</a></li>
+                </ul>
+              </details>
+
+              <!-- 문서 -->
+              <details class="menu-sub">
+                <summary>문서</summary>
+                <ul>
+                  <li><a href="#" class="text-white">등록</a></li>
+                  <li><a href="#" class="text-white">삭제</a></li>
+                  <li><a href="#" class="text-white">수정</a></li>
+                  <li><a href="#" class="text-white">조회</a></li>
+                </ul>
+              </details>
+
+              <!-- 게시판 -->
+              <details class="menu-sub">
+                <summary>게시판</summary>
+                <ul>
+                  <li><a href="#" class="text-white">등록</a></li>
+                  <li><a href="#" class="text-white">삭제</a></li>
+                  <li><a href="#" class="text-white">수정</a></li>
+                  <li><a href="#" class="text-white">조회</a></li>
+                </ul>
+              </details>
+
+              <!-- 일정 (CRUD) -->
+              <details class="menu-sub">
+                <summary>일정</summary>
+                <ul>
+                  <li><a href="#" class="text-white">등록</a></li>
+                  <li><a href="#" class="text-white">삭제</a></li>
+                  <li><a href="#" class="text-white">수정</a></li>
+                  <li><a href="#" class="text-white">조회</a></li>
+                </ul>
+
+              <!-- 일정 (대시보드 현황 조회) -->
+                <div class="menu-sub menu-static">
+                <ul>
+                  <li><a href="#" class="text-white" id="lnk-dashboard">대시보드 현황 조회</a></li>
+                </ul>
+              </div>
+            </section>
+          </div>
+        </div>
+        <!-- menu end -->
+      </div>
+      <!-- section start -->
+      <div class="col">
+        <div id="section">
+          <div class="container-fluid gadget-container">
+            <!-- 대시보드 -->
+            <div id="dashboard">
+              <h1 class="dash-title">대시보드</h1>
+
+              <div class="dashboard-grid">
+                <!-- 1. 파이 -->
+                <div class="dashboard-card">
+                  <div class="card-title">결재 현황</div>
+                  <canvas id="chart-pie" width="320" height="200"></canvas>
+                  <ul class="legend" id="legend-pie"></ul>
+
+                </div>
+
+                <!-- 2. 막대 -->
+                <div class="dashboard-card">
+                  <div class="card-title">부서별 결재 현황</div>
+                  <canvas id="chart-bar" width="320" height="200"></canvas>
+                </div>
+
+                <!-- 3. KPI -->
+                <div class="dashboard-card">
+                  <div class="card-title">이번달 보고서 제출 건수</div>
+                  <div class="dashboard-kpi" id="kpi-count">21</div>
+                </div>
+
+                <!-- 4. 라인 -->
+                <div class="dashboard-card">
+                  <div class="card-title">월별 보고서 제출</div>
+                  <canvas id="chart-line" width="320" height="200"></canvas>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- section end -->
+    </div>
+    <!-- side, section end -->
+    <!-- footer start -->
+    <div class="row">
+      <div class="col">
+        <div id="footer">
+          Copyright © Mocha company
+        </div>
+      </div>
+    </div>
+    <!-- footer end -->
+  </div>
+  <!-- wrap end -->
+
+<script>
+(function(){
+  /* 공통: 캔버스 HiDPI 세팅 */
+  const setup = (canvas)=>{
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    const rect = canvas.getBoundingClientRect();
+    canvas.width  = Math.round(rect.width * dpr);
+    canvas.height = Math.round(rect.height * dpr);
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+    return { ctx, w: rect.width, h: rect.height };
+  };
+
+  /* ----- Pie (도넛 + 범례) ----- */
+  function drawPie(canvas, data, legendEl){
+    const {ctx,w,h} = setup(canvas);
+    const cx=w/2, cy=h/2+6, R=Math.min(w,h)/2-14, r=R*0.58;
+    const total = data.reduce((s,d)=>s+d.value,0);
+    let ang=-Math.PI/2;
+
+    // 섀도우
+    ctx.save();
+    ctx.shadowColor='rgba(0,0,0,.08)';
+    ctx.shadowBlur=12; ctx.shadowOffsetY=4;
+
+    data.forEach(d=>{
+      const sweep = (d.value/total)*Math.PI*2;
+      ctx.beginPath(); ctx.moveTo(cx,cy);
+      ctx.arc(cx,cy,R,ang,ang+sweep); ctx.closePath();
+      ctx.fillStyle=d.color; ctx.fill();
+      ang+=sweep;
+    });
+    ctx.restore();
+
+    // 안쪽 구멍(도넛)
+    ctx.globalCompositeOperation='destination-out';
+    ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
+    ctx.globalCompositeOperation='source-over';
+
+    // 중앙 레이블(가장 큰 값)
+    const top = data.reduce((a,b)=> a.value>b.value?a:b);
+    ctx.fillStyle='#111';
+    ctx.font='700 18px system-ui';
+    ctx.textAlign='center';
+    ctx.fillText(`${top.label}`, cx, cy-4);
+    ctx.fillStyle='#444';
+    ctx.font='600 14px system-ui';
+    ctx.fillText(`${Math.round((top.value/total)*100)}%`, cx, cy+16);
+
+    // 범례 DOM
+    if(legendEl){
+      legendEl.innerHTML = data.map(d=>{
+        const pct = Math.round((d.value/total)*100);
+        return `<li class="item"><span class="dot" style="background:${d.color}"></span>${d.label} <span class="val">${d.value}</span>건 (${pct}%)</li>`;
+      }).join('');
+    }
+  }
+
+  /* ----- Bar (격자선 + 값 라벨 + 라운드 바) ----- */
+  function roundRect(ctx,x,y,w,h,r){ const rr=Math.min(r, w/2, h/2);
+    ctx.beginPath();
+    ctx.moveTo(x+rr,y);
+    ctx.arcTo(x+w,y,  x+w,y+h, rr);
+    ctx.arcTo(x+w,y+h,x,  y+h, rr);
+    ctx.arcTo(x,  y+h,x,  y,   rr);
+    ctx.arcTo(x,  y,  x+w,y,   rr);
+    ctx.closePath();
+  }
+  function drawBar(canvas, labels, values){
+    const {ctx,w,h} = setup(canvas);
+    const pad={l:36,r:14,t:10,b:28}, W=w-pad.l-pad.r, H=h-pad.t-pad.b;
+    const max = Math.max(...values)*1.15;
+    const step = Math.ceil(max/4);
+
+    ctx.translate(pad.l,pad.t);
+
+    // 그리드
+    ctx.strokeStyle='rgba(0,0,0,.08)';
+    ctx.lineWidth=1;
+    for(let i=0;i<=4;i++){
+      const y = H - (H*(i/4));
+      ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
+      ctx.fillStyle='#6b7280'; ctx.font='12px system-ui';
+      ctx.fillText(String(step*i | 0), -10, y+4);
+    }
+
+    // 바
+    const colW = W/values.length;
+    const bw = colW*0.56;
+    values.forEach((v,i)=>{
+      const x = i*colW + (colW-bw)/2;
+      const bh = (v/max)*H;
+      ctx.fillStyle='var(--accent)';
+      roundRect(ctx, x, H-bh, bw, bh, 6); ctx.fill();
+
+      // 값 라벨
+      ctx.fillStyle='#111'; ctx.font='600 12px system-ui';
+      ctx.textAlign='center';
+      ctx.fillText(v, x+bw/2, H-bh-6);
+    });
+
+    // 축 라벨
+    ctx.fillStyle='#374151'; ctx.font='12px system-ui'; ctx.textAlign='center';
+    labels.forEach((t,i)=> ctx.fillText(t, i*colW+colW/2, H+18));
+  }
+
+  /* ----- Line (격자선 + 영역 채우기 + 포인트/라벨) ----- */
+  function drawLine(canvas, labels, values){
+    const {ctx,w,h} = setup(canvas);
+    const pad={l:36,r:14,t:10,b:28}, W=w-pad.l-pad.r, H=h-pad.t-pad.b;
+    const max = Math.max(...values)*1.15;
+    ctx.translate(pad.l,pad.t);
+
+    // 그리드
+    ctx.strokeStyle='rgba(0,0,0,.08)';
+    for(let i=0;i<=4;i++){
+      const y = H - (H*(i/4));
+      ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
+    }
+
+    // 라인 + 영역
+    const xAt = i => (i/(values.length-1))*W;
+    const yAt = v => H-(v/max)*H;
+
+    ctx.beginPath();
+    values.forEach((v,i)=> i?ctx.lineTo(xAt(i),yAt(v)):ctx.moveTo(xAt(0),yAt(values[0])));
+    ctx.lineWidth=2; ctx.strokeStyle='#111'; ctx.stroke();
+
+    ctx.lineTo(W,H); ctx.lineTo(0,H); ctx.closePath();
+    ctx.fillStyle='rgba(42,123,228,.08)'; ctx.fill();
+
+    // 포인트 + 값 라벨
+    ctx.fillStyle='var(--accent)';
+    values.forEach((v,i)=>{
+      const x=xAt(i), y=yAt(v);
+      ctx.beginPath(); ctx.arc(x,y,3.5,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle='#111'; ctx.font='600 12px system-ui'; ctx.textAlign='center';
+      ctx.fillText(v, x, y-8);
+      ctx.fillStyle='var(--accent)';
+    });
+
+    // x 라벨
+    ctx.fillStyle='#374151'; ctx.font='12px system-ui'; ctx.textAlign='center';
+    labels.forEach((t,i)=> ctx.fillText(t, xAt(i), H+18));
+  }
+
+  /* ----- 렌더 ----- */
+  window.addEventListener('load', ()=>{
+    // 파이(도넛)
+    drawPie(
+      document.getElementById('chart-pie'),
+      [
+        {label:'완료',   value:60, color:'#5CC8D7'},
+        {label:'미완료', value:30, color:'#FFD38D'},
+        {label:'반려',   value:10, color:'#F59E9E'},
+      ],
+      document.getElementById('legend-pie')
+    );
+
+    // 막대
+    drawBar(
+      document.getElementById('chart-bar'),
+      ['개발','디자인','인사관리','경영지원'],
+      [18, 28, 26, 34]
+    );
+
+    // KPI
+    document.getElementById('kpi-count').textContent = '21';
+
+    // 라인
+    drawLine(
+      document.getElementById('chart-line'),
+      ['1월','2월','3월','4월','5월','6월'],
+      [12, 18, 25, 24, 28, 40]
+    );
+  });
+})();
+</script>
+
+
+<script>
+  document.getElementById('lnk-dashboard')?.addEventListener('click', (e)=>{
+    e.preventDefault();
+    document.getElementById('dashboard')?.scrollIntoView({ behavior:'smooth' });
+  });
+</script>
+
+</body>
+</html>

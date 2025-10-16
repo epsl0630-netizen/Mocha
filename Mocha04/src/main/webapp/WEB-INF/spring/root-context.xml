@@ -6,8 +6,8 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/mocha?serverTimezone=Asia/Seoul&amp;useSSL=false&amp;allowPublicKeyRetrieval=true" />
-		<property name="username" value="root" />
+		<property name="url" value="jdbc:mysql://192.168.0.185/mocha?serverTimezone=Asia/Seoul&amp;useSSL=false&amp;allowPublicKeyRetrieval=true" />
+		<property name="username" value="mocha" />
 		<property name="password" value="ezen" />
 	</bean>
 	

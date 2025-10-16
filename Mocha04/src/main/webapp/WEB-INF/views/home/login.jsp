@@ -1,3 +1,6 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,15 +12,20 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   
-  <link rel="icon" href="../css/favicon.ico"/>
-  <script src="../js/jquery-3.7.1.min.js"></script>
+  <link rel="icon" href="${pageContext.request.contextPath}/resources/css/favicon.ico"/>
+  <script src=${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
   
-  <link rel="stylesheet" href="../css/main.css" />
-  <script src="../js/main.js"></script>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
+  <script src="<c:url value="/resources/js/main.js" />"></script>
   
-  <link rel="stylesheet" href="../css/login.css"/>
+</head>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css"/>
+<script src="${pageContext.request.contextPath}/resources/js/index.js"></script>
+
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login.css"/>
 <body>
   <table id="wrap">
+  	<tr>
       <!-- section start -->
       <td id="section">
         <table>
@@ -26,8 +34,8 @@
               
               <div class="login-container">
                 <div class="login-img">
-                  <a href="../home/index.html">
-                    <img src="../img/mocha_logo.png">
+                  <a href="/index">
+                    <img src="${pageContext.request.contextPath}/resources/img/mocha_logo.png">
                   </a>
                 </div>
                 <div class="login-input-container">

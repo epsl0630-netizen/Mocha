@@ -1,31 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/config.jsp" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/resources/css/schedule.css"/>
-<script src="${pageContext.request.contextPath}/resources/resources/js/schedule.js"></script>
-<!DOCTYPE html>
-      <!-- menu start -->
-        <td id="menu">
-        <div>
-          <span class="menu-title">일정관리</span>
-          
-          <a href="scheduleWrite.html" class="btn btn-outline-light">일정등록</a>
-          <br><br>
-          <ul>
-            <li><a href="scheduleList.html" class="d-block link-light text-decoration-none py-1">
-            일정목록
-            </a></li>
-          </ul>
-           <br><br>
-          <span class="menu-title">관리자 일정관리</span>
-          <br>
-            <ul>
-              <li><a href="../admin/adminScheduleList.html"  class="d-block link-light text-decoration-none py-1">전체일정관리</a></li>
-            </ul>
-          <br> 
-        </div>
-      </td>
-      <!-- menu end -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/schedule.css"/>
+<script src="${pageContext.request.contextPath}/resources/js/schedule.js"></script>
+<%@ include file="./scheduleMenu.jsp" %>
       <!-- section start -->
       <td id="section">
         <table  class="container">

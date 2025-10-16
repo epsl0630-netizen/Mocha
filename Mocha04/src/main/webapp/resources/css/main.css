@@ -114,7 +114,7 @@ display: inline-block;
 /* nav */
 #nav {
   width: var(--nav-width);
-  overflow: hidden;
+
   background-color: var(--nav-color);
   justify-content: center;
   align-items : center;
@@ -215,33 +215,7 @@ display: inline-block;
   width: var(--menu-width);
   margin: 0px 0px 20px 20px;
 }
-/* 1. 메뉴 기본 및 링크 스타일 */
-  #menu { 
-      display: flex; 
-      flex-direction: column; 
-      gap: 8px; 
-      padding: 12px 16px; 
-  }
-  #menu a:link, #menu a:visited { 
-      color: black; 
-      text-decoration: none; 
-  }
-  #new-approval { 
-      margin-bottom: 8px; 
-  }
-  
-  /* 2. ul / li / a 공통 스타일 */
-  ul {
-      list-style: none;
-      padding-left: 0;
-      margin: 0; /* #menu ul의 margin:0 통합 */
-  }
-  #menu li::marker, #menu li::before { 
-      content: none !important; 
-  }
-  li a {
-      text-decoration: none;
-  }
+
 /* nav menu */
 #nav, #menu {
   vertical-align: top;
@@ -338,10 +312,6 @@ display: inline-block;
 
 /* myinfo */
 .profile-container {
-  position: relative;
-  width: fit-content;
-  height: fit-content;
-  margin: 5px;
   /* 아이콘 가운데 정렬 start */
   display : flex;
   justify-content: center;
@@ -362,6 +332,9 @@ display: inline-block;
   width: 155px;
 
 }
+.profile-container {
+  margin: 5px;
+}
 
 .personal-info, .employee-info {
   width: 100%;
@@ -372,7 +345,7 @@ display: inline-block;
 .personal-info td:nth-child(even), .employee-info td:nth-child(even) {
   width: 185px;
 }
-.user-info input,.user-info select, .personal-info input, .employee-info input{
+.user-info input, .personal-info input, .employee-info input{
   width: 90%;
 }
 .personal-info select, .employee-info select{
@@ -428,24 +401,37 @@ display: inline-block;
   float: right;
 }
 
-.profile-img-edit-btn {
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  background-color: white;
-  border-radius: 50%;
-  border: 1px solid var(--frame-color);
-  bottom: 2px;
-  right: 2px;
-  /* 아이콘 가운데 정렬 start */
-  display : flex;
-  justify-content: center;
-  align-items : center;
-  /* 아이콘 가운데 정렬 end */
+table a {
+    color: #1f1f1f; 
+    text-decoration: none; 
 }
-.profile-img-edit-btn:hover, .profile-img-edit-btn:active  {
-  cursor: pointer;
+
+table a:visited {
+    color: #888; 
 }
-#profile-img-file {
-display: none;
+
+table a:hover {
+    
+    text-decoration: underline; 
+}
+
+a.link.action-blue,
+a.link.action-blue:link,
+a.link.action-blue:visited,
+a.link.action-blue:hover {
+    color: rgb(51, 51, 245) !important; 
+    text-decoration: none !important;
+}
+
+a.link.action-red,
+a.link.action-red:link,
+a.link.action-red:visited,
+a.link.action-red:hover {
+    color: rgb(248, 44, 44) !important; 
+    text-decoration: none !important;
+}
+
+a.link.action-blue:hover,
+a.link.action-red:hover {
+    text-decoration: underline !important;
 }

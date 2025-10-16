@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  
+  <link rel="icon" href="../css/favicon.ico"/>
+  <link rel="stylesheet" href="../css/main.css" />
+  <script src="../js/jquery-3.7.1.min.js"></script>
+  <script src="../js/main.js"></script>
+  <!-- 필수영역 end -->
+  <link rel="stylesheet" href="../css/approval.css" />
+    
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // =======================================================
+        // 1. 테이블 목록 전체 선택/해제 로직 (기존 로직 유지)
+        // =======================================================
+        const selectAllCheckbox = document.getElementById('selectAll');
+        const documentCheckboxes = document.querySelectorAll('input[name="selectDoc"]');
+
+        selectAllCheckbox.addEventListener('change', function() {
+            const isChecked = this.checked;
+            documentCheckboxes.forEach(checkbox => {
+                checkbox.checked = isChecked;
+            });
+        });
+
+        documentCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const allChecked = Array.from(documentCheckboxes).every(cb => cb.checked);
+                selectAllCheckbox.checked = allChecked;
+            });
+        });
+
+        // =======================================================
+        // 2. 문서 구분 전체 선택/해제 로직 (선택자 수정)
+        // =======================================================
+        const docAll = document.getElementById('doc-all');
+        // 'doc-all'을 포함하는 부모 요소(col-md-10) 내부의 다른 모든 체크박스를 찾습니다.
+        // ID가 'doc-all'인 체크박스 자신은 제외합니다.
+        const docItemsContainer = document.querySelector('label[for="doc-all"]').closest('.row.mb-3').querySelector('.col-md-10');
+        const docItems = docItemsContainer ? docItemsContainer.querySelectorAll('input[type="checkbox"]:not(#doc-all)') : [];
+
+        docAll.addEventListener('change', function() {
+            const isChecked = this.checked;
+            docItems.forEach(item => {
+                item.checked = isChecked;
+            });
+        });
+        
+        docItems.forEach(item => {
+            item.addEventListener('change', function() {
+                const allChecked = Array.from(docItems).every(cb => cb.checked);
+                docAll.checked = allChecked;
+            });
+        });
+
+        // =======================================================
+        // 3. 결재 상태 전체 선택/해제 로직 (선택자 수정)
+        // =======================================================
+        const statusAll = document.getElementById('status-all');
+        // 'status-all'을 포함하는 부모 요소(col-md-10) 내부의 다른 모든 체크박스를 찾습니다.
+        const statusItemsContainer = document.querySelector('label[for="status-all"]').closest('.row.mb-3').querySelector('.col-md-10');
+        const statusItems = statusItemsContainer ? statusItemsContainer.querySelectorAll('input[type="checkbox"]:not(#status-all)') : [];
+        
+        statusAll.addEventListener('change', function() {
+            const isChecked = this.checked;
+            statusItems.forEach(item => {
+                item.checked = isChecked;
+            });
+        });
+
+        statusItems.forEach(item => {
+            item.addEventListener('change', function() {
+                const allChecked = Array.from(statusItems).every(cb => cb.checked);
+                statusAll.checked = allChecked;
+            });
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // ... (위의 JavaScript 전체 선택/해제 로직) ...
+    });
+</script>
+<body>
+  <!-- myinfo start -->
+  <!-- Modal -->
+  <div class="modal fade" id="myinfo-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">내 정보</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body user-info-container">
+            <div class="user-info">
+              <div class="profile-container">
+                <div class="profile-square">
+                <img class="profile-img">
+                </div>
+              </div>
+              <table>
+                <tr>
+                  <td>성명</td>
+                  <td>
+                    <span>홍길동</span>
+                  </td>
+                <tr>
+                  <td>부서</td>
+                  <td>
+                    <span id="user_depart" name="user_depart" class="select_user_depart">
+                      경영
+                    </span>
+                  </td>
+                </tr>
+                </tr>
+                <tr>
+                  <td>사원번호</td>
+                  <td><span>000015</span></td>
+                </tr>
+                <tr>
+                  <td>내선번호</td>
+                  <td><span>000015</span></td>
+                </tr>
+                <tr>
+                  <td>이메일</td>
+                  <td class="myinfo-change-off"><span>hong@email.com</span></td>
+                  <td class="myinfo-change-on"><input value="hong@email.com"/></td>
+                </tr>
+                <tr>
+                  <td>휴대전화</td>
+                  <td class="myinfo-change-off"><span>010-0000-0000</span></td>
+                  <td class="myinfo-change-on"><input value="010-0000-0000"/></td>
+                </tr>
+                <tr class="pw-change myinfo-change-on">
+                  <td>현재 비밀번호</td>
+                  <td><input type="password"></td>
+                </tr>
+                <tr class="pw-change myinfo-change-on">
+                  <td>새 비밀번호</td>
+                  <td><input type="password"></td>
+                </tr>
+                <tr class="pw-change myinfo-change-on">
+                  <td>새 비밀번호 확인</td>
+                  <td><input type="password"></td>
+                </tr>
+              </table>
+            </div>
+            <fieldset class="border rounded-3 p-3">
+              <legend class="float-none w-auto px-3 fs-6">인적사항</legend>
+              <span class="sub-title">개인정보</span>
+              <table class="personal-info">
+                <tr>
+                  <td>
+                    생년월일
+                  </td>
+                  <td>
+                    <span>1443-00-00</span>
+                  </td>
+                  <td>
+                    성별
+                  </td>
+                  <td>
+                    <span>남성</span>
+                  </td>
+                </tr>  
+                <tr>
+                  <td>
+                    주소
+                  </td>
+                  <td colspan="3" class="myinfo-change-off">
+                    <span>충청도</span>
+                  </td>
+                  <td colspan="3" class="myinfo-change-on">
+                    <input value="충청도" />
+                  </td>
+                </tr>
+              </table>
+              <span class="sub-title">사원정보</span>
+              <table class="employee-info">
+                <tr>
+                  <td>구분</td>
+                  <td>
+                    <span>기본</span>
+                  </td>
+                  <td>직급</td>
+                  <td>
+                    <span>부장</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>입사일자</td>
+                  <td>
+                    <span>
+                      2025-09-25
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </fieldset>
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button> -->
+          <button type="button" class="btn btn-main myinfo-change-off" id="myinfo-change-btn">수정</button>
+          <button type="button" class="btn btn-main myinfo-change-on" >취소</button>
+          <button type="button" class="btn btn-main myinfo-change-on" >저장</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- myinfo end -->
+  <table id="wrap">
+    <tr>
+      <!-- header -->
+      <td colspan="3" id="header">
+        <a href="../home/index.html" class="m-logo"></a>
+        <!-- headerlist start -->
+        <div id="header-list">
+          <!-- alarm start -->
+          <div id="notification-dropdown" class="dropdown me-3"> 
+            <a href="#" class="text-decoration-none text-dark position-relative dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" role="button">
+              <i class="bi bi-bell-fill fs-5"></i> 
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                3
+              <span class="visually-hidden">unread notifications</span>
+              </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end p-0 shadow border" 
+                style="width: 350px; max-height: 80vh; overflow-y: auto;">
+                <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+                    <h6 class="mb-0 fw-bold">알림</h6>
+                    <a href="#" class="text-dark"><i class="bi bi-gear fs-5"></i></a>
+                </div>
+                <div class="p-3">
+                  <h6 class="text-secondary fw-semibold mb-3">오늘 받은 알림</h6>
+                  <div class="notification-item border-bottom mb-2 pb-2">
+                    <div class="d-flex justify-content-between small">
+                      <span class="fw-bold">전자결재 </span>
+                      <div class="d-flex align-items-center">
+                    <small class="text-muted me-2">4시간 전</small>
+                    <a href="#" class="text-dark opacity-50" style="font-size: 0.8rem; line-height: 1;">
+                      <i class="bi bi-x-lg"></i>
+                    </a>
+                      </div>
+                    </div> 
+                  </div>
+                  <p class="mb-1 small text-truncate">전자결재 반려 1건이 발생했습니다. 확인바랍니다.</p>
+                  <div class="notification-item border-bottom mb-2 pb-2">
+                    <div class="d-flex justify-content-between small">
+                      <span class="fw-bold">게시판</span>
+                        <div class="d-flex align-items-center">
+                          <small class="text-muted me-2">어제 오후 06:00</small>
+                          <a href="#" class="text-dark opacity-50" style="font-size: 0.8rem; line-height: 1;">
+                            <i class="bi bi-x-lg"></i>
+                          </a>
+                        </div>
+                    </div>
+                    <p class="mb-1 small text-truncate text-secondary">내 게시글에 댓글이 달렸습니다.</p>
+                    <a 
+                      href="#additionalNotifications" 
+                      class="small text-decoration-none d-block mt-2" 
+                      data-bs-toggle="collapse" 
+                      aria-expanded="false"
+                      aria-controls="additionalNotifications"
+                    >
+                      +20 알림 더보기
+                    </a>
+                    <div class="collapse mt-2" id="additionalNotifications">
+                      <div style="max-height: 200px; overflow-y: auto; padding-right: 15px;">
+                        <!-- 추가구간 start-->
+                        <div class="notification-item-sub border-bottom pb-1 mb-1">
+                          <div class="d-flex justify-content-between small">
+                            <span class="text-secondary">새로운 댓글 알림 (1)</span>
+                            <div class="d-flex align-items-center">
+                              <small class="text-muted me-2">05:59</small>
+                              <a href="#" class="text-dark opacity-50" style="font-size: 0.8rem; line-height: 1;">
+                                <i class="bi bi-x"></i>
+                              </a>
+                            </div>
+                          </div>
+                          <p class="mb-0 small text-truncate">새 댓글 내용...</p>
+                        </div>
+                        <!-- 추가구간 end-->
+                        <!-- 추가구간 start-->
+                        <div class="notification-item-sub border-bottom pb-1 mb-1">
+                          <div class="d-flex justify-content-between small">
+                            <span class="text-secondary">새로운 댓글 알림 (1)</span>
+                            <div class="d-flex align-items-center">
+                              <small class="text-muted me-2">05:59</small>
+                              <a href="#" class="text-dark opacity-50" style="font-size: 0.8rem; line-height: 1;">
+                                <i class="bi bi-x"></i>
+                              </a>
+                            </div>
+                          </div>
+                          <p class="mb-0 small text-truncate">새 댓글 내용...</p>
+                        </div>
+                        <!-- 추가구간 end-->
+                        <!-- 추가구간 start-->
+                        <div class="notification-item-sub border-bottom pb-1 mb-1">
+                          <div class="d-flex justify-content-between small">
+                            <span class="text-secondary">새로운 댓글 알림 (1)</span>
+                            <div class="d-flex align-items-center">
+                              <small class="text-muted me-2">05:59</small>
+                              <a href="#" class="text-dark opacity-50" style="font-size: 0.8rem; line-height: 1;">
+                                <i class="bi bi-x"></i>
+                              </a>
+                            </div>
+                          </div>
+                          <p class="mb-0 small text-truncate">새 댓글 내용...</p>
+                        </div>
+                        <!-- 추가구간 end-->
+                      </div>
+                    </div>
+                  </div>   
+                </div>
+            </div>
+          </div>
+          <!-- alarm end-->
+          <button class="profile-nav-open-btn profile-circle">
+            <div class="profile-circle">
+              <img class="profile-img-sm">
+            </div>
+          </button>
+        </div>
+        <div class="profile-nav">
+          <button type="button" class="btn-close profile-nav-close-btn"></button>
+          <div class="profile-nav-body">
+            <div class="profile-circle">
+              <img class="profile-img-md">
+            </div>
+            <span class="p-3 fs-5">홍길동 / 부장</span>
+            <span>경영</span>
+            <span>hong@email.com</span>
+            <div class="profile-nav-btn">
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-sub profile-info-close-btn" data-bs-toggle="modal" data-bs-target="#myinfo-modal">
+                <div class="btn-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M400-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM80-160v-112q0-33 17-62t47-44q51-26 115-44t141-18h14q6 0 12 2-8 18-13.5 37.5T404-360h-4q-71 0-127.5 18T180-306q-9 5-14.5 14t-5.5 20v32h252q6 21 16 41.5t22 38.5H80Zm560 40-12-60q-12-5-22.5-10.5T584-204l-58 18-40-68 46-40q-2-14-2-26t2-26l-46-40 40-68 58 18q11-8 21.5-13.5T628-460l12-60h80l12 60q12 5 22.5 11t21.5 15l58-20 40 70-46 40q2 12 2 25t-2 25l46 40-40 68-58-18q-11 8-21.5 13.5T732-180l-12 60h-80Zm40-120q33 0 56.5-23.5T760-320q0-33-23.5-56.5T680-400q-33 0-56.5 23.5T600-320q0 33 23.5 56.5T680-240ZM400-560q33 0 56.5-23.5T480-640q0-33-23.5-56.5T400-720q-33 0-56.5 23.5T320-640q0 33 23.5 56.5T400-560Zm0-80Zm12 400Z"/></svg>
+                </div>
+                <span>설정</span>
+              </button>
+              <button class="btn btn-sub" onclick="location.href='../home/login.html'">
+                <div class="btn-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
+                </div>
+                  로그아웃
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- headerlist end --> 
+      </td>
+      <!-- header end-->
+    </tr>
+    <tr>
+      <!-- nav start -->
+      <td id="nav">
+        <ul>
+          <li>
+            <a href="#" class="nav-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/>
+              </svg>
+            </a>
+            <input type="button" id="nav-menu-btn">
+          </li>
+          <li>
+            <a href="../home/index.html" class="nav-btn">
+              <div class="nav-icon">
+                <i class="bi bi-house-door"></i>
+              </div>
+              홈
+            </a>
+          </li>
+          <li>
+            <a href="../approval/approvalList.html" class="nav-btn">
+              <div class="nav-icon">
+                <i class="bi bi-clipboard-check"></i>
+              </div>
+              결재
+            </a>
+          </li>
+          <li>
+            <a href="../report/reportList.html" class="nav-btn">
+              <div class="nav-icon">
+                <i class="bi bi-file-earmark-text"></i>
+              </div> 
+              문서
+            </a>
+          </li>
+          <li>
+            <a href="../schedule/scheduleList.html" class="nav-btn">
+              <div class="nav-icon">
+                <i class="bi bi-calendar4-week"></i>
+              </div>
+              일정
+            </a>
+          </li>
+          <li>
+            <a href="../board/boardList.html" class="nav-btn">
+              <div class="nav-icon">
+                <i class="bi bi-file-text"></i>
+              </div>
+              게시판
+            </a>
+          </li>
+          <li>
+            <a href="../admin/admin.html" class="nav-btn icon-selected">
+              <div class="nav-icon admin">
+                <i class="bi bi-person-gear"></i>
+              </div>
+              관리자
+            </a>
+          </li>
+        </ul>
+      </td>
+      <!-- nav end -->
+      <!-- menu start -->
+      <td id="menu">
+        <div>
+          <span class="menu-title">사원관리</span>
+          <ul>
+            <li><a href="../admin/admin.html">사원 목록</a></li>
+          </ul>
+          <span class="menu-title">결재관리</span>
+          <ul>
+            <li><a href="../admin/adminApprovalList.html">결재 목록</a></li>
+          </ul>
+          <span class="menu-title">일정관리</span>
+          <ul>
+            <li><a href="../admin/adminScheduleList.html">일정 목록</a></li>
+          </ul>
+        </div>
+      </td>
+      <!-- menu end --> 
+      <!-- section start -->
+      <td id="section">
+        <div class="container">
+          <!-- 결재 대기 문서 -->
+          <br>
+          <h4 class="mb-3">관리자 일정관리</h4>
+          <br>
+          <div class="container py-4">
+            <h2 class="mb-5">전체 일정 조회</h2>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <div class="row mb-3 align-items-center">
+                    <label for="search-date" class="col-md-2 col-form-label">검색 기간</label>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input type="date" class="form-control" id="start-date" value="2025-09-27">
+                            <span class="input-group-text">~</span>
+                            <input type="date" class="form-control" id="end-date" value="2025-10-04">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3 align-items-center">
+                    <label for="approval-form" class="col-md-2 col-form-label">일정 구분</label>
+                    <div class="col-md-4">
+                      <select class="form-select" id="approval-form">
+                          <option selected>선택</option>
+                          <option value="1">전체</option>
+                          <option value="2">내일정</option>
+                          <option option="3">팀일정</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="drafter" class="col-md-2 col-form-label">작성자</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="drafter" value="">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="drafter-dept" class="col-md-2 col-form-label">부서</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="drafter-dept">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="doc-num" class="col-md-2 col-form-label">글번호</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="doc-num">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="title" class="col-md-2 col-form-label">제목</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="title">
+                    </div>
+                </div>
+                <hr class="my-4">
+                <div class="row mb-3">
+                  <label class="col-md-2 col-form-label">일정 구분</label>
+                  <div class="col-md-10 d-flex flex-wrap align-items-center pt-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="doc-all" value="All" >
+                        <label class="form-check-label" for="doc-all">전체</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="doc-general" value="General" >
+                      <label class="form-check-label" for="doc-general">내 일정</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="doc-receipt" value="Receipt" >
+                      <label class="form-check-label" for="doc-receipt">팀 일정</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> 
+            <div class="card-footer text-center">
+              <button class="btn btn-primary me-2">조회</button>
+              <button class="btn btn-secondary">초기화</button>
+            </div>
+            <div>
+              <a href="approvalList.html" class="btn btn-outline-dark">삭제</a>
+              <a href="approvalWaitList.html" class="btn btn-outline-dark">보기</a>
+              <a href="approvalOkList.html" class="btn btn-outline-dark">수정</a>
+            </div>
+            <hr>
+            <div class="card shadow-sm mb-3">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="text-center" style="width: 50px;">
+                                        <input class="form-check-input" type="checkbox" id="selectAll">
+                                    </th>
+                                    <th scope="col" style="width: 60px;">번호</th>
+                                    <th scope="col">기안일</th>
+                                    <th scope="col">마감일</th>
+                                    <th scope="col">유형</th>
+                                    <th scope="col">제목</th>
+                                    <th scope="col">작성자</th>
+                                    <th scope="col">등록일시</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center">
+                                        <input class="form-check-input" type="checkbox" name="selectDoc">
+                                    </td>
+                                    <th scope="row">1</th>
+                                    <td>2025-09-17</td><td>2025-09-17</td>
+                                    <td>내일정</td>
+                                    <td>주간회의</a></td>
+                                    <td>홍길동</td>
+                                    <td>2025.10.01 09:00</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">
+                                        <input class="form-check-input" type="checkbox" name="selectDoc">
+                                    </td>
+                                    <th scope="row">2</th>
+                                    <td>2025-09-17</td>
+                                    <td>2025-09-17</td>
+                                    <td>내일정</td>
+                                    <td>예산신청</td>
+                                    <td>홍길동</td>
+                                    <td>2025.10.01 09:00</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">
+                                        <input class="form-check-input" type="checkbox" name="selectDoc">
+                                    </td>
+                                    <th scope="row">3</th>
+                                    <td>2025-09-18</td>
+                                    <td>2025-09-18</td>
+                                    <td>내일정</td>
+                                    <td>연차신청서</td>
+                                    <td>홍길동</td>
+                                    <td>2025.10.01 09:00</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">
+                                        <input class="form-check-input" type="checkbox" name="selectDoc">
+                                    </td>
+                                    <th scope="row">4</th>
+                                    <td>2025-09-18</td>
+                                    <td>2025-09-18</td>
+                                    <td>내일정</td>
+                                    <td>연차신청서</td>
+                                    <td>홍길동</td>
+                                    <td>2025.10.01 09:00</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">
+                                        <input class="form-check-input" type="checkbox" name="selectDoc">
+                                    </td>
+                                    <th scope="row">5</th>
+                                    <td>2025-09-18</td>
+                                    <td>2025-09-18</td>
+                                    <td>내일정</td>
+                                    <td>연차신청서</td>
+                                    <td>홍길동</td>
+                                    <td>2025.10.01 09:00</td>
+                                </tr>
+                              
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+          </div> 
+        </div>
+        <div class="report-controls">
+          <nav aria-label="pagination">
+            <ul class="pagination pagination-sm my-1">
+              <li class="page-item disabled"><span class="page-link">‹</span></li>
+              <li class="page-item active"><span class="page-link">1</span></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">4</a></li>
+              <li class="page-item"><a class="page-link" href="#">5</a></li>
+              <li class="page-item"><a class="page-link" href="#">…</a></li>
+              <li class="page-item"><a class="page-link" href="#">10</a></li>
+              <li class="page-item"><a class="page-link" href="#">›</a></li>
+            </ul>
+          </nav>
+        </div>
+      </td>
+    </tr>
+    <!-- section end -->
+    </tr>
+    <tr>
+      <td colspan="3" id="footer">
+        Copyright © Mocha company
+      </td>
+  </table>
+</body>
+</html>
