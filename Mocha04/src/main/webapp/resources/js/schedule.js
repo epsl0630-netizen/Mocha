@@ -1,6 +1,6 @@
 // schedule.js 내용
-
-// 가상의 일정 데이터 (date 필드를 startDate와 endDate로 변경)
+$(document).ready(function() {
+	// 가상의 일정 데이터 (date 필드를 startDate와 endDate로 변경)
 const events = [
     { id: 1, startDate: '2025-10-08', endDate: '2025-10-08', title: '주간 회의', start: '10:00', end: '11:00', memo: '주요 안건 논의', type: 'team' },
     { id: 2, startDate: '2025-10-08', endDate: '2025-10-08', title: '클라이언트 미팅', start: '14:00', end: '15:30', memo: '프로젝트 A 관련', type: 'personal' },
@@ -485,4 +485,6 @@ function initCalendar() {
 }
 
 // 페이지 로드 시 달력 초기화
-document.addEventListener('DOMContentLoaded', initCalendar);
+//document.addEventListener('DOMContentLoaded', initCalendar);
+initCalendar();
+});

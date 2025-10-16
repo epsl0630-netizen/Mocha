@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   
   <link rel="icon" href="${pageContext.request.contextPath}/resources/css/favicon.ico"/>
-  <script src=${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
   
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" />
   <script src="<c:url value="/resources/js/main.js" />"></script>
