@@ -1,5 +1,6 @@
 package mocha.ezen.com.department;
 
-public class DepartmentRepository {
+public class DepartmentRepository 
+{
 
 }
