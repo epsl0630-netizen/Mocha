@@ -8,16 +8,16 @@
      <td id="section">
      <div class="container">
 
-    <!-- 결재 대진행중 문서 -->
+    <!-- 기안 대진행중 문서 -->
     <br>
-    <h4 class="mb-3">결재 문서함</h4>
+    <h4 class="mb-3">기안 문서함</h4>
     
     <div class="search-wrap">
       <select class="form-select form-select-sm" style="width:120px;">
         <option selected>제목</option>
         <option>작성자</option>
         <option>유형</option>
-        <option>결재일</option>
+        <option>기안일</option>
       </select>
 
       <div class="input-group input-group-sm" style="width:360px;">
@@ -28,10 +28,10 @@
       </div>
     </div>
     <div>
-      <a href="${pageContext.request.contextPath}/approval/approvalList?kind='ALL'" class="btn btn-outline-dark">전체</a>
-      <a href="${pageContext.request.contextPath}/approval/approvalList?kind='IN_PROGRESS'" class="btn btn-outline-dark">진행</a>
-      <a href="${pageContext.request.contextPath}/approval/approvalList?kind='APPROVED'" class="btn btn-outline-dark">승인</a>
-      <a href="${pageContext.request.contextPath}/approval/approvalList?kind='REJECTED'" class="btn btn-outline-dark">반려</a>
+      <a href="${pageContext.request.contextPath}/approval/draftList?kind='ALL'" class="btn btn-outline-dark">전체</a>
+      <a href="${pageContext.request.contextPath}/approval/draftList?kind='IN_PROGRESS'" class="btn btn-outline-dark">진행</a>
+      <a href="${pageContext.request.contextPath}/approval/draftList?kind='APPROVED'" class="btn btn-outline-dark">승인</a>
+      <a href="${pageContext.request.contextPath}/approval/draftList?kind='REJECTED'" class="btn btn-outline-dark">반려</a>
     </div>
     
     <hr>
@@ -55,7 +55,7 @@
                 <th scope="row">1</th>
                 <td>2025-09-17</td><td>2025-09-17</td>
                 <td>연차신청</td>
-                <td><a href="${pageContext.request.contextPath}/approval/approvalView" class="table-link"> 신청서 [재상신 1] </a></td>
+                <td><a href="${pageContext.request.contextPath}/approval/draftView" class="table-link"> 신청서 [재상신 1] </a></td>
                 <td>홍길동</td>
                 <td><button type="button" class="btn btn-outline-success" >진행</button></td>
               </tr>

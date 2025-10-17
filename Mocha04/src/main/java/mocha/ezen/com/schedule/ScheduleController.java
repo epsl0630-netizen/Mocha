@@ -18,7 +18,7 @@ public class ScheduleController
 	@Autowired
 	ScheduleRepository  scheduleRepository;
 	
-	@RequestMapping(value = "/ScheduleList")
+	@RequestMapping(value = "/scheduleList")
 	public String ScheduleList()
 	{
 		//∆‰¿Ã¬°

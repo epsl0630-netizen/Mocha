@@ -5,15 +5,15 @@
  <div>
    <span class="menu-title">전자결재</span>
    
-   <a href="${pageContext.request.contextPath}/approval/approvalWrite" class="btn btn-outline-light">새 결재 진행</a>
+   <a href="${pageContext.request.contextPath}/approval/draftWrite" class="btn btn-outline-light">새 결재 진행</a>
    <br/><br/>
     <h2>내 문서함</h2>
    <br>
    <ul>
      <!-- 결재문서함 -->
      <ul>
-       <li><a href="${pageContext.request.contextPath}/approval/"  class="d-block link-light text-decoration-none py-1">결재문서함</a></li>
-       <li><a href="${pageContext.request.contextPath}/approval?kind='d'"  class="d-block link-light text-decoration-none py-1">기안문서함</a></li>
+       <li><a href="${pageContext.request.contextPath}/approval/approvalList"  class="d-block link-light text-decoration-none py-1">결재문서함</a></li>
+       <li><a href="${pageContext.request.contextPath}/approval/draftList"  class="d-block link-light text-decoration-none py-1">기안문서함</a></li>
      </ul>
    </ul>
    <br><br>

@@ -33,7 +33,7 @@ public class ApprovalController
 		@Autowired
 		ApprovalRepository  approvalRepository;
 		
-		@RequestMapping(value = "/")
+		@RequestMapping(value = "/approvalList")
 		public String ApprovalList()
 		{
 			//∆‰¿Ã¬°, ∞·¿Á±∏∫– 
@@ -41,8 +41,8 @@ public class ApprovalController
 			return "approval/approvalList";
 		}
 		
-		/*
-		@RequestMapping(value = "/DraftList")
+		
+		@RequestMapping(value = "/draftList")
 		public String DraftList()
 		{
 			//∆‰¿Ã¬°
@@ -50,6 +50,7 @@ public class ApprovalController
 			return "approval/draftList";
 		}
 	
+		/*
 		@RequestMapping(value = "/AddApprovalList")
 		public String AddApprovalList()
 		{
@@ -57,14 +58,15 @@ public class ApprovalController
 			
 			return "approval/addApprovalList";
 		}
-		
-		@RequestMapping(value = "/DraftWrite")
+		*/
+		@RequestMapping(value = "/draftWrite")
 		public String DraftWrite()
 		{
-			return "draftWrite";
-		}	
+			return "approval/draftWrite";
+		}
 		
-		@RequestMapping(value = "/DraftWriteOK", method = RequestMethod.POST)
+		/*
+		@RequestMapping(value = "/draftWriteOK", method = RequestMethod.POST)
 		public String DraftWriteOK(ApprovalDTO dto,
 				@RequestParam("attach")MultipartFile file,
 				HttpServletRequest request, AttachmentDTO adto) throws IllegalStateException, IOException
@@ -110,7 +112,7 @@ public class ApprovalController
 			return "approvalmodify";
 		}
 	
-		@RequestMapping(value = "/ApprovalModifyOK", method = RequestMethod.POST)
+		@RequestMapping(value = "/approvalModifyOK", method = RequestMethod.POST)
 		public String ApprovalModifyOK(ApprovalDTO dto,
 				@RequestParam("attach")MultipartFile file,
 				HttpServletRequest request, AttachmentDTO adto) throws IllegalStateException, IOException
@@ -150,7 +152,7 @@ public class ApprovalController
 			return "reDraftWrite";
 		}	
 		
-		@RequestMapping(value = "/ReDraftWriteOK", method = RequestMethod.POST)
+		@RequestMapping(value = "/reDraftWriteOK", method = RequestMethod.POST)
 		public String ReDraftWriteOK(ApprovalDTO dto,
 				@RequestParam("attach")MultipartFile file,
 				HttpServletRequest request, AttachmentDTO adto) throws IllegalStateException, IOException
@@ -184,7 +186,7 @@ public class ApprovalController
 			return "redirect:/approvalView?no=" + dto.getApproval_no();
 		}	
 		
-		@RequestMapping(value = "/ApprovalView", method = RequestMethod.GET)
+		@RequestMapping(value = "/approvalView", method = RequestMethod.GET)
 		public String ApprovalView(@RequestParam(required = true) String no,
 				Model model)
 		{
@@ -201,7 +203,7 @@ public class ApprovalController
 		}
 		
 	
-		@RequestMapping(value = "/ApprovalDelete.do")
+		@RequestMapping(value = "/approvalDelete.do")
 		public String ApprovalDelete(@RequestParam(required = true)String no)
 		{
 			ApprovalRepository.Delete(no);

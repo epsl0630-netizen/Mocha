@@ -19,7 +19,7 @@
 	      </a>
 	    </li>
 	    <li>
-	      <a href="${pageContext.request.contextPath}/approval/approvalList.jsp" class="nav-btn">
+	      <a href="${pageContext.request.contextPath}/approval/approvalList" class="nav-btn">
 	        <div class="nav-icon">
 	          <i class="bi bi-clipboard-check"></i>
 	        </div>
@@ -43,7 +43,7 @@
 	      </a>
 	    </li>
 	    <li>
-	      <a href="${pageContext.request.contextPath}/board/boardList.jsp" class="nav-btn">
+	      <a href="${pageContext.request.contextPath}/board/boardList" class="nav-btn">
 	        <div class="nav-icon">
 	          <i class="bi bi-file-text"></i>
 	        </div>
