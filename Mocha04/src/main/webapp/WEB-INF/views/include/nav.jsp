@@ -11,7 +11,7 @@
 	      <input type="button" id="nav-menu-btn">
 	    </li>
 	    <li>
-	      <a href="${pageContext.request.contextPath}/index.jsp" class="nav-btn icon-selected">
+	      <a href="${pageContext.request.contextPath}/" class="nav-btn icon-selected">
 	        <div class="nav-icon">
 	          <i class="bi bi-house-door"></i>
 	        </div>
@@ -27,7 +27,7 @@
 	      </a>
 	    </li>
 	    <li>
-	      <a href="${pageContext.request.contextPath}/report/reportList.jsp" class="nav-btn">
+	      <a href="${pageContext.request.contextPath}/report/reportList class="nav-btn">
 	        <div class="nav-icon">
 	          <i class="bi bi-file-earmark-text"></i>
 	        </div> 
@@ -51,7 +51,7 @@
 	      </a>
 	    </li>
 	    <li>
-	      <a href="${pageContext.request.contextPath}/admin/admin.jsp" class="nav-btn">
+	      <a href="${pageContext.request.contextPath}/admin" class="nav-btn">
 	        <div class="nav-icon admin">
 	          <i class="bi bi-person-gear"></i>
 	        </div>
