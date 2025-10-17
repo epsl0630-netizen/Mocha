@@ -56,8 +56,8 @@
                   <br>
                     <!-- 버튼 -->
                    <div class="justify-content-center text-center">
-                      <a href="${pageContext.request.contextPath}/board" class="btn btn-outline-dark" >목록</a>
-                      <a href="${pageContext.request.contextPath}/board" class="btn btn-outline-dark">취소</a>
+                      <a href="${pageContext.request.contextPath}/board/boardList" class="btn btn-outline-dark" >목록</a>
+                      <a href="${pageContext.request.contextPath}/board/boardList" class="btn btn-outline-dark">취소</a>
                       <a href="${pageContext.request.contextPath}/board/boardView" class="btn btn-outline-dark">완료</a>
                   </div>
                   </form>

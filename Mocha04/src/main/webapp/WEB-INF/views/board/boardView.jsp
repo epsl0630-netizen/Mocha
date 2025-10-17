@@ -66,7 +66,7 @@
 
                 <!-- 버튼 -->
                 <div class="justify-content-center text-center">
-                      <a href="${pageContext.request.contextPath}/board" class="btn btn-outline-dark" >목록</a>
+                      <a href="${pageContext.request.contextPath}/board/boardList" class="btn btn-outline-dark" >목록</a>
                       <a href="${pageContext.request.contextPath}/board/boardModify" class="btn btn-outline-dark">수정</a>
                       <a href="${pageContext.request.contextPath}/board" class="btn btn-outline-dark">완료</a>
                   </div>
