@@ -15,7 +15,7 @@
 			</when>
 		</choose>
 	</select>
-	<select id="searchApproval">
+	<select id="searchApproval" parameterType="mocha.ezen.com.approvalDTO">
 		select * 
 		from approval
 		<choose>

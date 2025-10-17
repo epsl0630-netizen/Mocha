@@ -1,5 +1,7 @@
 package mocha.ezen.com.approval;
 
+import mocha.ezen.com.approver.ApproverDTO;
+
 public class ApprovalDTO 
 {
 	private String approval_no;          // 전자결재 번호
@@ -12,6 +14,8 @@ public class ApprovalDTO
 	private String user_id;				 // 사원번호
 	private String parent_approval_no;   // 부모결재번호
 	
+	private ApproverDTO approverDTO;	 // 결재선DTO
+	
 	public String getApproval_no()     	  { return approval_no;   	   }
 	public String getApproval_title() 	  { return approval_title;	   }
 	public String getApproval_note() 	  { return approval_note; 	   }
@@ -21,7 +25,7 @@ public class ApprovalDTO
 	public String getUpdated_at()		  { return updated_at;		   }
 	public String getUser_id()			  { return user_id; 		   }
 	public String getParent_approval_no() { return parent_approval_no; }
-	
+	public ApproverDTO getApproverDTO()   { return approverDTO;		   }
 		
 	public void setApproval_no(String approval_no) 			     { this.approval_no = approval_no;				 }
 	public void setApproval_title(String approval_title) 		 { this.approval_title = approval_title;   		 }
@@ -32,7 +36,6 @@ public class ApprovalDTO
 	public void setUpdated_at(String updated_at) 				 { this.updated_at = updated_at; 				 }
 	public void setUser_id(String user_id) 						 { this.user_id = user_id; 					   	 }
 	public void setParent_approval_no(String parent_approval_no) { this.parent_approval_no = parent_approval_no; }
-	
-	
-	
+	public void setApproverDTO(ApproverDTO approverDTO) 		 { this.approverDTO = approverDTO;				 }
+
 }
