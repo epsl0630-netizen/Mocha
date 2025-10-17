@@ -2,35 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <!-- Namespace를 통해 JAVA 클래스와 Annotation클래스와 동기 -->
-<mapper namespace="mocha">
-<!--  
+<mapper namespace="schedule">
+ 
 	
-	<insert id="insert" parameterType="com.ezen.vo.BoardVO" 
-		useGeneratedKeys="true" keyProperty="no">
-		insert into board (userid,title,kind,note,pname,fname) 
-		values (#{userid},#{title},#{kind},#{note},	
+	<insert id="insert" parameterType="ScheduleDTO" 
+	    useGeneratedKeys="true" keyProperty="schedule_no">
+	    INSERT INTO schedule 
+	    (user_id, schedule_title, schedule_kind, schedule_note, start_at, end_at) 
+	    VALUES 
+	    (#{user_id}, #{schedule_title}, #{schedule_kind}, #{schedule_note}, #{start_at}, #{end_at}) 
 	</insert>
 	
+	 <!-- 
 	<select id="view" parameterType="java.lang.String" 
-			resultType="com.ezen.vo.BoardVO">
+			resultType="mocha.ezen.com.ScheduleDTO">
 		select 
-			no,userid,title,kind,note,pname,fname,wdate,hit,
-			(select name from user where userid = board.userid) as name
-		from board
-		where no = #{ no }
+			schedule_no,user_id,schedule_title,schedule_kind,schedule_note,start_at,
+			(select name from user where user_id = board.userid) as name
+		from schedule
+		where schedule_no = #{ no }
 	</select>
 
-	<update id="update" parameterType="com.ezen.vo.BoardVO">
-		update board set
-		title = #{ title },
-		note = #{ note },				
-		kind = #{ kind }
-		where no = #{ no }		
+	<update id="update" parameterType="mocha.ezen.com.ScheduleDTO">
+		update schedule set
+		schedule_title = #{ schedule_title },
+		schedule_note = #{ schedule_note },				
+		schedule_kind = #{ schedule_kind }
+		where schedule_no = #{ schedule_no }		
 	</update>
 
 		
 	<delete id="delete" parameterType="java.lang.String">
-		delete from board
+		delete from schedule
 		where no = #{ no }
 	</delete>
 	
@@ -57,6 +60,6 @@
 		order by no desc
 		limit #{offset},10		
 	</select>
-
-		-->
+	 -->
+		
 </mapper>

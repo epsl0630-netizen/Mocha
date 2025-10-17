@@ -113,8 +113,8 @@
     
     <div>
         <a href="${pageContext.request.contextPath}/approval/draftList" class="btn btn-outline-dark">목록</a>
-        <a href="${pageContext.request.contextPath}/approval/draftListl" class="btn btn-outline-dark">취소</a>
-        <a href="${pageContext.request.contextPath}/approval/drafView" class="btn btn-outline-dark">완료</a>
+        <a href="${pageContext.request.contextPath}/approval/draftList" class="btn btn-outline-dark">취소</a>
+        <a href="${pageContext.request.contextPath}/approval/draftView" class="btn btn-outline-dark">완료</a>
     </div>
 </div>
     

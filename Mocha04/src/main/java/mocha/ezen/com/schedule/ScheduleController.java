@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +26,34 @@ public class ScheduleController
 		return "schedule/scheduleList";
 	}
 	
+	@RequestMapping(value = "/ScheduleList",method = RequestMethod.POST)
+	@ResponseBody 
+	public Map<String, Object> ScheduleWrite(ScheduleDTO dto)
+	{
+		scheduleRepository.Insert(dto);
+		
+		Map<String, Object> response = new HashMap<String, Object>();
+	    response.put("result", "success");
+	    response.put("no", dto.getSchedule_no());
+	    
+		return response;
+	}
+	
 	/*
+	@RequestMapping(value = "/ScheduleList", method = RequestMethod.POST)
+	@ResponseBody 
+	public Map<String, Object> ScheduleWriteOK(ScheduleDTO dto)
+	{
+		scheduleRepository.Insert(dto);
+		
+		Map<String, Object> response = new HashMap<String, Object>();
+	    response.put("result", "success");
+	    response.put("no", dto.getSchedule_no());
+	    
+		return response;
+	}
+	
+ 
 	@RequestMapping(value = "/ScheduleList", method = RequestMethod.GET)
 	@ResponseBody 
 	public Map<String, Object> ScheduleModify(@RequestParam(required = true) String no,
@@ -68,31 +94,7 @@ public class ScheduleController
 	    return response;
 	}
 	
-	@RequestMapping(value = "/ScheduleList")
-	@ResponseBody 
-	public Map<String, Object> ScheduleWrite(ScheduleDTO dto)
-	{
-		scheduleRepository.Insert(dto);
-		
-		Map<String, Object> response = new HashMap<String, Object>();
-	    response.put("result", "success");
-	    response.put("no", dto.getSchedule_no());
-	    
-		return response;
-	}
 	
-	@RequestMapping(value = "/ScheduleList", method = RequestMethod.POST)
-	@ResponseBody 
-	public Map<String, Object> ScheduleWriteOK(ScheduleDTO dto)
-	{
-		scheduleRepository.Insert(dto);
-		
-		Map<String, Object> response = new HashMap<String, Object>();
-	    response.put("result", "success");
-	    response.put("no", dto.getSchedule_no());
-	    
-		return response;
-	}
 	
 	@RequestMapping(value = "/ScheduleList", method = RequestMethod.POST)
 	@ResponseBody

@@ -22,7 +22,7 @@
           <tbody>
             <tr><th scope="row">작성자</th><td>홍길동</td></tr>
             <tr><th scope="row">부서</th><td>경영지원팀</td></tr>
-            <tr><th scope="row">직책</th><td>사원</td></tr>
+            <tr><th scope="row">직급</th><td>사원</td></tr>
             <tr><th scope="row">작성일</th><td>2025-09-18</td></tr>
           </tbody>
         </table>
@@ -112,11 +112,12 @@
       
     </div>
        <!-- 4) 액션 버튼: 테이블 제거 -->
-        <div class="board-actions mb-4 d-flex justify-content-between">
-          <a href="redraftWrite.html" class="btn btn-outline-dark">재상신</a>
-          <div>
-            <a href="approvalList.html" class="btn btn-outline-dark">목록</a>
-            <a href="draftModify.html" class="btn btn-outline-dark">수정</a>
+        <div class="board-actions mb-4 d-flex justify-content-center">
+        	<div>
+          <a href="${pageContext.request.contextPath}/approval/reDraftWrite" class="btn btn-outline-dark">재상신</a>
+          
+            <a href="${pageContext.request.contextPath}/approval/draftList" class="btn btn-outline-dark">목록</a>
+            <a href="${pageContext.request.contextPath}/approval/draftModify" class="btn btn-outline-dark">수정</a>
             
           </div>
         </div>

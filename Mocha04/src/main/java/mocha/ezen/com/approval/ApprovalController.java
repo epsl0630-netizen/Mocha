@@ -33,6 +33,8 @@ public class ApprovalController
 		@Autowired
 		ApprovalRepository  approvalRepository;
 		
+		
+		
 		@RequestMapping(value = "/approvalList")
 		public String ApprovalList()
 		{
@@ -50,22 +52,22 @@ public class ApprovalController
 			return "approval/draftList";
 		}
 	
-		/*
-		@RequestMapping(value = "/AddApprovalList")
+		
+		@RequestMapping(value = "/addApprovalList")
 		public String AddApprovalList()
 		{
 			//∆‰¿Ã¬°
 			
 			return "approval/addApprovalList";
 		}
-		*/
+		
 		@RequestMapping(value = "/draftWrite")
 		public String DraftWrite()
 		{
 			return "approval/draftWrite";
 		}
+/*
 		
-		/*
 		@RequestMapping(value = "/draftWriteOK", method = RequestMethod.POST)
 		public String DraftWriteOK(ApprovalDTO dto,
 				@RequestParam("attach")MultipartFile file,
@@ -100,7 +102,7 @@ public class ApprovalController
 			return "redirect:/approvalView?no=" + dto.getApproval_no();
 		}	
 		
-		@RequestMapping(value = "/ApprovalModify")
+		@RequestMapping(value = "/approvalModify")
 		public String ApprovalModify(@RequestParam(required = true) String no,
 				Model model)
 		{
@@ -146,7 +148,7 @@ public class ApprovalController
 			return "redirect:/approvalView?no=" + dto.getApproval_no();
 		}
 		
-		@RequestMapping(value = "/ReDraftWrite")
+		@RequestMapping(value = "/reDraftWrite")
 		public String ReDraftWrite()
 		{
 			return "reDraftWrite";
@@ -186,6 +188,7 @@ public class ApprovalController
 			return "redirect:/approvalView?no=" + dto.getApproval_no();
 		}	
 		
+		
 		@RequestMapping(value = "/approvalView", method = RequestMethod.GET)
 		public String ApprovalView(@RequestParam(required = true) String no,
 				Model model)
@@ -206,7 +209,7 @@ public class ApprovalController
 		@RequestMapping(value = "/approvalDelete.do")
 		public String ApprovalDelete(@RequestParam(required = true)String no)
 		{
-			ApprovalRepository.Delete(no);
+			approvalRepository.Delete(no);
 			return "redirect:/DraftList";
 		}
 		*/

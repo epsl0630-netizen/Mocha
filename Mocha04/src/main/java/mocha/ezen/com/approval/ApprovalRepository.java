@@ -9,6 +9,7 @@ import mocha.ezen.com.schedule.ScheduleDTO;
 @Repository
 public class ApprovalRepository 
 {
+	/*
 	@Autowired
 	private SqlSession session;
 	private static final String namespace = "mocha";
@@ -51,6 +52,6 @@ public class ApprovalRepository
 		return true;
 	}	
 		
-	
+	*/
 	
 }

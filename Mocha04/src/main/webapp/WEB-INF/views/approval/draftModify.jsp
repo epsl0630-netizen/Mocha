@@ -105,9 +105,8 @@
                 <tr><td>1</td><td>팀장</td><td>김철수</td><td>결재완료</td><td>2025.09.30</td><td>확인했습니다.</td>
                 <td></td>
                 </tr>
+                <tr>
                 <td>2</td><td>팀장</td><td>홍길동</td><td>결재대기</td><td>-</td>
-                <td><input class="form-control" value=""></td>
-                <td><a href="${pageContext.request.contextPath}/approval/approvalView" class="btn btn-outline-dark">등록</a></td>
               </tr>
               <tr><td>3</td><td>팀장</td><td>이철수</td><td>결재예정</td><td>-</td><td>결재예정</td>
               <td></td>
@@ -122,15 +121,14 @@
        <!-- 4) 액션 버튼: 테이블 제거 -->
         <div class="board-actions mb-4 d-flex justify-content-center">
           <div>
-            <a href="${pageContext.request.contextPath}/approval" class="btn btn-outline-dark">목록</a>
-            <a href="${pageContext.request.contextPath}/approval" class="btn btn-outline-dark">확인</a>
+            <a href="${pageContext.request.contextPath}/approval/draftList" class="btn btn-outline-dark">목록</a>
+            <a href="${pageContext.request.contextPath}/approval/draftList" class="btn btn-outline-dark">취소</a>
+            <a href="${pageContext.request.contextPath}/approval/draftView" class="btn btn-outline-dark">확인</a>
           </div>
         </div>
 
           </div>
-        </div>
-      </div>
-              
+    
 
             </td>
             <!-- contents end-->

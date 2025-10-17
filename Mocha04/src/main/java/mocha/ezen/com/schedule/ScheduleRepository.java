@@ -7,9 +7,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ScheduleRepository 
 {
+	
 	@Autowired
 	private SqlSession session;
-	private static final String namespace = "mocha";
+	private static final String namespace = "schedule";
 	
 	//게시물 정보를 등록한다.
 	//return true : 등록 성공, false : 등록 실패
@@ -19,6 +20,7 @@ public class ScheduleRepository
 		return true;
 	}	
 	
+	/*
 	//게시물 정보를 삭제한다.	
 	//return true : 삭제 성공, false : 삭제 실패
 	public boolean Delete(String no)
@@ -49,7 +51,7 @@ public class ScheduleRepository
 		return true;
 	}
 	
-
+	*/
 	
 	
 

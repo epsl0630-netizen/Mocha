@@ -22,7 +22,7 @@
           <tbody>
             <tr><th scope="row">작성자</th><td>홍길동</td></tr>
             <tr><th scope="row">부서</th><td>경영지원팀</td></tr>
-            <tr><th scope="row">직책</th><td>사원</td></tr>
+            <tr><th scope="row">직급</th><td>사원</td></tr>
             <tr><th scope="row">작성일</th><td>2025-09-18</td></tr>
           </tbody>
         </table>
@@ -98,12 +98,21 @@
                 <th scope="col">상태</th>
                 <th scope="col">일시</th>
                 <th scope="col">의견</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>1</td><td>팀장</td><td>김철수</td><td>결재대기</td><td>-</td><td>-</td></tr>
-              <tr><td>2</td><td>팀장</td><td>김철수</td><td>결재예정</td><td>-</td><td>-</td></tr>
-              <tr><td>3</td><td>팀장</td><td>김철수</td><td>결재예정</td><td>-</td><td>-</td></tr>
+              <tr>
+                <tr><td>1</td><td>팀장</td><td>김철수</td><td>결재완료</td><td>2025.09.30</td><td>확인했습니다.</td><td></td>
+               </tr>
+               <tr>
+                <td>2</td><td>팀장</td><td>홍길동</td><td>결재대기</td><td>-</td>
+                <td><input class="form-control" value=""></td>
+                <td><a href="approvalAddView.html" class="btn btn-outline-dark">등록</a></td>
+              </tr>
+              <tr><td>3</td><td>팀장</td><td>이철수</td><td>결재예정</td><td>-</td><td>결재예정</td>
+              <td></td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -112,12 +121,11 @@
       
     </div>
        <!-- 4) 액션 버튼: 테이블 제거 -->
-        <div class="board-actions mb-4 d-flex justify-content-between">
-          <a href="redraftWrite.html" class="btn btn-outline-dark">재상신</a>
-          <div>
-            <a href="approvalList.html" class="btn btn-outline-dark">목록</a>
-            <a href="draftModify.html" class="btn btn-outline-dark">수정</a>
-            
+        <div class="board-actions mb-4 d-flex justify-content-center">
+        	<div>
+            <a href="${pageContext.request.contextPath}/approval/approvalList" class="btn btn-outline-dark md-3">목록</a>
+            <a href="${pageContext.request.contextPath}/approval/approvalList" class="btn btn-outline-dark">확인</a>
+            </div>
           </div>
         </div>
 
