@@ -30,4 +30,8 @@ function AdminPwBtnNameChange() {
     $(".admin-pw-change").find("input").val("");
 	}
 }
+//아이디 중복체크
+function IdDuplicateCheck() {
+	$(".idCheck-phrase").text("중복되는 사원번호 입니다.");
+}
   

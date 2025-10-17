@@ -11,11 +11,11 @@ public class UserRepository {
 	@Autowired
 	private SqlSession session;
 	
-	private static final String namespace = "mocha.ezen.com.home";
+	private static final String namespace = "user";
 	
 	//회원가입
 	public boolean Join(UserDTO dto) 
-	{
+	{	
 		if( IdDuplicateCheck(dto.getUser_id()) == true )
 		{
 			//중복된 ID임.
@@ -28,10 +28,11 @@ public class UserRepository {
 	
 	//아이디 중복검사
 	public boolean IdDuplicateCheck(String id) {
-		
+	/*	
 		int count = session.selectOne(namespace + ".idDuplicateCheck", id);
 		
 		if(count > 0) { return true; }
+	*/	
 		return false;
 	}
 	
@@ -42,5 +43,10 @@ public class UserRepository {
 		
 		dto = session.selectOne(namespace + ".logIn", dto);
 		return dto;
+	}
+	
+	public int CountUser() {
+		int total = session.selectOne(namespace + ".total");
+		return total;
 	}
 }

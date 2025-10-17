@@ -14,7 +14,7 @@
                   <td colspan="2">
                     <div>
                       <br>
-                      <h4 class="mb-3">사원 목록</h4>
+                      <h4 class="mb-3">사원관리 목록</h4>
                       <div class="search-container">
                         <select id="select_user_kind" name="select_user_kind" class="select_search form-select">
                           <option value="1">일반</option>
@@ -46,8 +46,12 @@
                         <td>부서</td>
                         <td>이름</td>
                       </tr>
+                      <c:forEach begin="1" end="">
+                      </c:forEach>
                       <tr>
-                        <td>000001</td>
+                        <td>
+                        	<c:out value="#{list}"/>
+                        </td>
                         <td>경영</td>
                         <td>홍길동</td>
                       </tr>
@@ -177,73 +181,79 @@
       </td>
       <!-- section end -->
 <%@ include file="../include/footer.jsp" %>
-<!-- Modal addUser Start-->
-  <div class="modal fade" id="addUser-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">사원 등록</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body user-info-container">
-        	<form id="addUserFrm" onsubmit="addUser">
-        	</form>
-            <div class="user-info">
-              <table>
-              	<tr>
-                  <td>사원번호</td>
-                  <td><input type="text" class="form-control form-control-sm" ></td>
-                </tr>
-              	<tr>
-                  <td colspan="2">
-                  	<span class="IdCheck-phrase">아이디 중복체크</span>
-                  </td>
-                </tr>
-                 <tr>
-                  <td>비밀번호</td>
-                  <td><input type="password" class="form-control form-control-sm" ></td>
-                </tr>
-                <tr>
-                  <td>비밀번호 확인</td>
-                  <td><input type="password" class="form-control form-control-sm" ></td>
-                </tr>
-                <tr>
-                  <td>이름</td>
-                  <td>
-                    <input type="text" class="form-control form-control-sm" >
-                  </td>
-                <tr>
-                  <td>부서</td>
-                  <td>
-                    <select name="user_kind" class="select_user_kind form-select form-select-sm">
-                      <option value="0">부서 선택</option>
-                      <option value="1">경영지원팀</option>
-                      <option value="2">디자인팀</option>
-                      <option value="3">인사지원팀</option>
-                    </select>
-                  </td>
-                </tr>
-                </tr>
-                
-                <tr>
-                  <td>생년월일</td>
-                  <td><input type="date" class="form-control form-control-sm" /></td>
-                </tr>
-                <tr>
-                <tr>
-                  <td>이메일</td>
-                  <td><input type="text" class="form-control form-control-sm" /></td>
-                </tr>
-               
-              </table>
-            </div>
-            
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">취소</button>
-          <button type="button" class="btn btn-outline-dark">등록</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Modal addUser End-->
+	<!-- Modal addUser Start-->
+	<div class="modal fade" id="addUser-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+	      	<form id="addUserFrm" method="post" action="${pageContext.request.contextPath}/admin/adminUserWrite">
+				<div class="modal-content">
+		      		<div class="modal-header">
+		        		<h5 class="modal-title" id="staticBackdropLabel">사원 등록</h5>
+		        		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		     		</div>
+		      		<div class="modal-body user-info-container">
+			     		<div class="user-info">
+			            	<table>
+				              	<tr>
+				                  <td>사원번호</td>
+				                  <td><input type="text" name="user_id" class="form-control form-control-sm" ></td>
+				                </tr>
+				              	<tr>
+				                  <td colspan="2">
+				                  	<span class="idCheck-phrase">아이디 중복체크</span>
+				                  </td>
+				                </tr>
+				                 <tr>
+				                  <td>비밀번호</td>
+				                  <td><input type="password" name="user_pw" class="form-control form-control-sm" ></td>
+				                </tr>
+				                <tr>
+				                  <td>비밀번호 확인</td>
+				                  <td><input type="password" name="user_pwcheck" class="form-control form-control-sm" ></td>
+				                </tr>
+				                <tr>
+				                  <td>이름</td>
+				                  <td>
+				                    <input type="text" name="name" class="form-control form-control-sm" >
+				                  </td>
+				                </tr>
+			              		<tr>
+			                		<td>부서</td>
+									<td>
+										<select name="dept_id" class="select_user_kind form-select form-select-sm">
+									    	<option value="0">부서 선택</option>
+										    <option value="1">경영지원팀</option>
+										    <option value="2">디자인팀</option>
+										    <option value="3">인사지원팀</option>
+									  	</select>
+									</td>
+			              		</tr>
+			              		<tr>
+			                		<td>성별</td>
+									<td>
+										<select name="user_gender" class="select_user_kind form-select form-select-sm">
+			                                <option>--</option>
+			                                <option value="M">남성</option>
+			                                <option value="F">여성</option>
+									  	</select>
+									</td>
+			              		</tr>
+				                <tr>
+				                	<td>생년월일</td>
+				                	<td><input type="date" name="user_birth" class="form-control form-control-sm" /></td>
+				                </tr>
+				                <tr>
+				                	<td>이메일</td>
+				                	<td><input type="text" name="email" class="form-control form-control-sm" /></td>
+				                </tr>
+			            	</table>
+			          	</div>
+		      		</div>
+					<div class="modal-footer">
+						<button type="reset" class="btn btn-outline-dark" data-bs-dismiss="modal">취소</button>
+						<button type="submit" class="btn btn-outline-dark" >등록</button>
+					</div>
+		    	</div>
+      		</form>
+	  	</div>
+	</div>
+	 <!-- Modal addUser End-->

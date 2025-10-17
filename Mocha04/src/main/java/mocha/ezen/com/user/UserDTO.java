@@ -17,8 +17,9 @@ public class UserDTO {
 	private String user_photo;	   // 사원사진
 	private String user_rank;	   // 직급
 	
-	
+	//getter & setter
 	public String getUser_id()		  { return user_id;		   }
+	
 	public String getUser_pw()		  { return user_pw;		   }
 	public String getName() 		  { return name;		   }
 	public String getUser_gender()	  { return user_gender;	   }
@@ -50,5 +51,14 @@ public class UserDTO {
 	public void setUser_photo(String user_photo)		 { this.user_photo = user_photo;  		 }
 	public void setUser_rank(String user_rank)			 { this.user_rank = user_rank;			 }
 			
+	//method
+	@Override
+	public String toString() {
+		return "UserDTO [user_id : " + user_id + ", user_pw : " + user_pw + ", name : " + name + ", user_gender : "
+				+ user_gender + ", is_active : " + is_active + ", dept_id : " + dept_id + ", email : " + email
+				+ ", mobile : " + mobile + ", user_birth : " + user_birth + ", created_at : " + created_at
+				+ ", updated_at : " + updated_at + ", user_addr : " + user_addr + ", user_file_name : " + user_file_name
+				+ ", user_photo : " + user_photo + ", user_rank : " + user_rank + "]";
+	}
 	
 }	

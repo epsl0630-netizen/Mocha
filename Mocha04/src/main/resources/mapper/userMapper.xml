@@ -2,16 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <!-- Namespace를 통해 JAVA 클래스와 Annotation클래스와 동기 -->
- <mapper namespace="mocha.ezen.com.user">
+ <mapper namespace="user">
  <insert id="join" parameterType="java.lang.String">
  	insert into user
- 	(user_id, name, dept_id, user_birth, email, user_pw) 
- 	values ( #{user_id}, #{name}, #{dept_id}, #{user_birth}, #{email}, md5(#{user_pw}) )
+ 	(user_id, name, dept_id, user_gender, user_birth, email, user_pw) 
+ 	values ( #{user_id}, #{name}, #{dept_id}, #{user_gender}, #{user_birth}, #{email}, md5(#{user_pw}) )
  </insert>
  <select id="idDuplicateCheck" parameterType="java.lang.String">
  	select count(*) as count 
  	from user 
  	where user_id = #{user_id} 
+ </select>
+ <select id="userList" resultType="mocha.ezen.com.UserDTO">
+ 	select user_id, name, user_gender,is_active, dept_id, user_birth, email, mobile, user_addr, user_file_name, user_photo, user_rank
+ 	from user
+ </select>
+ <select id="total" resultType="java.lang.String">
+ 	select count(*) as total 
+ 	from user 
  </select>
 <!--	<select id="searchUser" parameterType="mocha.ezen.com.UserSearchDTO" resultType="mocha.ezen.com.UserDTO">
 		select user_id, user_pw, name, user_gender, is_active, dept_id, email, mobile, user_birth, created_at, user_addr, user_file_name, user_photo, user_rank
