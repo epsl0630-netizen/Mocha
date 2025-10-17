@@ -3,7 +3,7 @@ package mocha.ezen.com.user;
 public class UserDTO {
 	private String user_id;	       // 사원번호
 	private String user_pw;		   // 비밀번호
-	private String name;		   // 사원번호
+	private String name;		   // 사원이름
 	private String user_gender;	   // 성별
 	private String is_active;	   // 활성 여부
 	private String dept_id;		   // 부서

@@ -3,26 +3,7 @@
 <%@ include file="../include/config.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/schedule.css"/>
 <script src="${pageContext.request.contextPath}/resources/js/schedule.js"></script>
-      <!-- menu start -->
-        <td id="menu">
-        <div>
-          
-          <span class="menu-title">일정관리</span>
-          
-          <br>
-          <ul>
-            <a href="${pageContext.request.contextPath}/scheduleList" class="d-block link-light text-decoration-none py-1">
-            내 일정
-            </a>
-            <a href="${pageContext.request.contextPath}/scheduleList" class="d-block link-light text-decoration-none py-1">
-              팀 일정
-            </a>  
-          </ul>
-        </div>
-      </td>
-        </div>
-      </td>
-      <!-- menu end -->
+<%@ include file="./scheduleMenu.jsp" %>
       <!-- section start -->
       <td id="section">
         <table  class="container">
@@ -95,15 +76,15 @@
           <!-- 버튼 -->
         <div class="board-actions mb-4">
           <button class="btn btn-outline-dark">
-            <a href="scheduleList.html" class="d-block text-decoration-none py-1">
+            <a href="${pageContext.request.contextPath}/schedule/scheduleList" class="d-block text-decoration-none py-1">
             목록
           </a></button>
           <button class="btn btn-outline-primary">
-            <a href="scheduleModify.html" class="d-block text-decoration-none py-1">
+            <a href="${pageContext.request.contextPath}/schedule/scheduleList" class="d-block text-decoration-none py-1">
             수정
             </a></button>
           <button class="btn  btn-outline-danger ">
-            <a href="scheduleList.html" class="d-block text-decoration-none py-1">
+            <a href="${pageContext.request.contextPath}/schedule/scheduleList" class="d-block text-decoration-none py-1">
             확인  
             </a></button>
         </div>

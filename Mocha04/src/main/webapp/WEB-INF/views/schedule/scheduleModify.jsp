@@ -72,15 +72,15 @@
           <!-- 버튼 -->
          <div class="board-actions mb-4">
           <button class="btn btn-outline-dark">
-            <a href="scheduleList.html" class="d-block text-decoration-none py-1">
+            <a href="${pageContext.request.contextPath}/schedule/scheduleList" class="d-block text-decoration-none py-1">
             목록
           </a></button>
           <button class="btn btn-outline-primary">
-            <a href="scheduleList.html" class="d-block text-decoration-none py-1">
+            <a href="${pageContext.request.contextPath}/schedule/scheduleList" class="d-block text-decoration-none py-1">
             취소
             </a></button>
           <button class="btn  btn-outline-danger ">
-            <a href="scheduleView.html" class="d-block text-decoration-none py-1">
+            <a href="${pageContext.request.contextPath}/schedule/scheduleView" class="d-block text-decoration-none py-1">
             수정 
             </a></button>
         </div>

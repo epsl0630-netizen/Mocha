@@ -3,28 +3,7 @@
 <%@ include file="../include/config.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/schedule.css"/>
 <script src="${pageContext.request.contextPath}/resources/js/schedule.js"></script>
-      <!-- menu start -->
-      <td id="menu">
-        <div>
-          <span class="menu-title">일정관리</span>
-          <br>
-          <a href="scheduleWrite.html" class="btn btn-outline-light">일정등록</a>
-          <br><br>
-          <ul>
-            <li><a href="scheduleList.html" class="d-block link-light text-decoration-none py-1">
-            일정목록
-            </a></li>
-          </ul>
-           <br><br>
-          <span class="menu-title">관리자 일정관리</span>
-          <br>
-            <ul>
-              <li><a href="addminScheduleList.html"  class="d-block link-light text-decoration-none py-1">전체일정관리</a></li>
-            </ul>
-          <br> 
-        </div>
-      </td>
-      <!-- menu end -->
+<%@ include file="./scheduleMenu.jsp" %>
       <!-- section start -->
       <td id="section">
         <table  class="container">
@@ -91,9 +70,9 @@
 
           <!-- 버튼 -->
         <div class="board-actions mb-4 d-flex justify-content-center">
-          <a href="scheduleList.html" class="btn btn-outline-dark me-2">목록 </a>
-          <a href="scheduleList.html" class="btn btn-outline-dark me-2">취소</a>
-          <a href="scheduleList.html" class="btn btn-outline-dark">완료</a>
+          <a href="${pageContext.request.contextPath}/schedule/scheduleList" class="btn btn-outline-dark me-2">목록 </a>
+          <a href="${pageContext.request.contextPath}/schedule/scheduleList" class="btn btn-outline-dark me-2">취소</a>
+          <a href="${pageContext.request.contextPath}/schedule/scheduleList" class="btn btn-outline-dark">완료</a>
         </div>
 
           </div>
