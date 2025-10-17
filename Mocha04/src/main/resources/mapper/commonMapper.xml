@@ -3,7 +3,7 @@
  
 <!-- Namespace를 통해 JAVA 클래스와 Annotation클래스와 동기 -->
 <mapper namespace="mocha.ezen.com.common">
-	<select id="searchUser" parameterType="mocha.ezen.com.UserDTO">
+	<!-- <select id="searchUser" parameterType="mocha.ezen.com.UserSearchDTO" resultType="mocha.ezen.com.UserDTO">
 		select user_id, user_pw, name, user_gender, is_active, dept_id, email, mobile, user_birth, created_at, user_addr, user_file_name, user_photo, user_rank
 	 	from user
 	 	<choose>
@@ -15,9 +15,12 @@
 			</when>
 		</choose>
 	</select>
-	<select id="searchApproval" parameterType="mocha.ezen.com.approvalDTO">
+	내가 결재해야하는것
+	<select id="searchApproval" parameterType="mocha.ezen.com.ApprovalSearchDTO"  resultType="mocha.ezen.com.ApprovalDTO">
 		select * 
-		from approval
+		from approval 
+		where approver.user_id = #{login_id} 
+		and approval_order > 3
 		<choose>
 			<when test="sort == 'user_id'">
 				 where user_id = #{user_id}
@@ -26,7 +29,7 @@
 				 where approval_title = #{name}
 			</when>
 		</choose>
-	</select>
+	</select> -->
 	<!-- <insert id="join" parameterType="com.ezen.vo.UserVO">
 		insert into user 
 			(userid,userpw,name,gender,hobby,fav,mail)
