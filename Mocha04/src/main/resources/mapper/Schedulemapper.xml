@@ -3,7 +3,7 @@
  
 <!-- Namespace를 통해 JAVA 클래스와 Annotation클래스와 동기 -->
 <mapper namespace="mocha">
-
+<!--  
 	
 	<insert id="insert" parameterType="com.ezen.vo.BoardVO" 
 		useGeneratedKeys="true" keyProperty="no">
@@ -58,5 +58,5 @@
 		limit #{offset},10		
 	</select>
 
-		
+		-->
 </mapper>

@@ -27,7 +27,8 @@ public class ScheduleController
 		return "schedule/scheduleList";
 	}
 	
-	@RequestMapping(value = "/ScheduleModify", method = RequestMethod.GET)
+	/*
+	@RequestMapping(value = "/ScheduleList", method = RequestMethod.GET)
 	@ResponseBody 
 	public Map<String, Object> ScheduleModify(@RequestParam(required = true) String no,
 			ScheduleDTO dto)
@@ -41,7 +42,7 @@ public class ScheduleController
 		return response;
 	}
 	
-	@RequestMapping(value = "/ScheduleModifyOK", method = RequestMethod.POST)
+	@RequestMapping(value = "/ScheduleList", method = RequestMethod.POST)
 	@ResponseBody 
 	public Map<String, Object> ScheduleModifyOK(ScheduleDTO dto)
 	{
@@ -54,7 +55,7 @@ public class ScheduleController
 		return response;
 	}
 	
-	@RequestMapping(value = "/ScheduleView")
+	@RequestMapping(value = "/ScheduleList")
 	@ResponseBody 
 	public Map<String, Object> ScheduleView(ScheduleDTO dto) {
 	    
@@ -67,7 +68,7 @@ public class ScheduleController
 	    return response;
 	}
 	
-	@RequestMapping(value = "/ScheduleWrite")
+	@RequestMapping(value = "/ScheduleList")
 	@ResponseBody 
 	public Map<String, Object> ScheduleWrite(ScheduleDTO dto)
 	{
@@ -80,7 +81,7 @@ public class ScheduleController
 		return response;
 	}
 	
-	@RequestMapping(value = "/ScheduleWriteOK", method = RequestMethod.POST)
+	@RequestMapping(value = "/ScheduleList", method = RequestMethod.POST)
 	@ResponseBody 
 	public Map<String, Object> ScheduleWriteOK(ScheduleDTO dto)
 	{
@@ -93,7 +94,7 @@ public class ScheduleController
 		return response;
 	}
 	
-	@RequestMapping(value = "/ScheduleDelete", method = RequestMethod.POST)
+	@RequestMapping(value = "/ScheduleList", method = RequestMethod.POST)
 	@ResponseBody
 	public  Map<String, Object> ScheduleDelete(@RequestParam(required = true)String no)
 	{
@@ -112,4 +113,5 @@ public class ScheduleController
 		
 		return "schedule/AddminScheduleList";
 	}
+	*/
 }

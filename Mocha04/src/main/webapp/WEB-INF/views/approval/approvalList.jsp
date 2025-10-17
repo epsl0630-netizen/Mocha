@@ -5,7 +5,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/approval.css" />
 
       <!-- section start -->
-      <td id="section">
+     <td id="section">
      <div class="container">
 
     <!-- 결재 대진행중 문서 -->

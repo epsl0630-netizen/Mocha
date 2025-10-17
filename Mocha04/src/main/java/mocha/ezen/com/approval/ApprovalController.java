@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import mocha.ezen.com.approver.ApproverDTO;
 import mocha.ezen.com.attachment.AttachmentDTO;
 import mocha.ezen.com.schedule.ScheduleDTO;
 import mocha.ezen.com.schedule.ScheduleRepository;
@@ -32,7 +33,7 @@ public class ApprovalController
 		@Autowired
 		ApprovalRepository  approvalRepository;
 		
-		@RequestMapping(value = "/ApprovalList")
+		@RequestMapping(value = "/")
 		public String ApprovalList()
 		{
 			//페이징, 결재구분 
@@ -40,6 +41,7 @@ public class ApprovalController
 			return "approval/approvalList";
 		}
 		
+		/*
 		@RequestMapping(value = "/DraftList")
 		public String DraftList()
 		{
@@ -205,7 +207,7 @@ public class ApprovalController
 			ApprovalRepository.Delete(no);
 			return "redirect:/DraftList";
 		}
-		
+		*/
 		
 	
 }

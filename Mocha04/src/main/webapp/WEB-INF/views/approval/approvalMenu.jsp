@@ -12,7 +12,7 @@
    <ul>
      <!-- 결재문서함 -->
      <ul>
-       <li><a href="${pageContext.request.contextPath}/approval"  class="d-block link-light text-decoration-none py-1">결재문서함</a></li>
+       <li><a href="${pageContext.request.contextPath}/approval/"  class="d-block link-light text-decoration-none py-1">결재문서함</a></li>
        <li><a href="${pageContext.request.contextPath}/approval?kind='d'"  class="d-block link-light text-decoration-none py-1">기안문서함</a></li>
      </ul>
    </ul>

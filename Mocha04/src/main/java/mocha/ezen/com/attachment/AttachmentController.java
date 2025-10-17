@@ -15,7 +15,7 @@ import mocha.ezen.com.approval.ApprovalRepository;
 public class AttachmentController 
 {
 	private static final String uploadPath = "D:\\jhjeong\\workspace\\Mocha\\upload";
-	
+	/*
 	//첨부파일 다운로드
 		@RequestMapping(value = "/Download")
 		public void Download(@RequestParam(required = true) String no,
@@ -42,4 +42,5 @@ public class AttachmentController
 			FileCopyUtils.copy(fis, os);
 			
 		}
+		*/
 }
