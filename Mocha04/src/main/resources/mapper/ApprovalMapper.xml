@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <!-- Namespace를 통해 JAVA 클래스와 Annotation클래스와 동기 -->
-<mapper namespace="schedule">
+<mapper namespace="approval">
  
 	
 	<insert id="insert" parameterType="mocha.ezen.com.schedule.ScheduleDTO" 
@@ -13,7 +13,7 @@
 	    (#{user_id}, #{schedule_title}, #{schedule_kind}, #{schedule_note}, #{start_at}, #{end_at}) 
 	</insert>
 	
-	
+	<!-- 
 	<select id="view" parameterType="java.lang.String" 
 			resultType="mocha.ezen.com.schedule.ScheduleDTO">
 		select 
@@ -37,8 +37,6 @@
 		where no = #{ no }
 	</delete>
 	
-	
-	<!-- 
 	<select id="total" parameterType="mocah.ezen.com.SearchDTO"
 		resultType="java.lang.Integer">
 		select count(*) as total

@@ -35,7 +35,7 @@ public class ApprovalController
 		
 		
 		
-		@RequestMapping(value = "/approvalList")
+		@RequestMapping(value = "/approvalList",  method = RequestMethod.GET)
 		public String ApprovalList()
 		{
 			//∆‰¿Ã¬°, ∞·¿Á±∏∫– 
@@ -44,7 +44,7 @@ public class ApprovalController
 		}
 		
 		
-		@RequestMapping(value = "/draftList")
+		@RequestMapping(value = "/draftList",  method = RequestMethod.GET)
 		public String DraftList()
 		{
 			//∆‰¿Ã¬°
@@ -53,7 +53,7 @@ public class ApprovalController
 		}
 	
 		
-		@RequestMapping(value = "/addApprovalList")
+		@RequestMapping(value = "/addApprovalList",  method = RequestMethod.GET)
 		public String AddApprovalList()
 		{
 			//∆‰¿Ã¬°
@@ -61,10 +61,16 @@ public class ApprovalController
 			return "approval/addApprovalList";
 		}
 		
-		@RequestMapping(value = "/draftWrite")
-		public String DraftWrite()
+		@RequestMapping(value = "/draftWrite",  method = RequestMethod.POST)
+		public Map<String, Object> DraftWrite(ScheduleDTO dto)
 		{
-			return "approval/draftWrite";
+			approvalRepository.Insert(dto);
+			
+			Map<String, Object> response = new HashMap<String, Object>();
+		    response.put("result", "success");
+		    response.put("no", dto.getSchedule_no());
+		    
+			return response;
 		}
 /*
 		

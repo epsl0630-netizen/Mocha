@@ -1,133 +1,152 @@
 .HRD-table td {
-  border: 1px solid #cecece;
+	border: 1px solid #cecece;
 }
+
 .HRD-table-container, .user-info-container {
-  vertical-align: top;
-  
+	vertical-align: top;
 }
+
 .HRD-container {
-  height: 560px;
+	height: 560px;
 }
+
 .HRD-table-container {
-  overflow-y: scroll;
-  border: 1px solid #cecece;
+	overflow-y: scroll;
+	border: 1px solid #cecece;
 }
+
 .HRD-table {
-  width: 100%;
-  text-align: center;
+	width: 100%;
+	text-align: center;
 }
-.HRD-table tr:nth-child(1) > td {
-  border-width: 0px 1px;
-  background-color: #f5f5f5;
 
+.HRD-table tr:nth-child(1)>td {
+	border-width: 0px 1px;
+	background-color: #f5f5f5;
 }
+
 .HRD-table td:nth-child(1) {
-  width: 100px;
-}
-.HRD-table tr{
-  height: 30px;
-}
-.HRD-search {
-  padding: 20px 0px;
-  width: 100%;
-}
-.HRD-search span {
-  padding-right: 20px;
-}
-.HRD-search select{
-  width: 70px;
-}
-.HRD-search td:nth-child(odd) {
-  width: 70px;
-}
-.HRD-search td:nth-child(even) {
-  width: 70px;
-}
-.HRD-table-container {
-  overflow-y: scroll;
-  border: 1px solid #cecece;
-  width: 300px;
-}
-.HRD-table-container, .user-info-container {
-  vertical-align: top;
+	width: 100px;
 }
 
+.HRD-table tr {
+	height: 30px;
+}
+
+.HRD-search {
+	padding: 20px 0px;
+	width: 100%;
+}
+
+.HRD-search span {
+	padding-right: 20px;
+}
+
+.HRD-search select {
+	width: 70px;
+}
+
+.HRD-search td:nth-child(odd) {
+	width: 70px;
+}
+
+.HRD-search td:nth-child(even) {
+	width: 70px;
+}
+
+.HRD-table-container {
+	overflow-y: scroll;
+	border: 1px solid #cecece;
+	width: 300px;
+}
+
+.HRD-table-container, .user-info-container {
+	vertical-align: top;
+}
 
 /* search */
-.search-container > * {
-  display: inline-block;
+.search-container>* {
+	display: inline-block;
 }
+
 .search-input {
-  padding-bottom: 50px;
-  margin-right: 10px;
-  position: relative;
-  }
+	padding-bottom: 50px;
+	margin-right: 10px;
+	position: relative;
+}
 
 .search {
-  width: 200px;
+	width: 200px;
 }
 
 .search-btn {
-  position: absolute;
-  background-color: white;
-  right: 1px;
-  top: 4px;
-  cursor : pointer;
-  border: 0;
-  background-color: transparent;
+	position: absolute;
+	background-color: white;
+	right: 1px;
+	top: 4px;
+	cursor: pointer;
+	border: 0;
+	background-color: transparent;
 }
+
 .user-info {
-  display: flex;
+	display: flex;
 }
-.user-info-container td{
-  height: 40px;
+
+.user-info-container td {
+	height: 40px;
 }
+
 .user-info-container {
-  padding: 20px;
+	padding: 20px;
 }
 
 .personal-info, .employee-info {
-  width: 100%;
-}
-.personal-info td:nth-child(odd), .employee-info td:nth-child(odd) {
-  padding-left: 10px;
-}
-.personal-info td:nth-child(even), .employee-info td:nth-child(even) {
-  width: 185px;
+	width: 100%;
 }
 
-.personal-info select, .employee-info select{
-  width: 80px;
+.personal-info td:nth-child(odd), .employee-info td:nth-child(odd) {
+	padding-left: 10px;
 }
+
+.personal-info td:nth-child(even), .employee-info td:nth-child(even) {
+	width: 185px;
+}
+
+.personal-info select, .employee-info select {
+	width: 80px;
+}
+
 .user-info-button {
-  text-align: right;
+	text-align: right;
 }
+
 .sub-title {
-  display: inline-block;
-  margin: 15px 0px;
-  background-color: var(--sub-color-2);
-  border-radius: 30px;
+	display: inline-block;
+	margin: 15px 0px;
+	background-color: var(- -sub-color-2);
+	border-radius: 30px;
 }
 
 .myinfo-fix-btn {
-  background-color: var(--main-color);
-  float: right;
+	background-color: var(- -main-color);
+	float: right;
 }
 
 .phone-input {
-  width: 49px !important;
-  display: inline-block;
+	width: 49px !important;
+	display: inline-block;
 }
 
 .select_search {
-  display: inline-block;
-  width: 150px;
+	display: inline-block;
+	width: 150px;
 }
-.admin-pw-change{
-  display: none;
+
+.admin-pw-change {
+	display: none;
 }
 
 .idCheck-phrase {
 	display: none;
 }
-

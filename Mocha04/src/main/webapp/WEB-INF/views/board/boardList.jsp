@@ -16,7 +16,8 @@
 		<tr>
 			<td><br />
 				<h4 class="mb-3">게시판</h4> <!-- 검색 -->
-				<form method="get" action="${cpath}/board/boardList" class="search-wrap"
+				<form method="get" action="${cpath}/board/boardList"
+					class="search-wrap"
 					style="display: flex; gap: 8px; align-items: center;">
 					<select name="type" class="form-select form-select-sm"
 						style="width: 120px;">
@@ -36,9 +37,12 @@
 					</div>
 				</form> <!-- 유형 필터 -->
 				<div class="my-2" style="display: flex; gap: 6px;">
-					<a href="${cpath}/board/boardList" class="btn btn-outline-dark btn-sm">전체</a>
-					<a href="${cpath}/board/boardList?kind=공지" class="btn btn-outline-dark btn-sm">공지</a> 
-					<a href="${cpath}/board/boardList?kind=자유" class="btn btn-outline-dark btn-sm">자유</a>
+					<a href="${cpath}/board/boardList"
+						class="btn btn-outline-dark btn-sm">전체</a> <a
+						href="${cpath}/board/boardList?kind=공지"
+						class="btn btn-outline-dark btn-sm">공지</a> <a
+						href="${cpath}/board/boardList?kind=자유"
+						class="btn btn-outline-dark btn-sm">자유</a>
 				</div>
 
 				<hr /> <!-- 목록 -->

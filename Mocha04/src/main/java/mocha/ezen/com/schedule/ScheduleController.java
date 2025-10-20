@@ -1,10 +1,12 @@
 package mocha.ezen.com.schedule;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,8 +19,8 @@ public class ScheduleController
 	@Autowired
 	ScheduleRepository  scheduleRepository;
 	
-	@RequestMapping(value = "/scheduleList")
-	public String ScheduleList()
+	@RequestMapping(value = "/scheduleList", method = RequestMethod.GET)
+	public String ScheduleList(Model model)
 	{
 		//∆‰¿Ã¬°
 		
@@ -26,7 +28,17 @@ public class ScheduleController
 		return "schedule/scheduleList";
 	}
 	
-	@RequestMapping(value = "/ScheduleList",method = RequestMethod.POST)
+	@RequestMapping(value = "/eventsData", method = RequestMethod.GET)
+	@ResponseBody
+	public List<ScheduleDTO> getEventsData() {
+	   
+	    List<ScheduleDTO> allEvents = scheduleRepository.selectAllEvents(null); 
+	    
+	 
+	    return allEvents;
+	}
+	
+	@RequestMapping(value = "/ScheduleWrite", method = RequestMethod.POST)
 	@ResponseBody 
 	public Map<String, Object> ScheduleWrite(ScheduleDTO dto)
 	{
@@ -39,8 +51,8 @@ public class ScheduleController
 		return response;
 	}
 	
-	/*
-	@RequestMapping(value = "/ScheduleList", method = RequestMethod.POST)
+	
+	@RequestMapping(value = "/ScheduleWriteOK", method = RequestMethod.POST)
 	@ResponseBody 
 	public Map<String, Object> ScheduleWriteOK(ScheduleDTO dto)
 	{
@@ -54,7 +66,7 @@ public class ScheduleController
 	}
 	
  
-	@RequestMapping(value = "/ScheduleList", method = RequestMethod.GET)
+	@RequestMapping(value = "/ScheduleModify", method = RequestMethod.GET)
 	@ResponseBody 
 	public Map<String, Object> ScheduleModify(@RequestParam(required = true) String no,
 			ScheduleDTO dto)
@@ -68,7 +80,7 @@ public class ScheduleController
 		return response;
 	}
 	
-	@RequestMapping(value = "/ScheduleList", method = RequestMethod.POST)
+	@RequestMapping(value = "/ScheduleModifyOK", method = RequestMethod.POST)
 	@ResponseBody 
 	public Map<String, Object> ScheduleModifyOK(ScheduleDTO dto)
 	{
@@ -96,7 +108,7 @@ public class ScheduleController
 	
 	
 	
-	@RequestMapping(value = "/ScheduleList", method = RequestMethod.POST)
+	@RequestMapping(value = "/ScheduleDelete", method = RequestMethod.POST)
 	@ResponseBody
 	public  Map<String, Object> ScheduleDelete(@RequestParam(required = true)String no)
 	{
@@ -115,5 +127,5 @@ public class ScheduleController
 		
 		return "schedule/AddminScheduleList";
 	}
-	*/
+	
 }

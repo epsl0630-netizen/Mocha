@@ -1,143 +1,158 @@
+h2 {
+	font-size: clamp(14px, 2.2vw, 18px);
+}
 
-    h2 { font-size: clamp(14px, 2.2vw, 18px); }
-    h3 { font-size: clamp(10px, 1.9vw, 16px); }
+h3 {
+	font-size: clamp(10px, 1.9vw, 16px);
+}
 
-    
-    /* 1. 메뉴 기본 및 링크 스타일 */
-    #menu { 
-        display: flex; 
-        flex-direction: column; 
-        gap: 8px; 
-        padding: 12px 16px; 
-    }
-    #menu a:link, #menu a:visited { 
-        color: black; 
-        text-decoration: none; 
-    }
-    #new-approval { 
-        margin-bottom: 8px; 
-    }
-    
-    /* 2. ul / li / a 공통 스타일 */
-    ul {
-        list-style: none;
-        padding-left: 0;
-        margin: 0; /* #menu ul의 margin:0 통합 */
-    }
-    #menu li::marker, #menu li::before { 
-        content: none !important; 
-    }
-    li a {
-        text-decoration: none;
-    }
+/* 1. 메뉴 기본 및 링크 스타일 */
+#menu {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 12px 16px;
+}
 
-    
-    /* 4. 검색창 위치, 스타일 */
-    .search-wrap {
-        display: flex;
-        align-items: center;
-        gap: .5rem;
-        justify-content: flex-end;
-    }
-    .report-controls{
-    display:flex;
-    flex-direction:column;
-    align-items:center;   /* 중앙 */
-    gap:.5rem;
-  }
-   
-  .approval-tree summary {
-    cursor: pointer;
-    user-select: none;
-    padding: 2px 0;
-  }
-  .approval-tree details > summary::-webkit-details-marker { display:none; }
-  .approval-tree input.person { transform: translateY(-1px); }
-  /* 높이를 고정하고 내용이 넘칠 때 스크롤을 생성하는 클래스 */
+#menu a:link, #menu a:visited {
+	color: black;
+	text-decoration: none;
+}
+
+#new-approval {
+	margin-bottom: 8px;
+}
+
+/* 2. ul / li / a 공통 스타일 */
+ul {
+	list-style: none;
+	padding-left: 0;
+	margin: 0; /* #menu ul의 margin:0 통합 */
+}
+
+#menu li::marker, #menu li::before {
+	content: none !important;
+}
+
+li a {
+	text-decoration: none;
+}
+
+/* 4. 검색창 위치, 스타일 */
+.search-wrap {
+	display: flex;
+	align-items: center;
+	gap: .5rem;
+	justify-content: flex-end;
+}
+
+.report-controls {
+	display: flex;
+	flex-direction: column;
+	align-items: center; /* 중앙 */
+	gap: .5rem;
+}
+
+.approval-tree summary {
+	cursor: pointer;
+	user-select: none;
+	padding: 2px 0;
+}
+
+.approval-tree details>summary::-webkit-details-marker {
+	display: none;
+}
+
+.approval-tree input.person {
+	transform: translateY(-1px);
+}
+/* 높이를 고정하고 내용이 넘칠 때 스크롤을 생성하는 클래스 */
 .approval-scroll {
-    /* 모달 크기에 맞춰 적절한 높이를 지정합니다. */
-    height: 400px; 
-    /* 세로 스크롤만 허용 */
-    overflow-y: auto; 
-    /* 가로 스크롤은 숨김 */
-    overflow-x: hidden; 
+	/* 모달 크기에 맞춰 적절한 높이를 지정합니다. */
+	height: 400px;
+	/* 세로 스크롤만 허용 */
+	overflow-y: auto;
+	/* 가로 스크롤은 숨김 */
+	overflow-x: hidden;
 }
 
-.btn-outline-success,
-.btn-outline-success:hover,
-.btn-outline-success:focus,
-.btn-outline-success:active {
-    color: #198754 !important; 
-    background-color: transparent !important;
-    border-color: #198754 !important;
-
-    box-shadow: none !important;
-    background-image: none !important;
+.btn-outline-success, .btn-outline-success:hover, .btn-outline-success:focus,
+	.btn-outline-success:active {
+	color: #198754 !important;
+	background-color: transparent !important;
+	border-color: #198754 !important;
+	box-shadow: none !important;
+	background-image: none !important;
 }
 
-.btn-outline-primary,
-.btn-outline-primary:hover,
-.btn-outline-primary:focus,
-.btn-outline-primary:active {
-    color: #0d6efd !important;
-    background-color: transparent !important;
-    border-color: #0d6efd !important;
-    
-    box-shadow: none !important;
-    background-image: none !important;
+.btn-outline-primary, .btn-outline-primary:hover, .btn-outline-primary:focus,
+	.btn-outline-primary:active {
+	color: #0d6efd !important;
+	background-color: transparent !important;
+	border-color: #0d6efd !important;
+	box-shadow: none !important;
+	background-image: none !important;
 }
 
-.btn-outline-danger,
-.btn-outline-danger:hover,
-.btn-outline-danger:focus,
-.btn-outline-danger:active {
-    color: rgba(233, 14, 14, 0.788) !important; 
-    background-color: transparent !important;
-    border-color: rgba(233, 14, 14, 0.788) !important;
-
-    box-shadow: none !important;
-    background-image: none !important;
+.btn-outline-danger, .btn-outline-danger:hover, .btn-outline-danger:focus,
+	.btn-outline-danger:active {
+	color: rgba(233, 14, 14, 0.788) !important;
+	background-color: transparent !important;
+	border-color: rgba(233, 14, 14, 0.788) !important;
+	box-shadow: none !important;
+	background-image: none !important;
 }
 
 /* 메뉴 등록버튼 */
 .btn-outline-light {
-    width: 150px; 
-    border-color: black;
+	width: 150px;
+	border-color: black;
 }
 
-.btn-outline-light:hover{
-     box-shadow: 0 5px 8px #c4c4caf3; 
-     border-color: black;
-     background-color: transparent;
-} 
+.btn-outline-light:hover {
+	box-shadow: 0 5px 8px #c4c4caf3;
+	border-color: black;
+	background-color: transparent;
+}
 
 /* section 버튼 */
-
-.d-block:hover{
-    background-color: rgb(252, 249, 249);
-    color: black !important;
+.d-block:hover {
+	background-color: rgb(252, 249, 249);
+	color: black !important;
 }
+
 .d-block {
-    color: black !important;
-    border-color: black;
-    
+	color: black !important;
+	border-color: black;
 }
 /* boardView */
-.btn-outline-dark:hover{
-    box-shadow: 0 5px 8px #c4c4caf3; 
-     border-color: black;
-     background-color: transparent;
+.btn-outline-dark:hover {
+	box-shadow: 0 5px 8px #c4c4caf3;
+	border-color: black;
+	background-color: transparent;
 }
 
-.btn-outline-dark{
-    color: black !important;
-    background-color: white !important;
+.btn-outline-dark {
+	color: black !important;
+	background-color: white !important;
 }
 
-.comment-area {  margin: 0 auto; padding: 20px; }
-        /* 버튼 스타일 간소화 */
-        .comment-actions button {
-            font-size: 0.85rem; background: none; border: none; cursor: pointer;
-            padding: 0; margin: 0; line-height: 1; text-decoration: none;
-        }
-        .comment-actions button:hover { text-decoration: underline; }
+.comment-area {
+	margin: 0 auto;
+	padding: 20px;
+}
+/* 버튼 스타일 간소화 */
+.comment-actions button {
+	font-size: 0.85rem;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	margin: 0;
+	line-height: 1;
+	text-decoration: none;
+}
+
+.comment-actions button:hover {
+	text-decoration: underline;
+}

@@ -1,5 +1,7 @@
 package mocha.ezen.com.schedule;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,7 +22,7 @@ public class ScheduleRepository
 		return true;
 	}	
 	
-	/*
+	
 	//게시물 정보를 삭제한다.	
 	//return true : 삭제 성공, false : 삭제 실패
 	public boolean Delete(String no)
@@ -43,6 +45,7 @@ public class ScheduleRepository
 		return dto;
 	}	
 	
+	
 	//게시물 정보를 변경한다.
 	//return true : 변경 성공, false : 변경 실패
 	public boolean Update(ScheduleDTO dto)
@@ -50,8 +53,14 @@ public class ScheduleRepository
 		session.update(namespace + ".update", dto);
 		return true;
 	}
+
+
+	public List<ScheduleDTO> selectAllEvents(ScheduleDTO dto) 
+	{
+		return session.selectList(namespace + ".selectAllEvents", dto);
+	}
 	
-	*/
+	
 	
 	
 

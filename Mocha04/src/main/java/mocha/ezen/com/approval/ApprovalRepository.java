@@ -9,10 +9,10 @@ import mocha.ezen.com.schedule.ScheduleDTO;
 @Repository
 public class ApprovalRepository 
 {
-	/*
+	
 	@Autowired
 	private SqlSession session;
-	private static final String namespace = "mocha";
+	private static final String namespace = "approval";
 	
 	//게시물 정보를 등록한다.
 	//return true : 등록 성공, false : 등록 실패
@@ -21,7 +21,7 @@ public class ApprovalRepository
 		session.insert(namespace + ".insert", dto);
 		return true;
 	}	
-	
+	/*
 	//게시물 정보를 읽는다.	
 	//IsHit = true : 조회수 증가, false : 조회수 증가 안함.
 	public ApprovalDTO Read(String no,boolean IsHit)
