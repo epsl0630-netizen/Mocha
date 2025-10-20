@@ -15,9 +15,5 @@ public class AdminRepository {
 	
 	private static final String namespace = "user";
 	
-	//사원목록
-	public List<UserDTO> UserList() {
-		List<UserDTO> userList = session.selectList(namespace + ".userList");
-		return userList;
-	}
+	
 }

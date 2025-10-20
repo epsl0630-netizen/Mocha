@@ -14,13 +14,36 @@
  	where user_id = #{user_id} 
  </select>
  <select id="userList" resultType="mocha.ezen.com.user.UserDTO">
- 	select user_id, name, user_gender,is_active, dept_id, user_birth, email, mobile, user_addr, user_file_name, user_photo, user_rank
+ 	select user_id, name, is_active, dept_id
  	from user
  </select>
  <select id="total" resultType="java.lang.Integer">
  	select count(*) as total 
  	from user 
  </select>
+ <select id="userCheck" parameterType="java.lang.String" resultType="mocha.ezen.com.user.UserDTO">
+ 	select user_id, name, user_gender,is_active, dept_id, date(user_birth) as user_birth
+ 	, email, mobile, user_addr, user_file_name, user_photo, date(created_at) as created_at , user_rank, authority 
+ 	from user where user_id = #{user_id} 
+ </select>
+ <update id="modify" parameterType="mocha.ezen.com.user.UserDTO">
+ 	update user set 
+	name = #{name},  
+	dept_id = #{dept_id},  
+	email = #{email}, 
+	mobile = #{mobile}, 
+	user_birth = #{user_birth}, 
+	user_gender = #{user_gender}, 
+	user_addr = #{user_addr}, 
+	authority = #{authority}, 
+	user_rank = #{user_rank},
+	updated_at = now() 
+	<if test='user_pw != null and !user_pw.equals("")'>
+	, 
+	user_pw = md5(#{user_pw})
+	</if>
+	where user_id = #{user_id}
+ </update>
 <!--	<select id="searchUser" parameterType="mocha.ezen.com.UserSearchDTO" resultType="mocha.ezen.com.UserDTO">
 		select user_id, user_pw, name, user_gender, is_active, dept_id, email, mobile, user_birth, created_at, user_addr, user_file_name, user_photo, user_rank
 	 	from user

@@ -16,10 +16,13 @@ public class UserDTO {
 	private String user_file_name; // 사원프로필 
 	private String user_photo;	   // 사원사진
 	private String user_rank;	   // 직급
+	private boolean authority;	   // 권한
 	
+	
+	
+
 	//getter & setter
 	public String getUser_id()		  { return user_id;		   }
-	
 	public String getUser_pw()		  { return user_pw;		   }
 	public String getName() 		  { return name;		   }
 	public String getUser_gender()	  { return user_gender;	   }
@@ -34,6 +37,7 @@ public class UserDTO {
 	public String getUser_file_name() { return user_file_name; }
 	public String getUser_photo() 	  { return user_photo; 	   }
 	public String getUser_rank() 	  { return user_rank; 	   }
+	public boolean isAuthority() 	  { return authority;	   }
 	
 	public void setUser_id(String user_id)				 { this.user_id = user_id;				 }
 	public void setUser_pw(String user_pw)				 { this.user_pw = user_pw; 			 	 }
@@ -50,7 +54,7 @@ public class UserDTO {
 	public void setUser_file_name(String user_file_name) { this.user_file_name = user_file_name; }
 	public void setUser_photo(String user_photo)		 { this.user_photo = user_photo;  		 }
 	public void setUser_rank(String user_rank)			 { this.user_rank = user_rank;			 }
-			
+	public void setAuthority(boolean authority) 		 { this.authority = authority;			 }		
 	//method
 	@Override
 	public String toString() {

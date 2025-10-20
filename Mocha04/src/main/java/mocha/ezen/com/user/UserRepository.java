@@ -1,8 +1,12 @@
 package mocha.ezen.com.user;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import mocha.ezen.com.user.UserDTO;
 
@@ -48,5 +52,23 @@ public class UserRepository {
 	public int UserCount() {
 		int total = session.selectOne(namespace + ".total");
 		return total;
+	}
+	
+	//사원목록
+	public List<UserDTO> UserList() {
+		List<UserDTO> userList = session.selectList(namespace + ".userList");
+		return userList;
+	}
+	
+	//사원보기
+	public UserDTO UserCheck(String user_id) {
+		UserDTO dto = session.selectOne(namespace + ".userCheck", user_id);
+		return dto;
+	}
+	
+	//사원정보수정
+	public UserDTO ModifyUser(UserDTO dto) {
+		dto = session.selectOne(namespace + ".modify", dto);
+		return dto;
 	}
 }

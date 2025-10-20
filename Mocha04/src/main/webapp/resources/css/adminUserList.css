@@ -150,3 +150,7 @@
 .idCheck-phrase {
 	display: none;
 }
+
+#subTR.selected {
+	background-color: aliceblue;
+}
