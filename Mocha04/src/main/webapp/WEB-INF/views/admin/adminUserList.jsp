@@ -39,22 +39,22 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="HRD-table-container">
+                  <td class="HRD-table-container" id="adminHRD">
                     <table class="HRD-table">
                       <tr>
                         <td>사원번호</td>
                         <td>부서</td>
                         <td>이름</td>
                       </tr>
-                      <c:forEach begin="1" end="">
+                      <c:forEach begin="0" end="${total}" var="list" items="${list}">
+	                      <tr>
+	                        <td>
+	                        	<c:out value="${list.user_id}"/>
+	                        </td>
+	                        <td><c:out value="${list.dept_id}"/></td>
+	                        <td><c:out value="${list.name}"/></td>
+	                      </tr>
                       </c:forEach>
-                      <tr>
-                        <td>
-                        	<c:out value="#{list}"/>
-                        </td>
-                        <td>경영</td>
-                        <td>홍길동</td>
-                      </tr>
                     </table>
                   </td>
                   <td class="user-info-container">

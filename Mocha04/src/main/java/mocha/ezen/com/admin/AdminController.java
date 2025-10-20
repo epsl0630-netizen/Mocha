@@ -26,11 +26,13 @@ public class AdminController {
 	@RequestMapping(value = "/adminUserList")
 	public String AdminUserList(Model model)
 	{	
+		int total = userRepository.UserCount();
+		model.addAttribute("total", total);
+		
 		List<UserDTO> list = adminRepository.UserList();
 		for(UserDTO i : list) {
 			model.addAttribute("list", list);
 		}
-		
 		return "admin/adminUserList";
 	}
 	@RequestMapping(value = "/adminUserWrite", method = RequestMethod.POST)

@@ -13,7 +13,7 @@ public class AdminRepository {
 	@Autowired
 	private SqlSession session;
 	
-	private static final String namespace = "admin";
+	private static final String namespace = "user";
 	
 	//사원목록
 	public List<UserDTO> UserList() {

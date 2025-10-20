@@ -1,15 +1,28 @@
 $(document).ready(function() {
-  $(".addmemberBtn").click(
-    function() {
-
-    }
-  );
-  $("#admin-pw-change-btn").click(
-    function() {
-      AdminPwChangeOn();
-      AdminPwBtnNameChange();
-    }
-  );
+	//유저추가버튼
+	  $(".addmemberBtn").click(
+	    function() {
+	
+	    }
+	  );
+	//관리자화면 비밀번호변경버튼  
+	$("#admin-pw-change-btn").click(
+	    function() {
+	      AdminPwChangeOn();
+	      AdminPwBtnNameChange();
+	    }
+	 );
+  	//관리자 유저 선택
+  	$("#adminHRD tr").click(
+	  	function() {
+	  		alert("작동");
+	  		const userId = $(this).children().first();
+	  		alert(userId.text());
+	  	}
+	);
+  
+ 
+  
 });
 
 function AdminPwChangeOn() {
@@ -34,4 +47,17 @@ function AdminPwBtnNameChange() {
 function IdDuplicateCheck() {
 	$(".idCheck-phrase").text("중복되는 사원번호 입니다.");
 }
-  
+
+function selectRow() {
+	let table = $("#adminHRD");
+		
+}
+/*
+//userList 유저불러오기
+function UserView() {
+	$.ajax({
+		url:'admin/AdminUserView',
+		data:
+	});
+}
+*/

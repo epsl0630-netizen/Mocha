@@ -13,11 +13,11 @@
  	from user 
  	where user_id = #{user_id} 
  </select>
- <select id="userList" resultType="mocha.ezen.com.UserDTO">
+ <select id="userList" resultType="mocha.ezen.com.user.UserDTO">
  	select user_id, name, user_gender,is_active, dept_id, user_birth, email, mobile, user_addr, user_file_name, user_photo, user_rank
  	from user
  </select>
- <select id="total" resultType="java.lang.String">
+ <select id="total" resultType="java.lang.Integer">
  	select count(*) as total 
  	from user 
  </select>

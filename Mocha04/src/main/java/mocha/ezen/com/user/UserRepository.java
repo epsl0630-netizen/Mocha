@@ -45,7 +45,7 @@ public class UserRepository {
 		return dto;
 	}
 	
-	public int CountUser() {
+	public int UserCount() {
 		int total = session.selectOne(namespace + ".total");
 		return total;
 	}

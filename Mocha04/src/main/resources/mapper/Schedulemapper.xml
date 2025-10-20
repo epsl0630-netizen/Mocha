@@ -5,7 +5,7 @@
 <mapper namespace="schedule">
  
 	
-	<insert id="insert" parameterType="ScheduleDTO" 
+	<insert id="insert" parameterType="mocha.ezen.com.schedule.ScheduleDTO" 
 	    useGeneratedKeys="true" keyProperty="schedule_no">
 	    INSERT INTO schedule 
 	    (user_id, schedule_title, schedule_kind, schedule_note, start_at, end_at) 
@@ -15,7 +15,7 @@
 	
 	 <!-- 
 	<select id="view" parameterType="java.lang.String" 
-			resultType="mocha.ezen.com.ScheduleDTO">
+			resultType="mocha.ezen.com.schedule.ScheduleDTO">
 		select 
 			schedule_no,user_id,schedule_title,schedule_kind,schedule_note,start_at,
 			(select name from user where user_id = board.userid) as name
@@ -23,7 +23,7 @@
 		where schedule_no = #{ no }
 	</select>
 
-	<update id="update" parameterType="mocha.ezen.com.ScheduleDTO">
+	<update id="update" parameterType="mocha.ezen.com.schedule.ScheduleDTO">
 		update schedule set
 		schedule_title = #{ schedule_title },
 		schedule_note = #{ schedule_note },				
