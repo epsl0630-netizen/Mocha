@@ -37,6 +37,11 @@
 		where no = #{ no }
 	</delete>
 	
+	<!-- 
+	<selectAllEvents>
+	
+	</selectAllEvents>
+	 -->
 	
 	<!-- 
 	<select id="total" parameterType="mocah.ezen.com.SearchDTO"
