@@ -3,7 +3,8 @@
  
 <!-- Namespace를 통해 JAVA 클래스와 Annotation클래스와 동기 -->
  <mapper namespace="user">
- <insert id="join" parameterType="java.lang.String">
+ <insert id="join" parameterType="java.lang.String"
+ useGeneratedKeys="true" keyProperty="user_id">
  	insert into user
  	(user_id, name, dept_id, user_gender, user_birth, email, user_pw) 
  	values ( #{user_id}, #{name}, #{dept_id}, #{user_gender}, #{user_birth}, #{email}, md5(#{user_pw}) )

@@ -24,24 +24,26 @@ public class AdminController {
 		return "admin/admin";
 	}
 	@RequestMapping(value = "/adminUserList")
-	public String AdminUserList(Model model)
+	public String AdminUserList(Model model, @RequestParam(required = false)String user_id)
 	{	
 		int total = userRepository.UserCount();
 		model.addAttribute("total", total);
 		
 		List<UserDTO> list = userRepository.UserList();
-		for(UserDTO i : list) {
-			model.addAttribute("list", list);
+		model.addAttribute("list", list);
+		
+		if(user_id != null && user_id != "") {
+			model.addAttribute("user_id", user_id);
 		}
 		
-		return "admin/adminUserList";
+			return "admin/adminUserList";
 	}
 	@RequestMapping(value = "/adminUserWrite", method = RequestMethod.POST)
-	public String AdminUserWrite(UserDTO dto)
+	public String AdminUserWrite(UserDTO dto, Model model)
 	{
 		userRepository.Join(dto);
-		//여유가 생길경우 새로생긴 유저 아이디를 받아와서 보냄.
-		return "admin/adminUserList";
+		
+		return AdminUserList(model, dto.getUser_id());
 	}
 	
 	@RequestMapping(value = "/adminUserView", method = RequestMethod.POST)

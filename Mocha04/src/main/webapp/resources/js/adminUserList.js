@@ -1,6 +1,8 @@
 $(document).ready(function() {
 	//load 후 유저정보 가져오기
-	AdminLoadUserInfo();
+	const params = new URLSearchParams(window.location.search);
+	const param_user_id = params.get("user_id");
+	AdminLoadUserInfo(param_user_id);
 	
 	//유저추가버튼
 	  $(".addmemberBtn").click(
@@ -55,21 +57,25 @@ function IdDuplicateCheck() {
 }
 
 //유저 처음 불러오기
-function AdminLoadUserInfo () {
+function AdminLoadUserInfo (param_user_id) {
+	if(param_user_id != "" && param_user_id != null) {
+		return AdminUserView(param_user_id);
+		alert(param_user_id);
+	}
+	
 	//<tr id="subTR" class="selected">
  	html = $("#subTR.selected").html();
- 	//alert("?"+html);
  	if(typeof html == "undefined")
  	{
  		//목록에 사용자가 하나도 없음.
- 		//alert("?");
+ 		return;
  	}else
  	{
  		//로딩 후 첫 사용자를 선택함. 
  		userId = $("#subTR.selected").children().first().html().trim();
- 		//alert(userId);
- 		AdminUserView(userId);
+ 		return AdminUserView(userId);
  	}
+	
 }
 //userList 유저불러오기
 function AdminUserView(user_id) {

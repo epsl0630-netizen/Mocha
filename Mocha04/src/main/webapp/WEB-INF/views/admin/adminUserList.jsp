@@ -47,7 +47,14 @@
                         <td>이름</td>
                       </tr>
                       <c:forEach begin="0" end="${total}" var="item" items="${list}"  varStatus="status">
-	                      <tr id="subTR" class="<c:if test="${status.index == 0}">selected</c:if>">
+                      	<c:choose>
+                      		<c:when test="${requestScope.user_id != null && requestScope.user_id != ''}">
+                      			<tr id="subTR" class="<c:if test="${requestScope.user_id == item.user_id}">selected</c:if>">
+                      		</c:when>
+                      		<c:otherwise>
+		                    	<tr id="subTR" class="<c:if test="${status.index == 0}">selected</c:if>">
+                      		</c:otherwise>
+                      	</c:choose>
 	                        <td>
 	                        	<c:out value="${item.user_id}"/>
 	                        </td>
