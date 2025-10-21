@@ -1,5 +1,7 @@
 package mocha.ezen.com.approval;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,11 +18,22 @@ public class ApprovalRepository
 	
 	//게시물 정보를 등록한다.
 	//return true : 등록 성공, false : 등록 실패
-	public boolean Insert(ApprovalDTO dto)
+	public int Insert(ApprovalDTO dto)
 	{
-		session.insert(namespace + ".insert", dto);
-		return true;
+		int insertedRows = session.insert(namespace + ".insert", dto);
+		return insertedRows;
 	}	
+	
+	public List<ApprovalDTO> selectdraftList(ApprovalDTO dto) 
+	{
+		return session.selectList(namespace + ".selectdraft", dto);
+	}
+
+	public List<ApprovalDTO> selectapprovalList(ApprovalDTO dto) 
+	{
+		return session.selectList(namespace + ".selectapproval", dto);
+	}
+	
 	/*
 	//게시물 정보를 읽는다.	
 	//IsHit = true : 조회수 증가, false : 조회수 증가 안함.
@@ -42,7 +55,7 @@ public class ApprovalRepository
 		session.update(namespace + ".update", dto);
 		return true;
 	}
-	
+	*/
 	//게시물 정보를 삭제한다.	
 	//return true : 삭제 성공, false : 삭제 실패
 	public boolean Delete(String no)
@@ -52,6 +65,10 @@ public class ApprovalRepository
 		return true;
 	}	
 		
-	*/
+	
+
+
+
+	
 	
 }

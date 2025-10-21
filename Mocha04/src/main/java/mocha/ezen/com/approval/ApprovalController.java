@@ -18,37 +18,44 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import mocha.ezen.com.admin.AdminRepository;
 import mocha.ezen.com.approver.ApproverDTO;
 import mocha.ezen.com.attachment.AttachmentDTO;
 import mocha.ezen.com.schedule.ScheduleDTO;
 import mocha.ezen.com.schedule.ScheduleRepository;
+import mocha.ezen.com.user.UserRepository;
 
 @Controller
 @RequestMapping("/approval")
 public class ApprovalController 
 {
-	//업로드 경로
-	private static final String uploadPath = "C:\\Users\\MYCOM\\git\\repository4\\Mocha04\\upload";
+	//업로드 경로 , 추후 추가 결정
+	//private static final String uploadPath = "C:\\Users\\MYCOM\\git\\repository4\\Mocha04\\upload";
 	
 		@Autowired
 		ApprovalRepository  approvalRepository;
-		
+		@Autowired
+		UserRepository userRepository;
+		@Autowired
+		AdminRepository adminRepository;
 		
 		
 		@RequestMapping(value = "/approvalList",  method = RequestMethod.GET)
-		public String ApprovalList()
+		public String ApprovalList(Model model, ApprovalDTO dto)
 		{
 			//페이징, 결재구분 
-			
+			List<ApprovalDTO> allEvents = approvalRepository.selectapprovalList(dto);
+		    model.addAttribute("list", allEvents);
 			return "approval/approvalList";
 		}
 		
 		
 		@RequestMapping(value = "/draftList",  method = RequestMethod.GET)
-		public String DraftList()
+		public String DraftList(Model model, ApprovalDTO dto)
 		{
 			//페이징
-			
+			List<ApprovalDTO> allEvents = approvalRepository.selectdraftList(dto);
+		    model.addAttribute("list", allEvents);
 			return "approval/draftList";
 		}
 	
@@ -60,20 +67,36 @@ public class ApprovalController
 			
 			return "approval/addApprovalList";
 		}
-		/*	
-		@RequestMapping(value = "/draftWrite",  method = RequestMethod.POST)
-		public Map<String, Object> DraftWrite(ScheduleDTO dto)
+	
+		@RequestMapping(value = "/draftWrite", method = RequestMethod.GET)
+		public String DraftWriteForm(Model model)
 		{
-			approvalRepository.Insert(dto);
+		    // 사용자가 결재 문서를 작성할 JSP/HTML 페이지를 반환
+		    return "approval/draftWrite"; 
+		}
+		
+		@RequestMapping(value = "/draftWrite",  method = RequestMethod.POST)
+		@ResponseBody
+		public Map<String, Object> DraftWrite(ApprovalDTO dto)
+		{
+			int result = approvalRepository.Insert(dto);
 			
 			Map<String, Object> response = new HashMap<String, Object>();
-		    response.put("result", "success");
-		    response.put("no", dto.getSchedule_no());
+			if (result > 0) {
+		        
+		        response.put("result", "success");
+		        response.put("approval_no", dto.getApproval_no()); 
+		        
+		    } else {
+		       
+		        response.put("result", "fail");
+		        response.put("message", "결재 상신에 실패했습니다.");
+		    }
 		    
 			return response;
 		}
 
-		
+		/*	
 		@RequestMapping(value = "/draftWriteOK", method = RequestMethod.POST)
 		public String DraftWriteOK(ApprovalDTO dto,
 				@RequestParam("attach")MultipartFile file,
@@ -194,7 +217,7 @@ public class ApprovalController
 			return "redirect:/approvalView?no=" + dto.getApproval_no();
 		}	
 		
-		
+	
 		@RequestMapping(value = "/approvalView", method = RequestMethod.GET)
 		public String ApprovalView(@RequestParam(required = true) String no,
 				Model model)
@@ -218,7 +241,8 @@ public class ApprovalController
 			approvalRepository.Delete(no);
 			return "redirect:/DraftList";
 		}
-		*/
+		
+			*/
 		
 	
 }

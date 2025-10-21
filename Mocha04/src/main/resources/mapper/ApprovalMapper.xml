@@ -5,13 +5,41 @@
 <mapper namespace="approval">
  
 	
-	<insert id="insert" parameterType="mocha.ezen.com.schedule.ScheduleDTO" 
-	    useGeneratedKeys="true" keyProperty="schedule_no">
-	    INSERT INTO schedule 
-	    (user_id, schedule_title, schedule_kind, schedule_note, start_at, end_at) 
+	<insert id="insert" parameterType="mocha.ezen.com.approval.ApprovalDTO" 
+	    useGeneratedKeys="true" keyProperty="approval_no">
+	    INSERT INTO approval 
+	    (approval_no,approval_title, approval_kind, approval_note, created_at) 
 	    VALUES 
-	    (#{user_id}, #{schedule_title}, #{schedule_kind}, #{schedule_note}, #{start_at}, #{end_at}) 
+	    (#{approval_no}, #{approval_title}, #{approval_kind}, #{approval_note}, #{created_at}) 
 	</insert>
+	
+
+	<select id="selectdraft" parameterType="mocha.ezen.com.approval.ApprovalDTO" resultType="mocha.ezen.com.approval.ApprovalDTO">
+        SELECT
+        	approval_no, user_id, date(created_at) as created_at, approval_title, 
+        	(CASE approval_kind
+            WHEN '1' THEN '연차신청'
+            WHEN '2' THEN '업무지원요청'
+            WHEN '3' THEN '예산신청'
+            WHEN '4' THEN '출장신청'
+        END) AS approval_kind, approval_note
+        FROM approval
+        ORDER BY created_at DESC  
+    </select>
+    
+    <select id="selectapproval" parameterType="mocha.ezen.com.approval.ApprovalDTO" resultType="mocha.ezen.com.approval.ApprovalDTO">
+        SELECT
+        	approval_no, user_id, date(created_at) as created_at, approval_title, 
+    	    (CASE approval_kind
+            WHEN '1' THEN '연차신청'
+            WHEN '2' THEN '업무지원요청'
+            WHEN '3' THEN '예산신청'
+            WHEN '4' THEN '출장신청'
+        END) AS approval_kind, approval_note
+        	approval_kind, approval_note
+        FROM approval
+        ORDER BY created_at DESC  
+    </select>
 	
 	<!-- 
 	<select id="view" parameterType="java.lang.String" 
