@@ -24,19 +24,19 @@
 							<tbody>
 								<tr>
 									<th scope="row">작성자</th>
-									<td>홍길동</td>
+									<td>${approval.name}</td>
 								</tr>
 								<tr>
 									<th scope="row">부서</th>
-									<td>경영지원팀</td>
+									<td>${approval.deptName}</td>
 								</tr>
 								<tr>
 									<th scope="row">직급</th>
-									<td>사원</td>
+									<td>${approval.rankName}</td>
 								</tr>
 								<tr>
 									<th scope="row">작성일</th>
-									<td>2025-09-18</td>
+									<td><fmt:formatDate value="${approval.created_at}" pattern="yyyy-MM-dd" /></td>
 								</tr>
 							</tbody>
 						</table>
