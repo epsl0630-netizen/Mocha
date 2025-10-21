@@ -13,35 +13,39 @@
 	    (#{user_id}, #{schedule_title}, #{schedule_kind}, #{schedule_note}, #{start_at}, #{end_at}) 
 	</insert>
 	
-	
+	<!-- 단일 -->
 	<select id="view" parameterType="java.lang.String" 
 			resultType="mocha.ezen.com.schedule.ScheduleDTO">
 		select 
-			schedule_no,user_id,schedule_title,schedule_kind,schedule_note,start_at,
+			schedule_no,user_id,schedule_title,schedule_kind,schedule_note,start_at, end_at,
 			(select name from user where user_id = board.user_id) as name
 		from schedule
-		where schedule_no = #{ no }
+		where schedule_no = #{ schedule_no }
 	</select>
+	
+	<!-- 목록 -->
+	<select id="selectAllEvents" parameterType="mocha.ezen.com.schedule.ScheduleDTO" resultType="mocha.ezen.com.schedule.ScheduleDTO">
+        select
+        	schedule_no, user_id, start_at, end_at, schedule_title, schedule_kind,schedule_note
+        from schedule
+       
+    </select>
 
 	<update id="update" parameterType="mocha.ezen.com.schedule.ScheduleDTO">
 		update schedule set
 		schedule_title = #{ schedule_title },
 		schedule_note = #{ schedule_note },				
 		schedule_kind = #{ schedule_kind }
-		where schedule_no = #{ schedule_no }		
+		where schedule_no = #{ no }		
 	</update>
-
 	 	
 	<delete id="delete" parameterType="java.lang.String">
 		delete from schedule
 		where no = #{ no }
 	</delete>
 	
-	<!-- 
-	<selectAllEvents>
+ 
 	
-	</selectAllEvents>
-	 -->
 	
 	<!-- 
 	<select id="total" parameterType="mocah.ezen.com.SearchDTO"

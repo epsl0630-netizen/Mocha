@@ -32,18 +32,19 @@ public class ScheduleRepository
 		return true;
 	}	
 	
-	//게시물 정보를 읽는다.	
-	//IsHit = true : 조회수 증가, false : 조회수 증가 안함.
-	public ScheduleDTO Read(String no,boolean IsHit)
+	// 단일 게시물 정보를 읽는다.	
+
+	public ScheduleDTO Read(String no)
 	{
-		ScheduleDTO dto = session.selectOne(namespace + ".view",no);
-		
-		if(IsHit == true)
-		{
-			session.update(namespace + ".hit",no);
-		}
-		return dto;
+		return  session.selectOne(namespace + ".view",no);	
 	}	
+	
+	// 데이터 목록
+	public List<ScheduleDTO> selectAllEvents(ScheduleDTO dto) 
+	{
+		return session.selectList(namespace + ".selectAllEvents", dto);
+	}
+	
 	
 	
 	//게시물 정보를 변경한다.
@@ -55,12 +56,7 @@ public class ScheduleRepository
 	}
 
 
-	public List<ScheduleDTO> selectAllEvents(ScheduleDTO dto) 
-	{
-		return session.selectList(namespace + ".selectAllEvents", dto);
-	}
-	
-	
+
 	
 	
 

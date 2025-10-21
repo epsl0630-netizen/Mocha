@@ -60,7 +60,7 @@ public class ApprovalController
 			
 			return "approval/addApprovalList";
 		}
-		
+		/*	
 		@RequestMapping(value = "/draftWrite",  method = RequestMethod.POST)
 		public Map<String, Object> DraftWrite(ScheduleDTO dto)
 		{
@@ -72,7 +72,7 @@ public class ApprovalController
 		    
 			return response;
 		}
-/*
+
 		
 		@RequestMapping(value = "/draftWriteOK", method = RequestMethod.POST)
 		public String DraftWriteOK(ApprovalDTO dto,

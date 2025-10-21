@@ -19,42 +19,45 @@ public class ScheduleController
 	@Autowired
 	ScheduleRepository  scheduleRepository;
 	
+	//전제목록조회
 	@RequestMapping(value = "/scheduleList", method = RequestMethod.GET)
-	public String ScheduleList(Model model)
+	public String ScheduleList(Model model, ScheduleDTO dto)
 	{
 		//페이징
 		
+		List<ScheduleDTO> allEvents = scheduleRepository.selectAllEvents(dto);
+	    model.addAttribute("scheduleList", allEvents);
 		
 		return "schedule/scheduleList";
 	}
 	
-	@RequestMapping(value = "/eventsData", method = RequestMethod.GET)
-	@ResponseBody
-	public List<ScheduleDTO> getEventsData() {
-	   
-	    List<ScheduleDTO> allEvents = scheduleRepository.selectAllEvents(null); 
+	
+	//일정 목록 데이터 조회 API (클라이언트/Ajax용)
+	@RequestMapping(value = "/ScheduleView",  method = RequestMethod.GET)
+	@ResponseBody 
+	public Map<String, Object> ScheduleView(ScheduleDTO dto) {
 	    
-	 
-	    return allEvents;
+	    List<ScheduleDTO> allSchedules = scheduleRepository.selectAllEvents(dto);
+	    
+	    Map<String, Object> response = new HashMap<String, Object>();
+	    response.put("result", "success");   
+	    response.put("scheduleList", allSchedules);
+	    
+	    return response;
 	}
+	
+	//일정 단일 조회 (ajax 모달 상세보기용)
+	@RequestMapping(value = "/ScheduleOne", method = RequestMethod.GET )
+    @ResponseBody
+    public ScheduleDTO ScheduleOne(@RequestParam("no") String scheduleNo) {
+       
+        return scheduleRepository.Read(scheduleNo); 
+    }
+	
 	
 	@RequestMapping(value = "/ScheduleWrite", method = RequestMethod.POST)
 	@ResponseBody 
 	public Map<String, Object> ScheduleWrite(ScheduleDTO dto)
-	{
-		scheduleRepository.Insert(dto);
-		
-		Map<String, Object> response = new HashMap<String, Object>();
-	    response.put("result", "success");
-	    response.put("no", dto.getSchedule_no());
-	    
-		return response;
-	}
-	
-	
-	@RequestMapping(value = "/ScheduleWriteOK", method = RequestMethod.POST)
-	@ResponseBody 
-	public Map<String, Object> ScheduleWriteOK(ScheduleDTO dto)
 	{
 		scheduleRepository.Insert(dto);
 		
@@ -71,43 +74,16 @@ public class ScheduleController
 	public Map<String, Object> ScheduleModify(@RequestParam(required = true) String no,
 			ScheduleDTO dto)
 	{
-		scheduleRepository.Insert(dto);
-		
-		Map<String, Object> response = new HashMap<String, Object>();
-	    response.put("result", "success");
-	    response.put("no", dto.getSchedule_no());
-		
-		return response;
-	}
-	
-	@RequestMapping(value = "/ScheduleModifyOK", method = RequestMethod.POST)
-	@ResponseBody 
-	public Map<String, Object> ScheduleModifyOK(ScheduleDTO dto)
-	{
 		scheduleRepository.Update(dto);
 		
 		Map<String, Object> response = new HashMap<String, Object>();
 	    response.put("result", "success");
 	    response.put("no", dto.getSchedule_no());
-	    
+		
 		return response;
 	}
 	
-	@RequestMapping(value = "/ScheduleList")
-	@ResponseBody 
-	public Map<String, Object> ScheduleView(ScheduleDTO dto) {
-	    
-	    scheduleRepository.Insert(dto);
 
-	    Map<String, Object> response = new HashMap<String, Object>();
-	    response.put("result", "success");
-	    response.put("no", dto.getSchedule_no());
-	    
-	    return response;
-	}
-	
-	
-	
 	@RequestMapping(value = "/ScheduleDelete", method = RequestMethod.POST)
 	@ResponseBody
 	public  Map<String, Object> ScheduleDelete(@RequestParam(required = true)String no)

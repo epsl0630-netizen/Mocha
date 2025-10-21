@@ -128,22 +128,33 @@ $(document).ready(function() {
     // ----------------------------------------------------------------------
 
 
-    /**
-     * ⭐️ AJAX: 서버에서 일정 데이터를 불러와 전역 events 배열을 업데이트합니다.
-     * (initCalendar 밖으로 이동 - 구조 개선)
-     */
     function loadEventsFromDB(callback) {
         $.ajax({
-            url: CONTEXT_PATH+'/schedule/eventsData', // Controller에서 추가한 API 경로
+            url:'ScheduleView', 
             type: 'GET',
             dataType: 'json',
-            success: function(data) {
-                // ⭐️ 전역 events 배열을 DB 데이터로 업데이트
-                events = data; 
-                if (callback) {
-                    callback();
-                }
-            },
+            success: function(response) {
+            console.log("서버응답",response);
+            const rawScheduleList = response.scheduleList;
+			events = rawScheduleList.map(item => ({
+                
+                id: item.schedule_no,
+                title: item.title, //schedule_title 오류로 title로 사용
+                startDate: item.start_at ? item.start_at.substring(0, 10) : '', 
+                endDate: item.end_at ? item.end_at.substring(0, 10) : '',       
+                start: item.start_at ? item.start_at.substring(11, 16) : '',    
+                end: item.end_at ? item.end_at.substring(11, 16) : '',          
+                memo: item.schedule_note,
+               
+                type: item.schedule_kind === '개인' ? 'personal' : 'team',
+                author: item.user_id 
+            }));
+            
+            console.log("변환된 첫 번째 일정:", events[0]);
+	                if (callback) {
+	                    callback();
+	                }
+	            },
             error: function(xhr, status, error) {
                 console.error("일정 데이터를 불러오는 데 실패했습니다.", error);
                 alert("일정 데이터를 불러오지 못했습니다.");
@@ -481,7 +492,7 @@ $(document).ready(function() {
                 return;
             }
 
-            // ⭐️ AJAX: 일정 등록/수정 요청 (가상 데이터 처리 로직을 대체해야 함)
+            // ⭐️ AJAX: 일정 등록/수정 요청 
             const isModify = id !== null;
             const url = isModify ? '/schedule/ScheduleModify' : '/schedule/ScheduleWrite';
             
