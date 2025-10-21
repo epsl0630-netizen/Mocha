@@ -4,7 +4,76 @@
 <%@ include file="./approvalMenu.jsp"%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/approval.css" />
+<script>
+	
+    const btnFilterAll = document.getElementById('btn-filter-all');
+    const btnFilterINPROGRESS = document.getElementById('btn-filter-inprogress');
+    const btnFilterAPPROVAL = document.getElementById('btn-filter-approval');
+    const btnFilterREJECT = document.getElementById('btn-filter-reject');
+    
+    
+	let currentFilter = 'all'; 
 
+	function changeFilter(filterType) {
+        currentFilter = filterType;
+        updateFilterButtons();
+        
+        // ⚠️ 실제로 링크를 클릭한 것처럼 처리해야 합니다.
+        // 예를 들어: window.location.href = `${pageContext.request.contextPath}/approval/approvalList?kind=${filterType}`;
+	}
+
+	function updateFilterButtons() {
+       
+	    const filterBtns = [btnFilterAll, btnFilterINPROGRESS, btnFilterAPPROVAL, btnFilterREJECT];
+
+	    filterBtns.forEach(btn => {
+	        if (btn) { 
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-outline-dark'); //
+            }
+	    });
+	
+    
+        let selectedBtn;
+        switch(currentFilter) {
+            case 'all': selectedBtn = btnFilterAll; break;
+            case 'inprogress': selectedBtn = btnFilterINPROGRESS; break;
+            case 'approved': selectedBtn = btnFilterAPPROVAL; break; 
+            case 'rejected': selectedBtn = btnFilterREJECT; break;    
+        }
+
+        if (selectedBtn) {
+            selectedBtn.classList.remove('btn-outline-dark');
+            selectedBtn.classList.add('btn-dark'); 
+        }
+        
+	}
+    
+   
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        let kind = urlParams.get('kind');
+        
+        /
+        if (kind) {
+            kind = kind.replace(/'/g, '').toLowerCase(); 
+           
+            currentFilter = kind === 'in_progress' ? 'inprogress' : kind;
+        } else {
+             currentFilter = 'all';
+        }
+        
+        if (btnFilterAll) {
+            btnFilterAll.addEventListener('click', () => changeFilter('all'));
+            btnFilterINPROGRESS.addEventListener('click', () => changeFilter('in_progress')); 
+            btnFilterAPPROVAL.addEventListener('click', () => changeFilter('approved'));   
+            btnFilterREJECT.addEventListener('click', () => changeFilter('rejected'));    
+        }
+
+        updateFilterButtons();
+    };
+	
+</script>
 <!-- section start -->
 <td id="section">
 	<div class="container">
@@ -31,14 +100,14 @@
 		</div>
 		<div>
 			<a
-				href="${pageContext.request.contextPath}/approval/draftList?kind='ALL'"
-				class="btn btn-outline-dark">전체</a> <a
-				href="${pageContext.request.contextPath}/approval/draftList?kind='IN_PROGRESS'"
-				class="btn btn-outline-dark">진행</a> <a
-				href="${pageContext.request.contextPath}/approval/draftList?kind='APPROVED'"
-				class="btn btn-outline-dark">승인</a> <a
-				href="${pageContext.request.contextPath}/approval/draftList?kind='REJECTED'"
-				class="btn btn-outline-dark">반려</a>
+				href="${pageContext.request.contextPath}/approval/approvalList?kind='ALL'"
+				class="btn btn-outline-dark" id="btn-filter-all">전체</a> <a
+				href="${pageContext.request.contextPath}/approval/approvalList?kind='IN_PROGRESS'"
+				class="btn btn-outline-dark" id="btn-filter-inprogress">진행</a> <a
+				href="${pageContext.request.contextPath}/approval/approvalList?kind='APPROVED'"
+				class="btn btn-outline-dark" id="btn-filter-approval" >승인</a> <a
+				href="${pageContext.request.contextPath}/approval/approvalList?kind='REJECTED'"
+				class="btn btn-outline-dark" id="btn-filter-reject" >반려</a>
 		</div>
 
 		<hr>
@@ -58,80 +127,31 @@
 							</tr>
 						</thead>
 						<tbody>
+							<c:forEach var="item" items="${list}">
 							<tr>
-								<th scope="row">1</th>
-								<td>2025-09-17</td>
-								<td>2025-09-17</td>
-								<td>연차신청</td>
+								<th scope="row">${ item.approval_no }</th>
+								<td>${ item.created_at }</td>
+								<td>${ item.created_at }</td>
+								<td>${ item.approval_kind }</td>
 								<td><a
-									href="${pageContext.request.contextPath}/approval/draftView"
-									class="table-link"> 신청서 [재상신 1] </a></td>
-								<td>홍길동</td>
-								<td><button type="button" class="btn btn-outline-success">진행</button></td>
+									href="${pageContext.request.contextPath}/approval/approvalView?no=${ item.approval_no}"
+									class="table-link"> ${item.approval_title } </a></td>
+								<td>${ item.user_id }</td>
+								<td>
+					                <c:choose>
+					                    <c:when test="${item.approval_status eq 'INPROGRESS'}">
+					                        <span class="btn btn-sm btn-outline-success">진행</span>
+					                    </c:when>
+					                    <c:when test="${item.approval_status eq 'APPROVED'}">
+					                        <span class="btn btn-sm btn-outline-primary">승인</span>
+					                    </c:when>
+					                    <c:when test="${item.approval_status eq 'REJECTED'}">
+					                        <span class="btn btn-sm btn-outline-danger">반려</span>
+					                    </c:when>
+					                </c:choose>
+					            </td>
 							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td>2025-09-17</td>
-								<td>2025-09-17</td>
-								<td>예산신청</td>
-								<td>예산신청</td>
-								<td>홍길동</td>
-								<td><button type="button" class="btn btn-outline-primary">승인</button></td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>2025-09-18</td>
-								<td>2025-09-18</td>
-								<td>연차신청</td>
-								<td>연차신청서</td>
-								<td>홍길동</td>
-								<td><button type="button" class="btn btn-outline-danger">반려</button></td>
-							</tr>
-							<tr>
-								<th scope="row">4</th>
-								<td>2025-09-18</td>
-								<td>2025-09-18</td>
-								<td>연차신청</td>
-								<td>연차신청서</td>
-								<td>홍길동</td>
-								<td><button type="button" class="btn btn-outline-success">진행</button></td>
-							</tr>
-							<tr>
-								<th scope="row">5</th>
-								<td>2025-09-18</td>
-								<td>2025-09-18</td>
-								<td>연차신청</td>
-								<td>연차신청서</td>
-								<td>홍길동</td>
-								<td><button type="button" class="btn btn-outline-success">진행</button></td>
-							</tr>
-							<tr>
-								<th scope="row">6</th>
-								<td>2025-09-18</td>
-								<td>2025-09-18</td>
-								<td>연차신청</td>
-								<td>연차신청서</td>
-								<td>홍길동</td>
-								<td><button type="button" class="btn btn-outline-success">진행</button></td>
-							</tr>
-							<tr>
-								<th scope="row">7</th>
-								<td>2025-09-18</td>
-								<td>2025-09-18</td>
-								<td>연차신청</td>
-								<td>연차신청서</td>
-								<td>홍길동</td>
-								<td><button type="button" class="btn btn-outline-success">진행</button></td>
-							</tr>
-							<tr>
-								<th scope="row">8</th>
-								<td>2025-09-18</td>
-								<td>2025-09-18</td>
-								<td>연차신청</td>
-								<td>연차신청서</td>
-								<td>홍길동</td>
-								<td><button type="button" class="btn btn-outline-danger">반려</button></td>
-							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
