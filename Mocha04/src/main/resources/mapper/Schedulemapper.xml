@@ -4,13 +4,13 @@
 <!-- Namespace를 통해 JAVA 클래스와 Annotation클래스와 동기 -->
 <mapper namespace="schedule">
  
-	
+		<!-- user_id, #{user_id}, 일단 삭제 후 로인인 완료 후 추가, 테스트하기 -->	
 	<insert id="insert" parameterType="mocha.ezen.com.schedule.ScheduleDTO" 
 	    useGeneratedKeys="true" keyProperty="schedule_no">
 	    INSERT INTO schedule 
-	    (user_id, schedule_title, schedule_kind, schedule_note, start_at, end_at) 
+	    (schedule_title, schedule_kind, schedule_note, start_at, end_at) 
 	    VALUES 
-	    (#{user_id}, #{schedule_title}, #{schedule_kind}, #{schedule_note}, #{start_at}, #{end_at}) 
+	    ( #{schedule_title}, #{schedule_kind}, #{schedule_note}, #{start_at}, #{end_at}) 
 	</insert>
 	
 	<!-- 단일 -->

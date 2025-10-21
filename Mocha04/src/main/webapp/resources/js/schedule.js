@@ -468,7 +468,7 @@ $(document).ready(function() {
         eventForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            // 💡 전역 openEventModal에서 모달 인스턴스를 얻었으므로, 여기서는 다시 인스턴스를 얻습니다.
+
             const modalInstance = bootstrap.Modal.getInstance(document.getElementById('eventModal'));
             
             const startDate = eventStartDateInput.value; 
@@ -491,23 +491,32 @@ $(document).ready(function() {
                 alert('종료일은 시작일보다 빠를 수 없습니다.');
                 return;
             }
-
+            
+            //db 스케줄에 user_id null 허용 함 , 테스트 후 not null 로변경! 
+            //로그인후 테스트!!!!
+		    //if (!user_id || user_id.length === 0) {
+	        //user_id가 없으면 일정 등록/수정 요청을 보낼 수 없음
+	       // showCustomAlert('사용자 정보(user_id)를 확인할 수 없습니다. 로그인 상태를 확인해주세요.');
+	       // return; 
+			
+			
             // ⭐️ AJAX: 일정 등록/수정 요청 
             const isModify = id !== null;
-            const url = isModify ? '/schedule/ScheduleModify' : '/schedule/ScheduleWrite';
+            const url = isModify ? 'ScheduleModify' : 'ScheduleWrite';
             
             const formData = {
-                id: id,
-                startDate: startDate,
-                endDate: endDate,
-                title: title,
-                start: start,
-                end: end,
-                memo: memo,
-                type: type
-                // author는 서버 세션에서 가져와야 합니다.
+				schedule_no: id, 
+				title: title, 
+				start_at: startDate + (start ? ' ' + start + ':00' : ' 00:00:00'),
+        		end_at: endDate + (end ? ' ' + end + ':00' : ' 00:00:00'),
+        		schedule_note: memo,
+       		 	schedule_kind: type,
+  				//user_id: user_id 
+   			
             };
 
+			console.log("Saving Schedule with FormData:", formData);
+	
             $.ajax({
                 url: url,
                 type: 'POST',
