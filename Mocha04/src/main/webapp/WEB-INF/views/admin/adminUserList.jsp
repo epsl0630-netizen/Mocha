@@ -58,14 +58,14 @@
 	                        <td>
 	                        	<c:out value="${item.user_id}"/>
 	                        </td>
-	                        <td><c:out value="${item.dept_id}"/></td>
+	                        <td><c:out value="${item.dept_name}"/></td>
 	                        <td><c:out value="${item.name}"/></td>
 	                      </tr>
                       </c:forEach>
                     </table>
                   </td>
                   <td class="user-info-container">
-                    <form id="user-info-change-frm" method="post" action="${pageContext.request.contextPath}/admin/adminUserModify" onsubmit="">
+                    <form id="userInfoFrm" method="post" action="${pageContext.request.contextPath}/admin/adminUserModify" onsubmit="">
                       <div class="user-info">
                         <div class="profile-container">
                           <div class="profile-square">
@@ -86,7 +86,7 @@
 						  </td>
                           <td>부서</td>
                           <td>
-                            <select id="user_kind" name="user_kind" class="select_user_kind form-select form-select-sm">
+                            <select id="dept_id" name="dept_id" class="select_user_kind form-select form-select-sm">
                               <option value="1">경영지원팀</option>
                               <option value="2">디자인팀</option>
                               <option value="3">인사지원팀</option>
@@ -95,7 +95,7 @@
                           </tr>
                           <tr>
                             <td>사원번호</td>
-                            <td><span id="user_id"></span></td>
+                            <td><span id="user_id"></span><input type="hidden" id="hiden_user_id" name="user_id"></td>
                             <td>내선번호</td>
                             <td><span id="user_phone"></span></td>
                           </tr>
@@ -104,20 +104,20 @@
                             <td><input id="email" name="email" type="text" class="form-control form-control-sm" value="hong@email.com"></td>
                             <td>휴대전화</td>
                             <td>
-                            	<input id="mobile1" name="mobile1" class="phone-input form-control form-control-sm" type="tel" value="" maxlength="3"> - <input id="mobile2" name="mobile2" class="phone-input form-control form-control-sm" type="tel" value="" maxlength="4"> - <input id="mobile3" name="mobile3" class="phone-input form-control form-control-sm"  type="tel" value="" maxlength="4"></td>
+                            	<input id="mobile" name="mobile" class="phone-input form-control form-control-sm" type="tel" value="" maxlength="11"></td>
                           </tr>
                           <tr>
                             <td colspan="4">비밀번호
-                              <button class="btn btn-outline-dark btn-right" id="admin-pw-change-btn">비밀번호 변경</button>
+                              <button type="button" class="btn btn-outline-dark btn-right" id="admin-pw-change-btn">비밀번호 변경</button>
                             </td>
                           </tr>
-                          <tr name="user_pw" class="admin-pw-change">
+                          <tr class="admin-pw-change">
                             <td>새 비밀번호</td>
-                            <td><input type="text" class="form-control form-control-sm"></td>
+                            <td><input type="text" id="user_pw" name="user_pw" class="form-control form-control-sm"></td>
                           </tr>
                           <tr class="admin-pw-change">
                             <td>새 비밀번호 확인</td>
-                            <td><input type="text" name="user_pw_ck" class="form-control form-control-sm"></td>
+                            <td><input type="text" id="user_pw_ck" name="user_pw_ck" class="form-control form-control-sm"></td>
                           </tr>
                         </table>
                       </div>
@@ -130,7 +130,7 @@
                               생년월일
                             </td>
                             <td>
-                              <input type="date" id="user_birth" name="user_birth" class="form-control form-control-sm" value="1443-10-13">
+                              <input type="date" id="user_birth" name="user_birth" class="form-control form-control-sm">
                             </td>
                             <td>
                               성별
@@ -148,7 +148,7 @@
                               주소
                             </td>
                             <td colspan="3">
-                              <input type="text" name="user_addr" class="form-control form-control-sm" value="충청도">
+                              <input id="user_addr" type="text" name="user_addr" class="form-control form-control-sm" >
                             </td>
                           </tr>
                         </table>
@@ -196,7 +196,7 @@
 	<!-- Modal addUser Start-->
 	<div class="modal fade" id="addUser-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
-	      	<form id="addUserFrm" method="post" action="${pageContext.request.contextPath}/admin/adminUserWrite">
+	      	<form id="addUserFrm" method="post" action="${pageContext.request.contextPath}/admin/adminUserWrite" onsubmit="return JoinCheck(this.id);">
 				<div class="modal-content">
 		      		<div class="modal-header">
 		        		<h5 class="modal-title" id="staticBackdropLabel">사원 등록</h5>
@@ -207,7 +207,7 @@
 			            	<table>
 				              	<tr>
 				                  <td>사원번호</td>
-				                  <td><input type="text" name="user_id" class="form-control form-control-sm" ></td>
+				                  <td><input type="text" id="user_id" name="user_id" class="form-control form-control-sm" ></td>
 				                </tr>
 				              	<tr>
 				                  <td colspan="2">
@@ -216,11 +216,11 @@
 				                </tr>
 				                 <tr>
 				                  <td>비밀번호</td>
-				                  <td><input type="password" name="user_pw" class="form-control form-control-sm" ></td>
+				                  <td><input type="password" id="user_pw" name="user_pw" class="form-control form-control-sm" ></td>
 				                </tr>
 				                <tr>
 				                  <td>비밀번호 확인</td>
-				                  <td><input type="password" name="user_pwcheck" class="form-control form-control-sm" ></td>
+				                  <td><input type="password" id="user_pw_ck" name="user_pwcheck" class="form-control form-control-sm" ></td>
 				                </tr>
 				                <tr>
 				                  <td>이름</td>
@@ -232,7 +232,6 @@
 			                		<td>부서</td>
 									<td>
 										<select name="dept_id" class="select_user_kind form-select form-select-sm">
-									    	<option value="0">부서 선택</option>
 										    <option value="1">경영지원팀</option>
 										    <option value="2">디자인팀</option>
 										    <option value="3">인사지원팀</option>
@@ -243,7 +242,7 @@
 			                		<td>성별</td>
 									<td>
 										<select name="user_gender" class="select_user_kind form-select form-select-sm">
-			                                <option>--</option>
+			                                <option value="N">--</option>
 			                                <option value="M">남성</option>
 			                                <option value="F">여성</option>
 									  	</select>

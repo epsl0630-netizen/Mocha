@@ -15,7 +15,8 @@
  	where user_id = #{user_id} 
  </select>
  <select id="userList" resultType="mocha.ezen.com.user.UserDTO">
- 	select user_id, name, is_active, dept_id
+ 	select user_id, name, is_active, 
+ 	(select dept_name from departments where dept_id = user.dept_id) as dept_name 
  	from user
  </select>
  <select id="total" resultType="java.lang.Integer">
@@ -29,20 +30,25 @@
  </select>
  <update id="modify" parameterType="mocha.ezen.com.user.UserDTO">
  	update user set 
-	name = #{name},  
 	dept_id = #{dept_id},  
+	name = #{name},  
 	email = #{email}, 
-	mobile = #{mobile}, 
 	user_birth = #{user_birth}, 
 	user_gender = #{user_gender}, 
-	user_addr = #{user_addr}, 
 	authority = #{authority}, 
-	user_rank = #{user_rank},
-	updated_at = now() 
-	<if test='user_pw != null and !user_pw.equals("")'>
-	, 
-	user_pw = md5(#{user_pw})
+	<if test='mobile != null and !mobile.equals("")'>
+		mobile = #{mobile}, 
+	</if>	
+	<if test='user_rank != null and !user_rank.equals("")'>
+		user_rank = #{user_rank}, 
 	</if>
+	<if test='user_addr != null and !user_addr.equals("")'>
+		user_addr = #{user_addr}, 
+	</if>
+	<if test='user_pw != null and !user_pw.equals("")'>
+		user_pw = md5(#{user_pw}), 
+	</if>
+	updated_at = now() 
 	where user_id = #{user_id}
  </update>
 <!--	<select id="searchUser" parameterType="mocha.ezen.com.UserSearchDTO" resultType="mocha.ezen.com.UserDTO">

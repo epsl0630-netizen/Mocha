@@ -1,4 +1,13 @@
+.HRD-table tbody{
+	display: inline-block;
+    overflow-y: scroll;
+    height: 580px;
+}
+.HRD-table tr {
+	width: 300px;
+}
 .HRD-table td {
+	width: 100px;
 	border: 1px solid #cecece;
 }
 
@@ -6,12 +15,10 @@
 	vertical-align: top;
 }
 
-.HRD-container {
-	height: 560px;
-}
 
 .HRD-table-container {
-	overflow-y: scroll;
+	width: 300px;
+	height: 560px;
 	border: 1px solid #cecece;
 }
 
@@ -19,8 +26,13 @@
 	width: 100%;
 	text-align: center;
 }
-
+.HRD-table tr:nth-child(1) {
+	background-color: white;
+	position:sticky;
+	top:0px;
+}
 .HRD-table tr:nth-child(1)>td {
+	border-bottom: 1px solid red;
 	border-width: 0px 1px;
 	font-weight: bold;
 }
@@ -52,12 +64,6 @@
 
 .HRD-search td:nth-child(even) {
 	width: 70px;
-}
-
-.HRD-table-container {
-	overflow-y: scroll;
-	border: 1px solid #cecece;
-	width: 300px;
 }
 
 .HRD-table-container, .user-info-container {
@@ -134,7 +140,6 @@
 }
 
 .phone-input {
-	width: 49px !important;
 	display: inline-block;
 }
 

@@ -1,3 +1,4 @@
+let joinCheckFlag = false;
 $(document).ready(function() {
 	//load 후 유저정보 가져오기
 	const params = new URLSearchParams(window.location.search);
@@ -29,6 +30,7 @@ $(document).ready(function() {
 	  		AdminUserView(userId);
 	  	}
 	);
+	
 	
   
 });
@@ -87,19 +89,20 @@ function AdminUserView(user_id) {
 		dataType : "json",
 		type: "post",
 		success: function(data) {
-		console.log(data);
-			$("#name").val(data.name);
-			$("#email").val(data.email);
-			$("#user_id").text(data.user_id);
-			$("#user_phone").text(data.user_id);
-			$("#mobile").val(data.mobile);
-			$("#user_birth").val(data.user_birth);
-			$("#user_addr").val(data.user_addr);
-			$("#authority").val(data.authority+"");
+			$("#userInfoFrm #name").val(data.name);
+			$("#userInfoFrm #email").val(data.email);
+			$("#userInfoFrm #user_id").text(data.user_id);
+			$("#userInfoFrm #hiden_user_id").val(data.user_id);
+			$("#userInfoFrm #user_phone").text(data.user_id);
+			$("#userInfoFrm #mobile").val(data.mobile);
+			$("#userInfoFrm #user_birth").val(data.user_birth);
+			$("#userInfoFrm #user_addr").val(data.user_addr);
+			$("#userInfoFrm #authority").val(data.authority+"");
 			
-			$("#user_gender").val(data.user_gender);
-			$("#user_rank").val(data.user_rank);
-			$("#created_at").text(data.created_at);
+			$("#userInfoFrm #user_gender").val(data.user_gender);
+			$("#userInfoFrm #dept_id").val(data.dept_id);
+			$("#userInfoFrm #user_rank").val(data.user_rank);
+			$("#userInfoFrm #created_at").text(data.created_at);
 			
 			if(data.mobile != "" && data.mobile != null) {
 				const back = data.mobile.slice(-4);
@@ -114,5 +117,45 @@ function AdminUserView(user_id) {
 		}
 	});
 }
-//user 정보 바꾸기
+//회원가입 check
+function JoinCheck(frmId) {
+	
+	joinCheckFlag = false;	//초기화
+	
+	if(!JoinInputCheck(frmId)) {
+	}else
+	if(!PwCheck(frmId)) {
+	}else{
+		joinCheckFlag = true;
+	}
 
+	return joinCheckFlag;
+}
+
+//user 비밀번호 확인
+function PwCheck(frmId) {
+	//비밀번호 일치여부 확인
+	if($("#" + frmId + " #user_pw").val() == $("#" + frmId + " #user_pw_ck").val()) {
+		return true;
+	}
+	alert("비밀번호가 일치하지 않습니다.");
+	$("#user_pw").focus();
+	
+	return false;
+	
+}
+//Input확인
+function JoinInputCheck(frmId) {
+	const inputList = $("#" + frmId).serializeArray();
+	for(var i in inputList) {
+		var v = inputList[i].value.trim();
+		var n = inputList[i].name;
+		
+		if(v == null || v == "") {
+			alert("모든 입력칸은 필수입니다.");
+			$("input[name=" + n + "]").focus();
+			return false;
+		}
+	}
+	return true;
+}

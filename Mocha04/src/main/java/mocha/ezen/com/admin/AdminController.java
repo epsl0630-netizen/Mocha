@@ -43,7 +43,7 @@ public class AdminController {
 	{
 		userRepository.Join(dto);
 		
-		return AdminUserList(model, dto.getUser_id());
+		return "redirect:adminUserList?user_id=" + dto.getUser_id();
 	}
 	
 	@RequestMapping(value = "/adminUserView", method = RequestMethod.POST)
@@ -54,8 +54,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/adminUserModify", method = RequestMethod.POST)
-	public String AdminUserModify(UserDTO dto) {
-		dto = userRepository.ModifyUser(dto);
-		return "admin/adminUserList";
+	public String AdminUserModify(UserDTO dto, @RequestParam(required = false)String mobile1, @RequestParam(required = false)String mobile2, @RequestParam(required = false)String mobile3) {
+		userRepository.ModifyUser(dto);
+		//return "admin/adminUserList";
+		return "redirect:adminUserList?user_id=" + dto.getUser_id();
 	}
 }

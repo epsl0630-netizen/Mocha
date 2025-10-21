@@ -18,6 +18,8 @@ public class UserDTO {
 	private String user_rank;	   // 직급
 	private boolean authority;	   // 권한
 	
+	//참조키로 가져오는 컬럼
+	private String dept_name;		   // 부서 이름
 	
 	
 
@@ -39,6 +41,8 @@ public class UserDTO {
 	public String getUser_rank() 	  { return user_rank; 	   }
 	public boolean isAuthority() 	  { return authority;	   }
 	
+	public String getDept_name() 	  {return dept_name;	   }
+	
 	public void setUser_id(String user_id)				 { this.user_id = user_id;				 }
 	public void setUser_pw(String user_pw)				 { this.user_pw = user_pw; 			 	 }
 	public void setName(String name)					 { this.name = name;					 }
@@ -54,7 +58,13 @@ public class UserDTO {
 	public void setUser_file_name(String user_file_name) { this.user_file_name = user_file_name; }
 	public void setUser_photo(String user_photo)		 { this.user_photo = user_photo;  		 }
 	public void setUser_rank(String user_rank)			 { this.user_rank = user_rank;			 }
-	public void setAuthority(boolean authority) 		 { this.authority = authority;			 }		
+	public void setAuthority(boolean authority) 		 { this.authority = authority;			 }	
+	
+	public void setDept_name(String dept_name) 			 {this.dept_name = dept_name;			 }
+	
+	
+	
+	
 	//method
 	@Override
 	public String toString() {
