@@ -24,19 +24,19 @@
 							<tbody>
 								<tr>
 									<th scope="row">작성자</th>
-									<td>홍길동</td>
+									<td>${ item.user_id }</td>
 								</tr>
 								<tr>
 									<th scope="row">부서</th>
-									<td>경영지원팀</td>
+									<td>${ item.detp_name }</td>
 								</tr>
 								<tr>
 									<th scope="row">직급</th>
-									<td>사원</td>
+									<td>${ item.user_rank }</td>
 								</tr>
 								<tr>
 									<th scope="row">작성일</th>
-									<td>2025-09-18</td>
+									<td>${ item.created_at }</td>
 								</tr>
 							</tbody>
 						</table>

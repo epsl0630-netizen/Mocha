@@ -34,11 +34,11 @@
 									</tr>
 									<tr>
 										<th scope="row">부서</th>
-										<td>${sessionScope.loginUser.deptName}</td>
+										<td>${sessionScope.loginUser.dept_name}</td>
 									</tr>
 									<tr>
 										<th scope="row">직급</th>
-										<td>${sessionScope.loginUser.rankName}</td>
+										<td>${sessionScope.loginUser.user_rank}</td>
 									</tr>
 									<input type="hidden" name="user_id" value="${sessionScope.loginUser.user_id}" />
 								</tbody>

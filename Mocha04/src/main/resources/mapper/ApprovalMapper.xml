@@ -70,7 +70,7 @@
 	<select id="view" parameterType="java.lang.String" 
 			resultType="mocha.ezen.com.approval.ApprovalDTO">
 		select 
-			approval_no,user_id,approval_title,approval_kind,approval_note,created_at,
+			approval_no,user_id,approval_title,approval_kind,approval_note,date(created_at) as created_at,
 			(select name from user where user_id = approval.user_id) as name
 		from approval
 		where approval_no = #{ approval_no }
@@ -81,9 +81,9 @@
 			resultType="mocha.ezen.com.approver.ApproverDTO">
 		select 
 			approver_no,user_id,approval_no,approval_order,approval_status,approval_at,
-			(select name from user where user_id = approval.user_id) as name
+		
 		from approver
-		where approval_no = #{ approval_no }
+		
 	</select>
 	
 	<!-- 

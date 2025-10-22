@@ -8,9 +8,9 @@
 	<insert id="insert" parameterType="mocha.ezen.com.schedule.ScheduleDTO" 
 	    useGeneratedKeys="true" keyProperty="schedule_no">
 	    INSERT INTO schedule 
-	    (schedule_title, schedule_kind, schedule_note, start_at, end_at) 
+	    (user_id, schedule_title, schedule_kind, schedule_note, start_at, end_at) 
 	    VALUES 
-	    ( #{schedule_title}, #{schedule_kind}, #{schedule_note}, #{start_at}, #{end_at}) 
+	    ( #{user_id}, #{schedule_title}, #{schedule_kind}, #{schedule_note}, #{start_at}, #{end_at}) 
 	</insert>
 	
 	<!-- 단일 -->

@@ -64,17 +64,17 @@
 								</tr>
 
 								<tr>
-									<th scope="row">${ item.created_at }</th>
+									<th scope="row">기간</th>
 									<td>
 										<div class="d-flex align-items-center gap-2">
 											<div class="input-group">
-												<input type="date" class="form-control input-date"
-													id="startDate" required>
+												<input type="text" class="form-control input-date"
+													id="startDate" value="${ item.created_at }" readonly>
 											</div>
 											<span>~</span>
 											<div class="input-group">
-												<input type="date" class="form-control input-date"
-													id="endDate" required>
+												<input type="text" class="form-control input-date"
+													id="startDate" value="${ item.created_at }" readonly>
 											</div>
 										</div>
 									</td>
