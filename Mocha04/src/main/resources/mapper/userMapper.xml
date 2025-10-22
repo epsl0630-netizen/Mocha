@@ -3,6 +3,32 @@
  
 <!-- Namespace를 통해 JAVA 클래스와 Annotation클래스와 동기 -->
  <mapper namespace="user">
+ 	<resultMap type="mocha.ezen.com.departments.DepartmentDTO" id="deptUserMap">
+ 		<id property="dept_id" column="dept_id" />
+ 		<result property="dept_name" column="dept_name" />
+ 		<result property="created_at" column="created_at" />
+ 		<result property="updated_at" column="updated_at" />
+ 		<collection property="user" ofType="mocha.ezen.com.user.UserDTO">
+ 			<id property="user_id" column="user_id"/>
+		    <result property="user_pw" column="user_pw"/>
+		    <result property="name" column="name"/>
+		    <result property="user_gender" column="user_gender"/>
+		    <result property="is_active" column="is_active"/>
+		    <result property="dept_id" column="dept_id"/>
+		    <result property="email" column="email"/>
+		    <result property="mobile" column="mobile"/>
+		    <result property="user_birth" column="user_birth"/>
+		    <result property="user_addr" column="user_addr"/>
+		    <result property="user_rank" column="user_rank"/>
+		    <result property="authority" column="authority"/>
+		    <result property="user_file_name" column="user_file_name"/>
+		    <result property="user_photo" column="user_photo"/>
+		    <result property="created_at" column="created_at"/>
+		    <result property="updated_at" column="updated_at"/>
+		    <result property="dept_name" column="dept_name"/>
+ 		</collection>
+ 	</resultMap>
+ 	
  <insert id="join" parameterType="java.lang.String"
  useGeneratedKeys="true" keyProperty="user_id">
  	insert into user
@@ -89,6 +115,13 @@
 	updated_at = now() 
 	where user_id = #{user_id}
  </update>
+ 
+ <!-- 부서에 해당하는 유저 목록 조인 -->
+ <select id="deptWithUser" resultMap="deptUserMap">
+		select * from departments
+		inner join user on departments.dept_id  = user.dept_id;
+</select>
+ 
 <!--	<select id="searchUser" parameterType="mocha.ezen.com.UserSearchDTO" resultType="mocha.ezen.com.UserDTO">
 		select user_id, user_pw, name, user_gender, is_active, dept_id, email, mobile, user_birth, created_at, user_addr, user_file_name, user_photo, user_rank
 	 	from user

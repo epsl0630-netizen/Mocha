@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import mocha.ezen.com.common.dto.UserSearchDTO;
+import mocha.ezen.com.departments.DepartmentDTO;
 import mocha.ezen.com.user.UserDTO;
 
 @Repository
@@ -73,5 +74,10 @@ public class UserRepository {
 	public UserDTO ModifyUser(UserDTO dto) {
 		dto = session.selectOne(namespace + ".modify", dto);
 		return dto;
+	}
+	
+	public List<DepartmentDTO> deptWithUser() {
+		List<DepartmentDTO> deptList = session.selectList(namespace + ".deptWithUser");
+		return deptList;
 	}
 }

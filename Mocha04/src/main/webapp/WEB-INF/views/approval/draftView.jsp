@@ -28,11 +28,11 @@
 								</tr>
 								<tr>
 									<th scope="row">부서</th>
-									<td>${approval.deptName}</td>
+									<td>${approval.dept_name}</td>
 								</tr>
 								<tr>
 									<th scope="row">직급</th>
-									<td>${approval.rankName}</td>
+									<td>${approval.user_rank}</td>
 								</tr>
 								<tr>
 									<th scope="row">작성일</th>
@@ -59,12 +59,12 @@
 								</tr>
 
 								<tr>
-									<th scope="row">결재명</th>
+									<th scope="row">${ item.approval_title }</th>
 									<td><input class="form-control" value="여름휴가" readonly></td>
 								</tr>
 
 								<tr>
-									<th scope="row">기간</th>
+									<th scope="row">${ item.created_at }</th>
 									<td>
 										<div class="d-flex align-items-center gap-2">
 											<div class="input-group">
@@ -82,9 +82,7 @@
 
 								<tr>
 									<th scope="row">내용</th>
-									<td><textarea class="form-control" rows="4" readonly>내용입니다 
-내용입니다 내용입니다 내용입니다 내용입니다 내용입니다
-내용입니다 내용입니다 내용입니다 내용입니다 내용입니다    
+									<td><textarea class="form-control" rows="4" readonly>${ item.approval_note }  
               </textarea></td>
 								</tr>
 
@@ -160,10 +158,6 @@
 					</div>
 
 				</div>
-				</div>
-				</div>
-
-
 			</td>
 			<!-- contents end-->
 		</tr>

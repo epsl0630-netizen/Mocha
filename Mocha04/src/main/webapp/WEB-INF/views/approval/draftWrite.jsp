@@ -7,9 +7,9 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/approval.css" />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/approvalWirte.css" />
+	href="${pageContext.request.contextPath}/resources/css/approvalWrite.css" />
 <script
-	src="${pageContext.request.contextPath}/resources/js/approvalWrite.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/approvalwrite.js"></script>
 <%@ include file="./approvalMenu.jsp"%>
 <!-- section start -->
 <td id="section">
@@ -132,7 +132,8 @@
 										class="btn btn-outline-dark">목록</a> 
 									<a href="${pageContext.request.contextPath}/approval/draftList"
 										class="btn btn-outline-dark">취소</a>
-									<button type="submit" class="btn btn-primary">완료</button>
+									<a href="${pageContext.request.contextPath}/approval/draftView"
+										class="btn btn-outline-dark">완료</a>
 								</div>
 							</div>
 							
@@ -174,50 +175,37 @@
 																		<summary>부서</summary>
 																		<ul class="list-unstyled ps-3">
 																			<li><details open>
-																					<summary>경영지원팀</summary>
-																					<ul class="list-unstyled ps-3">
-																						<li class="d-flex align-items-center gap-2">
-																							<input type="checkbox"
-																							class="form-check-input person"
-																							data-dept="경영지원팀" data-rank="팀장"
-																							data-name="김철수"> <span>김철수팀장</span>
-																						</li>
-																						<li class="d-flex align-items-center gap-2">
-																							<input type="checkbox"
-																							class="form-check-input person"
-																							data-dept="경영지원팀" data-rank="부장"
-																							data-name="오지현"> <span>오지현부장</span>
-																						</li>
-																						<li class="d-flex align-items-center gap-2">
-																							<input type="checkbox"
-																							class="form-check-input person"
-																							data-dept="경영지원팀" data-rank="사원"
-																							data-name="홍길동"> <span>홍길동사원</span>
-																						</li>
-																					</ul>
-																				</details></li>
-																			<li><details>
-																					<summary>디자인팀</summary>
-																					<ul class="list-unstyled ps-3">
-																						<li class="d-flex align-items-center gap-2">
-																							<input type="checkbox"
-																							class="form-check-input person"
-																							data-dept="디자인팀" data-rank="팀장"
-																							data-name="박다은"> <span>박다은팀장</span>
-																						</li>
-																					</ul>
-																				</details></li>
-																			<li><details>
-																					<summary>인사지원팀</summary>
-																					<ul class="list-unstyled ps-3">
-																						<li class="d-flex align-items-center gap-2">
-																							<input type="checkbox"
-																							class="form-check-input person"
-																							data-dept="인사지원팀" data-rank="대리"
-																							data-name="이수진"> <span>이수진대리</span>
-																						</li>
-																					</ul>
-																				</details></li>
+																				<li>
+															                          <details>
+																                          <summary>인사지원팀</summary>
+																                          <ul class="list-unstyled ps-3">
+																	                          <li class="d-flex align-items-center gap-2">
+																	                            <input type="checkbox" class="form-check-input person"
+																	                                    data-dept="인사지원팀" data-rank="대리" data-name="이수진">
+																	                            <span>이수진대리</span>
+																	                          </li>
+																                          </ul>
+															                          </details>
+														                          </li>
+										
+																					<c:forEach var="dept" items="${dept}">
+																							<summary>${dept.dept_name}</summary>
+																							
+																							<c:forEach var="user" items="${dept.user}">
+																								<ul class="list-unstyled ps-3">
+																									<li class="d-flex align-items-center gap-2">
+																										<input type="checkbox"
+																										class="form-check-input person"
+																										data-dept="${dept.dept_name}" data-rank="${position.position_name}"
+																										data-name="${user.name}"> 
+																										<span>${user.name}${user.user_rank}</span>
+																									</li>
+																								</ul>
+																					</c:forEach>
+																							
+																					</c:forEach>		
+																						</details></li>
+																			
 																		</ul>
 																	</details></li>
 																			</ul>

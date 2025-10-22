@@ -25,6 +25,13 @@ public class ApprovalRepository
 		return insertedRows;
 	}	
 	
+	public int Insert(ApproverDTO dto)
+	{
+		int insertedRows = session.insert(namespace + ".approverinsert", dto);
+		return insertedRows;
+	}	
+	
+	
 	public List<ApprovalDTO> selectdraftList(ApprovalDTO dto) 
 	{
 		return session.selectList(namespace + ".selectdraft", dto);
@@ -41,15 +48,21 @@ public class ApprovalRepository
 	{
 		ApprovalDTO dto = session.selectOne(namespace + ".view",no);
 		
-	
 		return dto;
 	}	
 	
-	//결재선 조회
-	public List<ApproverDTO> approverList(String no) 
+
+	public ApprovalDTO raftRead(String no) 
 	{
-		
-		return null;
+		ApprovalDTO dto = session.selectOne(namespace + ".view",no);
+		return dto;
+	}
+
+	
+	//결재선 조회
+	public List<ApproverDTO> approverList(ApproverDTO dto) 
+	{
+		return session.selectList(namespace + ".approver", dto);
 	}
 
 	/*
@@ -68,6 +81,16 @@ public class ApprovalRepository
 		//해당 게시글을 삭제
 		session.delete(namespace + ".delete",no);
 		return true;
+	}
+
+	public ApprovalDTO draftRead(String no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<ApproverDTO> approverviewList(String no) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

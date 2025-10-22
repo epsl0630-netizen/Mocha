@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,15 +22,17 @@ import org.springframework.web.multipart.MultipartFile;
 import mocha.ezen.com.admin.AdminRepository;
 import mocha.ezen.com.approver.ApproverDTO;
 import mocha.ezen.com.attachment.AttachmentDTO;
+import mocha.ezen.com.departments.DepartmentDTO;
 import mocha.ezen.com.schedule.ScheduleDTO;
 import mocha.ezen.com.schedule.ScheduleRepository;
+import mocha.ezen.com.user.UserDTO;
 import mocha.ezen.com.user.UserRepository;
 
 @Controller
 @RequestMapping("/approval")
 public class ApprovalController 
 {
-	//¾÷·Îµå °æ·Î , ÃßÈÄ Ãß°¡ °áÁ¤
+	//ì—…ë¡œë“œ ê²½ë¡œ , ì¶”í›„ ì¶”ê°€ ê²°ì •
 	//private static final String uploadPath = "C:\\Users\\MYCOM\\git\\repository4\\Mocha04\\upload";
 	
 		@Autowired
@@ -46,7 +49,7 @@ public class ApprovalController
 			if(dto.getApproval_kind() == null) {
 				dto.setApproval_kind("1");
 			}
-			//ÆäÀÌÂ¡, °áÀç±¸ºĞ 
+			//í˜ì´ì§•, ê²°ì¬êµ¬ë¶„ 
 			List<ApprovalDTO> allEvents = approvalRepository.selectapprovalList(dto);
 		    model.addAttribute("list", allEvents);
 			return "approval/approvalList";
@@ -54,12 +57,20 @@ public class ApprovalController
 		
 		
 		@RequestMapping(value = "/draftList",  method = RequestMethod.GET)
-		public String DraftList(Model model, ApprovalDTO dto)
+		public String DraftList(Model model, ApprovalDTO dto, HttpSession session)
 		{
+//		    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+//		    
+//		    if (loginUser != null) {
+//		        dto.setUser_id(loginUser.getUser_id()); 
+//		    } else {
+//		         return "redirect:/user/login"; 
+//		    }
+			
 			if(dto.getApproval_kind() == null) {
 				dto.setApproval_kind("1");
 			}
-			//ÆäÀÌÂ¡
+			//í˜ì´ì§•
 			List<ApprovalDTO> allEvents = approvalRepository.selectdraftList(dto);
 		    model.addAttribute("list", allEvents);
 			return "approval/draftList";
@@ -69,15 +80,28 @@ public class ApprovalController
 		@RequestMapping(value = "/addApprovalList",  method = RequestMethod.GET)
 		public String AddApprovalList()
 		{
-			//ÆäÀÌÂ¡
+			//í˜ì´ì§•
 			
 			return "approval/addApprovalList";
 		}
+		
+		/*
+		 * @RequestMapping(value = "/approvalList", method = RequestMethod.GET) public
+		 * String ApproverList(Model model, ApproverDTO dto) {
+		 * 
+		 * //í˜ì´ì§•, ê²°ì¬êµ¬ë¶„ List<ApproverDTO> allEvents =
+		 * approvalRepository.approverList(dto); model.addAttribute("list", allEvents);
+		 * return "approval/approvalList"; }
+		 */
+		
 	
 		@RequestMapping(value = "/draftWrite", method = RequestMethod.GET)
 		public String DraftWriteForm(Model model)
 		{
-		    // »ç¿ëÀÚ°¡ °áÀç ¹®¼­¸¦ ÀÛ¼ºÇÒ JSP/HTML ÆäÀÌÁö¸¦ ¹İÈ¯
+		    // ì‚¬ìš©ìê°€ ê²°ì¬ ë¬¸ì„œë¥¼ ì‘ì„±í•  JSP/HTML í˜ì´ì§€ë¥¼ ë°˜í™˜	
+			//select * from user;
+			List<DepartmentDTO> deptWithUser = userRepository.deptWithUser();
+			model.addAttribute("dept", deptWithUser);
 		    return "approval/draftWrite"; 
 		}
 		
@@ -96,7 +120,7 @@ public class ApprovalController
 		    } else {
 		       
 		        response.put("result", "fail");
-		        response.put("message", "°áÀç »ó½Å¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
+		        response.put("message", "ê²°ì¬ ìƒì‹ ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
 		    }
 		    
 			return response;
@@ -110,26 +134,26 @@ public class ApprovalController
 		{	
 			if(file != null)
 			{
-				//Ã·ºÎÆÄÀÏ ¾÷·Îµå µÇ¾úÀ½.
+				//ì²¨ë¶€íŒŒì¼ ì—…ë¡œë“œ ë˜ì—ˆìŒ.
 				
-				//¾÷·ÎµåµÈ ¿øº» ÆÄÀÏ ÀÌ¸§ °¡Á®¿À±â
+				//ì—…ë¡œë“œëœ ì›ë³¸ íŒŒì¼ ì´ë¦„ ê°€ì ¸ì˜¤ê¸°
 				String originalFileName = file.getOriginalFilename();
 				System.out.println("originalFileName:" + originalFileName);
 				
-				//ÆÄÀÏ ÀÌ¸§ÀÌ Áßº¹µÇÁö ¾Êµµ·Ï ÆÄÀÏ ÀÌ¸§ º¯°æ : ¼­¹ö¿¡ ÀúÀåÇÒ ÀÌ¸§
-				// UUID Å¬·¡½º »ç¿ë
+				//íŒŒì¼ ì´ë¦„ì´ ì¤‘ë³µë˜ì§€ ì•Šë„ë¡ íŒŒì¼ ì´ë¦„ ë³€ê²½ : ì„œë²„ì— ì €ì¥í•  ì´ë¦„
+				// UUID í´ë˜ìŠ¤ ì‚¬ìš©
 				UUID uuid = UUID.randomUUID();
 				String savedFileName = uuid.toString();
 				System.out.println("savedFileName:" + savedFileName);
 				
-				//Ã·ºÎÆÄÀÏ °´Ã¼ »ı¼º
+				//ì²¨ë¶€íŒŒì¼ ê°ì²´ ìƒì„±
 				java.io.File newFile = new File(uploadPath + "\\" + savedFileName);
 				
-				//½ÇÁ¦ ÀúÀå µğ·ºÅä¸®·Î Àü¼Û		
+				//ì‹¤ì œ ì €ì¥ ë””ë ‰í† ë¦¬ë¡œ ì „ì†¡		
 				file.transferTo(newFile);
 				
-				adto.setFname(originalFileName); //¿øº»ÆÄÀÏ¸í
-				adto.setPname(savedFileName);    //ÀúÀåµÈ ÆÄÀÏ¸í
+				adto.setFname(originalFileName); //ì›ë³¸íŒŒì¼ëª…
+				adto.setPname(savedFileName);    //ì €ì¥ëœ íŒŒì¼ëª…
 			}
 			
 			approvalRepository.Insert(dto);
@@ -141,7 +165,7 @@ public class ApprovalController
 		public String ApprovalModify(@RequestParam(required = true) String no,
 				Model model)
 		{
-			//°Ô½Ã¹° Á¤º¸ Á¶È¸
+			//ê²Œì‹œë¬¼ ì •ë³´ ì¡°íšŒ
 			ApprovalDTO dto = approvalRepository.Read(no, false);
 
 			model.addAttribute("item",dto);
@@ -156,26 +180,26 @@ public class ApprovalController
 		{	
 			if(file != null)
 			{
-				//Ã·ºÎÆÄÀÏ ¾÷·Îµå µÇ¾úÀ½.
+				//ì²¨ë¶€íŒŒì¼ ì—…ë¡œë“œ ë˜ì—ˆìŒ.
 				
-				//¾÷·ÎµåµÈ ¿øº» ÆÄÀÏ ÀÌ¸§ °¡Á®¿À±â
+				//ì—…ë¡œë“œëœ ì›ë³¸ íŒŒì¼ ì´ë¦„ ê°€ì ¸ì˜¤ê¸°
 				String originalFileName = file.getOriginalFilename();
 				System.out.println("originalFileName:" + originalFileName);
 				
-				//ÆÄÀÏ ÀÌ¸§ÀÌ Áßº¹µÇÁö ¾Êµµ·Ï ÆÄÀÏ ÀÌ¸§ º¯°æ : ¼­¹ö¿¡ ÀúÀåÇÒ ÀÌ¸§
-				// UUID Å¬·¡½º »ç¿ë
+				//íŒŒì¼ ì´ë¦„ì´ ì¤‘ë³µë˜ì§€ ì•Šë„ë¡ íŒŒì¼ ì´ë¦„ ë³€ê²½ : ì„œë²„ì— ì €ì¥í•  ì´ë¦„
+				// UUID í´ë˜ìŠ¤ ì‚¬ìš©
 				UUID uuid = UUID.randomUUID();
 				String savedFileName = uuid.toString();
 				System.out.println("savedFileName:" + savedFileName);
 				
-				//Ã·ºÎÆÄÀÏ °´Ã¼ »ı¼º
+				//ì²¨ë¶€íŒŒì¼ ê°ì²´ ìƒì„±
 				java.io.File newFile = new File(uploadPath + "\\" + savedFileName);
 				
-				//½ÇÁ¦ ÀúÀå µğ·ºÅä¸®·Î Àü¼Û		
+				//ì‹¤ì œ ì €ì¥ ë””ë ‰í† ë¦¬ë¡œ ì „ì†¡		
 				file.transferTo(newFile);
 				
-				adto.setFname(originalFileName); //¿øº»ÆÄÀÏ¸í
-				adto.setPname(savedFileName);    //ÀúÀåµÈ ÆÄÀÏ¸í
+				adto.setFname(originalFileName); //ì›ë³¸íŒŒì¼ëª…
+				adto.setPname(savedFileName);    //ì €ì¥ëœ íŒŒì¼ëª…
 			}
 			
 			approvalRepository.Update(dto);
@@ -196,26 +220,26 @@ public class ApprovalController
 		{	
 			if(file != null)
 			{
-				//Ã·ºÎÆÄÀÏ ¾÷·Îµå µÇ¾úÀ½.
+				//ì²¨ë¶€íŒŒì¼ ì—…ë¡œë“œ ë˜ì—ˆìŒ.
 				
-				//¾÷·ÎµåµÈ ¿øº» ÆÄÀÏ ÀÌ¸§ °¡Á®¿À±â
+				//ì—…ë¡œë“œëœ ì›ë³¸ íŒŒì¼ ì´ë¦„ ê°€ì ¸ì˜¤ê¸°
 				String originalFileName = file.getOriginalFilename();
 				System.out.println("originalFileName:" + originalFileName);
 				
-				//ÆÄÀÏ ÀÌ¸§ÀÌ Áßº¹µÇÁö ¾Êµµ·Ï ÆÄÀÏ ÀÌ¸§ º¯°æ : ¼­¹ö¿¡ ÀúÀåÇÒ ÀÌ¸§
-				// UUID Å¬·¡½º »ç¿ë
+				//íŒŒì¼ ì´ë¦„ì´ ì¤‘ë³µë˜ì§€ ì•Šë„ë¡ íŒŒì¼ ì´ë¦„ ë³€ê²½ : ì„œë²„ì— ì €ì¥í•  ì´ë¦„
+				// UUID í´ë˜ìŠ¤ ì‚¬ìš©
 				UUID uuid = UUID.randomUUID();
 				String savedFileName = uuid.toString();
 				System.out.println("savedFileName:" + savedFileName);
 				
-				//Ã·ºÎÆÄÀÏ °´Ã¼ »ı¼º
+				//ì²¨ë¶€íŒŒì¼ ê°ì²´ ìƒì„±
 				java.io.File newFile = new File(uploadPath + "\\" + savedFileName);
 				
-				//½ÇÁ¦ ÀúÀå µğ·ºÅä¸®·Î Àü¼Û		
+				//ì‹¤ì œ ì €ì¥ ë””ë ‰í† ë¦¬ë¡œ ì „ì†¡		
 				file.transferTo(newFile);
 				
-				adto.setFname(originalFileName); //¿øº»ÆÄÀÏ¸í
-				adto.setPname(savedFileName);    //ÀúÀåµÈ ÆÄÀÏ¸í
+				adto.setFname(originalFileName); //ì›ë³¸íŒŒì¼ëª…
+				adto.setPname(savedFileName);    //ì €ì¥ëœ íŒŒì¼ëª…
 			}
 			
 			approvalRepository.Insert(dto);
@@ -228,17 +252,35 @@ public class ApprovalController
 		public String ApprovalView(@RequestParam(required = true) String no,
 				Model model)
 		{
-			//°Ô½Ã¹° Á¤º¸ Á¶È¸
+			//ê²Œì‹œë¬¼ ì •ë³´ ì¡°íšŒ
 			ApprovalDTO dto = approvalRepository.Read(no);
 			
-			//°áÀç¼± ¸ñ·ÏÀ» Á¶È¸
+			//ê²°ì¬ì„  ëª©ë¡ì„ ì¡°íšŒ
 			List<ApproverDTO> approver = approvalRepository.approverList(no);
 			
 			model.addAttribute("item",dto);
 			model.addAttribute("reply",approver);
 			
-			return "approvalView";
+			return "approval/draftView";
 		}
+				*/
+		@RequestMapping(value = "/approvalView", method = RequestMethod.GET)
+		public String DraftlView(@RequestParam(required = true) String no,
+				Model model)
+		{
+			//ê²Œì‹œë¬¼ ì •ë³´ ì¡°íšŒ
+			ApprovalDTO dto = approvalRepository.Read(no);
+			
+			//ê²°ì¬ì„  ëª©ë¡ì„ ì¡°íšŒ
+			List<ApproverDTO> approver = approvalRepository.approverviewList(no);
+			
+			model.addAttribute("item",dto);
+			model.addAttribute("reply",approver);
+			
+			return "approval/draftView";
+		}
+			
+		
 		
 	
 		@RequestMapping(value = "/approvalDelete.do")
@@ -247,8 +289,7 @@ public class ApprovalController
 			approvalRepository.Delete(no);
 			return "redirect:/DraftList";
 		}
-		*/
-			
+	
 		
 	
 }

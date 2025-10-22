@@ -17,9 +17,6 @@
 	function changeFilter(filterType) {
         currentFilter = filterType;
         updateFilterButtons();
-        
-        // ⚠️ 실제로 링크를 클릭한 것처럼 처리해야 합니다.
-        // 예를 들어: window.location.href = `${pageContext.request.contextPath}/approval/approvalList?kind=${filterType}`;
 	}
 
 	function updateFilterButtons() {
@@ -138,7 +135,7 @@
 								<td><a
 									href="${pageContext.request.contextPath}/approval/approvalView?no=${ item.approval_no}"
 									class="table-link"> ${item.approval_title } </a></td>
-								<td>${ item.user_name }</td>
+								<td>${ item.name}</td>
 								<td>
 					                <c:choose>
 					                    <c:when test="${item.approval_status eq 'IN_PROGRESS'}">
