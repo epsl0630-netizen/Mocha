@@ -19,10 +19,10 @@ public class UserDTO {
 	private boolean authority;	   // 권한
 	
 	//참조키로 가져오는 컬럼
-	private String dept_name;		   // 부서 이름
+	private String dept_name;		// 부서 이름
+	private String position_name;	//
 	
 	
-
 	//getter & setter
 	public String getUser_id()		  { return user_id;		   }
 	public String getUser_pw()		  { return user_pw;		   }
@@ -42,6 +42,7 @@ public class UserDTO {
 	public boolean isAuthority() 	  { return authority;	   }
 	
 	public String getDept_name() 	  {return dept_name;	   }
+	public String getPosition_name()  {return position_name;   }
 	
 	public void setUser_id(String user_id)				 { this.user_id = user_id;				 }
 	public void setUser_pw(String user_pw)				 { this.user_pw = user_pw; 			 	 }
@@ -61,7 +62,7 @@ public class UserDTO {
 	public void setAuthority(boolean authority) 		 { this.authority = authority;			 }	
 	
 	public void setDept_name(String dept_name) 			 {this.dept_name = dept_name;			 }
-	
+	public void setPosition_name(String position_name) 	 {this.position_name = position_name;	 }
 	
 	
 	

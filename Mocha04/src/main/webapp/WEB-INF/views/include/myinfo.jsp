@@ -27,30 +27,30 @@
 						<table>
 							<tr>
 								<td></td>
-								<td><span>홍길동</span></td>
+								<td><span>${sessionScope.login.name}</span></td>
 							<tr>
 								<td>부서</td>
 								<td><span id="user_depart" name="user_depart"
-									class="select_user_depart"> 경영 </span></td>
+									class="select_user_depart"> ${sessionScope.login.dept_name} </span></td>
 							</tr>
 							</tr>
 							<tr>
 								<td>사원번호</td>
-								<td><span>000015</span></td>
+								<td><span>${sessionScope.login.user_id}</span></td>
 							</tr>
 							<tr>
 								<td>내선번호</td>
-								<td><span>000015</span></td>
+								<td><span>${sessionScope.login.user_id}</span></td>
 							</tr>
 							<tr>
 								<td>이메일</td>
-								<td class="myinfo-change-off"><span>hong@email.com</span></td>
-								<td class="myinfo-change-on"><input value="hong@email.com" /></td>
+								<td class="myinfo-change-off"><span>${sessionScope.login.email}</span></td>
+								<td class="myinfo-change-on"><input value="${sessionScope.login.email}" /></td>
 							</tr>
 							<tr>
 								<td>휴대전화</td>
-								<td class="myinfo-change-off"><span>010-0000-0000</span></td>
-								<td class="myinfo-change-on"><input value="010-0000-0000" /></td>
+								<td class="myinfo-change-off"><span>${sessionScope.login.mobile}</span></td>
+								<td class="myinfo-change-on"><input value="${sessionScope.login.mobile}" /></td>
 							</tr>
 							<tr class="pw-change myinfo-change-on">
 								<td>비밀번호</td>
@@ -79,29 +79,54 @@
 						<table class="personal-info">
 							<tr>
 								<td>생년월일</td>
-								<td><span>1443-00-00</span></td>
+								<td><span>${sessionScope.login.user_birth}</span></td>
 								<td>성별</td>
-								<td><span>남성</span></td>
+								<td>
+									<span>
+										<c:choose>
+										<c:when test="${sessionScope.login.user_gender == 'M'}">
+											남성
+										</c:when>
+										<c:when test="${sessionScope.login.user_gender == 'F'}">
+											여성
+										</c:when>
+										<c:otherwise>
+											--
+										</c:otherwise>
+									</c:choose>
+									
+									</span>
+								</td>
 							</tr>
 							<tr>
 								<td>주소</td>
-								<td colspan="3" class="myinfo-change-off"><span>충청도</span>
+								<td colspan="3" class="myinfo-change-off"><span>${sessionScope.login.user_addr}</span>
 								</td>
 								<td colspan="3" class="myinfo-change-on"><input type="text"
-									value="충청도" /></td>
+									value="${sessionScope.login.user_addr}" /></td>
 							</tr>
 						</table>
 						<span class="sub-title">사원정보</span>
 						<table class="employee-info">
 							<tr>
 								<td>구분</td>
-								<td><span>기본</span></td>
+								<td><span>
+									<c:choose>
+										<c:when test="${sessionScope.login.authority == false}">
+											일반
+										</c:when>
+										<c:otherwise>
+											관리
+										</c:otherwise>
+									</c:choose>
+									</span>
+								</td>
 								<td>직급</td>
-								<td><span>부장</span></td>
+								<td><span>${sessionScope.login.dept_name}</span></td>
 							</tr>
 							<tr>
 								<td>입사일자</td>
-								<td><span> 2025-09-25 </span></td>
+								<td><span> ${sessionScope.login.created_at} </span></td>
 							</tr>
 						</table>
 					</fieldset>

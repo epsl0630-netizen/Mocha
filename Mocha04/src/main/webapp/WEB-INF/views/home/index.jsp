@@ -15,8 +15,8 @@
 						<div class="profile-rsquare">
 							<img class="profile-img-md">
 						</div>
-						<span class="gadget-title">홍길동 / 부장</span> <span
-							class="profile-depart">경영</span> <span class="today-plan">오늘의
+						<span class="gadget-title">${sessionScope.login.name} / ${sessionScope.login.position_name}</span> <span
+							class="profile-depart">${sessionScope.login.dept_name}</span> <span class="today-plan">오늘의
 							일정</span> <span class="today-plan-cnt">0</span>
 						<table class="profile-job">
 							<tr>

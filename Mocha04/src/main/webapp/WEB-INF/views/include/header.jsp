@@ -125,7 +125,7 @@
 					<div class="profile-circle">
 						<img class="profile-img-md">
 					</div>
-					<span class="p-3 fs-5">홍길동 / 부장</span> <span>경영</span> <span>hong@email.com</span>
+					<span class="p-3 fs-5">${sessionScope.login.name} / ${sessionScope.login.position_name}</span> <span> ${sessionScope.login.dept_name}</span> <span>${sessionScope.login.email}</span>
 					<div class="profile-nav-btn">
 						<!-- Button trigger modal -->
 						<button type="button" class="btn btn-sub profile-info-close-btn"
@@ -139,7 +139,7 @@
 							<span>설정</span>
 						</button>
 						<button class="btn btn-sub"
-							onclick="location.href='${pageContext.request.contextPath}/home/login'">
+							onclick="location.href='${pageContext.request.contextPath}/home/logout'">
 							<div class="btn-icon">
 								<svg xmlns="http://www.w3.org/2000/svg" height="24px"
 									viewBox="0 -960 960 960" width="24px" fill="#000000">

@@ -37,13 +37,16 @@
 					<div class="nav-icon">
 						<i class="bi bi-file-text"></i>
 					</div> 게시판
-			</a></li>
-			<li><a href="${pageContext.request.contextPath}/admin"
-				class="nav-btn">
-					<div class="nav-icon admin">
-						<i class="bi bi-person-gear"></i>
-					</div> 관리자
-			</a></li>
+				</a>
+			</li>
+			<c:if test="${sessionScope.login.authority == true}">
+				<li><a href="${pageContext.request.contextPath}/admin"
+					class="nav-btn">
+						<div class="nav-icon admin">
+							<i class="bi bi-person-gear"></i>
+						</div> 관리자
+				</a></li>
+			</c:if>
 		</ul>
 	</td>
 	<!-- nav end -->

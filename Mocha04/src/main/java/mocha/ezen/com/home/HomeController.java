@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import mocha.ezen.com.user.UserDTO;
 import mocha.ezen.com.user.UserRepository;
@@ -17,30 +18,43 @@ public class HomeController {
 	UserRepository userRepository;
 	
 	@RequestMapping(value = "/")
-	public String Index()
+	public String Index(HttpServletRequest request)
 	{
-		
+		//로그인 정보를 조회한다.
+		UserDTO login = (UserDTO)request.getSession().getAttribute("login");
+		if(login != null) {
+			return "home/index";
+		}
 		//return "home/index";
 		return "home/login";
 	}
 	
-	@RequestMapping(value = "/loginOk", method = RequestMethod.POST)
+	@RequestMapping(value = "home/loginOk", method = RequestMethod.POST)
+	@ResponseBody
 	public String LogIn(String user_id, String user_pw,
-			HttpServletRequest req) 
+			HttpServletRequest request) 
 	{
-		HttpSession session = req.getSession();
-		
+		HttpSession session = request.getSession();
 		UserDTO dto = userRepository.LogIn(user_id, user_pw);
 		if(dto == null)
 		{
 			//로그인 안됨.	
 			session.setAttribute("login", null);
+			System.out.println("false");
 			return "false";
 		}else
 		{
 			session.setAttribute("login", dto);
+			System.out.println("true");
 			return "true";
 		}
 		
+	}
+	@RequestMapping(value = "home/logout")
+	public String LogOut(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		//session.invalidate();
+		session.setAttribute("login", null);
+		return "redirect:/";
 	}
 }

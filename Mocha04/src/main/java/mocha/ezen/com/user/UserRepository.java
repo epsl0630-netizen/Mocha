@@ -47,7 +47,7 @@ public class UserRepository {
 		dto.setUser_id(id);
 		dto.setUser_pw(pw);
 		
-		dto = session.selectOne(namespace + ".logIn", dto);
+		dto = session.selectOne(namespace + ".login", dto);
 		return dto;
 	}
 	

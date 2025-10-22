@@ -40,16 +40,18 @@
  	from user 
  	where user_id = #{user_id} 
  </select>
- <select id="login" parameterType="java.lang.String">
+ <select id="login" parameterType="java.lang.String"  resultType="mocha.ezen.com.user.UserDTO">
  	select user_id, name, user_gender,is_active, dept_id, 
+ 	(select dept_name from departments where dept_id = user.dept_id) as dept_name, 
  	date(user_birth) as user_birth, 
  	email, mobile, user_addr, user_file_name, user_photo, 
  	date(created_at) as created_at, 
  	user_rank, 
+ 	(select position_name from positions where position_level = user.user_rank) as position_name,
  	authority 
  	from user 
  	where user_id = #{user_id} and
- 	user_pw = md5(#{user_id})
+ 	user_pw = md5(#{user_pw})
  </select>
  <select id="userList" parameterType="mocha.ezen.com.common.dto.UserSearchDTO" resultType="mocha.ezen.com.user.UserDTO">
  	select user_id, name, is_active, 

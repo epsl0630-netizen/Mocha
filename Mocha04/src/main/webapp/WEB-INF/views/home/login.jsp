@@ -24,7 +24,7 @@
 <link rel="icon"
 	href="${pageContext.request.contextPath}/resources/css/favicon.ico" />
 <script
-	src=${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/main.css" />
@@ -50,15 +50,6 @@
 									<a href="${pageContext.request.contextPath}/"> <img
 										src="${pageContext.request.contextPath}/resources/img/logo.png">
 									</a>
-									<c:choose>
-										<c:when test="${ sessionScope.login == null }">
-											로그인안됨
-										</c:when>
-										<c:otherwise>
-											로그인됨
-											${ sessionScope.login.name }
-										</c:otherwise>
-									</c:choose>
 								</div>
 								<div class="login-input-container">
 									<span class="h5"> 로그인 </span>
@@ -67,7 +58,7 @@
 											placeholder="아이디를 입력해주세요."> <span>비밀번호</span> <input
 											type="password" id="user_pw" name="user_pw" placeholder="비밀번호를 입력해주세요.">
 										<span class="loginstr"></span>	
-										<button type="submit" class="btn" id="login-btn">로그인</button>
+										<button type="button" class="btn" onclick="Login('${pageContext.request.contextPath}')" id="login_btn">로그인</button>
 									</form>
 								</div>
 							</div>
