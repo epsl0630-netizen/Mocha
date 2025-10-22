@@ -21,17 +21,7 @@
 			</ul>
 		</ul>
 		<br>
-		<br>
-		<h2>관리자 문서함</h2>
-		<br>
-		<ul>
-			<!-- 결재문서함 -->
-			<ul>
-				<li><a
-					href="${pageContext.request.contextPath}/resources/admin/adminApprovalList"
-					class="d-block link-light text-decoration-none py-1">전체문서관리</a></li>
-			</ul>
-		</ul>
+		
 		<br>
 	</div>
 </td>

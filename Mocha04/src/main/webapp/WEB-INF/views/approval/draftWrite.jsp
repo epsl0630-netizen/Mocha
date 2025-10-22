@@ -166,50 +166,64 @@
 															<div class="approval-tree small approval-scroll"
 																id="orgTreeContainer">
 																<ul class="list-unstyled ms-0" id="orgTree">
-																	<li class="tree-item"><details open>
-															<summary>
-																<span class="me-1"></span> Mocha Company
-															</summary>
-															<ul class="list-unstyled ps-3">
-																<li><details open>
-																		<summary>부서</summary>
+																<li class="tree-item"><details open>
+																<summary>
+																	<span class="me-1"></span> Mocha Company
+																</summary>
+																<ul class="list-unstyled ps-3">
+																	<li><details open>
+																			<summary>부서</summary>
 																		<ul class="list-unstyled ps-3">
+																																				
 																			<li><details open>
-																				<li>
-															                          <details>
-																                          <summary>인사지원팀</summary>
-																                          <ul class="list-unstyled ps-3">
-																	                          <li class="d-flex align-items-center gap-2">
-																	                            <input type="checkbox" class="form-check-input person"
-																	                                    data-dept="인사지원팀" data-rank="대리" data-name="이수진">
-																	                            <span>이수진대리</span>
-																	                          </li>
-																                          </ul>
-															                          </details>
-														                          </li>
-										
-																					<c:forEach var="dept" items="${dept}">
-																							<summary>${dept.dept_name}</summary>
-																							
-																							<c:forEach var="user" items="${dept.user}">
-																								<ul class="list-unstyled ps-3">
-																									<li class="d-flex align-items-center gap-2">
-																										<input type="checkbox"
-																										class="form-check-input person"
-																										data-dept="${dept.dept_name}" data-rank="${position.position_name}"
-																										data-name="${user.name}"> 
-																										<span>${user.name}${user.user_rank}</span>
-																									</li>
-																								</ul>
-																					</c:forEach>
-																							
-																					</c:forEach>		
-																						</details></li>
+																			<c:forEach var="dept" items="${dept}">
+																			<c:choose>
+																					
+																					<c:when test="${dept.dept_name == '경영지원'}">
+																					<summary>${dept.dept_name}</summary>
+																						<ul class="list-unstyled ps-3">
+																							<li class="d-flex align-items-center gap-2">
+																								<input type="checkbox"
+																								class="form-check-input person"
+																								data-dept="${dept.dept_name}" data-rank="${position.position_name}"
+																								data-name="${user.name}"> 
+																								<span>${user.name}${user.user_rank}</span>
+																							</li>
+																						</ul>
+																						</c:when>
+																						<c:when test="${dept.dept_name == '디자인'}">
+																						<summary>${dept.dept_name}</summary>
+																						<ul class="list-unstyled ps-3">
+																							<li class="d-flex align-items-center gap-2">
+																								<input type="checkbox"
+																								class="form-check-input person"
+																								data-dept="${dept.dept_name}" data-rank="${position.position_name}"
+																								data-name="${user.name}"> 
+																								<span>${user.name}${user.user_rank}</span>
+																							</li>
+																						</ul>
+																					</c:when>
+																					<c:when test="${dept.dept_name == '인사관리'}">
+																						<summary>${dept.dept_name}</summary>
+																						<ul class="list-unstyled ps-3">
+																							<li class="d-flex align-items-center gap-2">
+																								<input type="checkbox"
+																								class="form-check-input person"
+																								data-dept="${dept.dept_name}" data-rank="${position.position_name}"
+																								data-name="${user.name}"> 
+																								<span>${user.name}${user.user_rank}</span>
+																							</li>
+																						</ul>
+																					</c:when>
+																			</c:choose>		
+																			</c:forEach>		
+																			</details></li>
+																		
 																			
 																		</ul>
 																	</details></li>
-																			</ul>
-																		</details></li>
+																</ul>
+																</li>		
 																</ul>
 															</div>
 														</div>
