@@ -6,10 +6,10 @@
 	href="${pageContext.request.contextPath}/resources/css/approval.css" />
 <script>
 	
-    const btnFilterAll = document.getElementById('btn-filter-all');
-    const btnFilterINPROGRESS = document.getElementById('btn-filter-inprogress');
-    const btnFilterAPPROVAL = document.getElementById('btn-filter-approval');
-    const btnFilterREJECT = document.getElementById('btn-filter-reject');
+    const btnFilterAll = document.getElementById('btn-filter-ALL');
+    const btnFilterIN_PROGRESS = document.getElementById('btn-filter-IN_PROGRESS');
+    const btnFilterAPPROVED = document.getElementById('btn-filter-APPROVED');
+    const btnFilterREJECTED = document.getElementById('btn-filter-REJECTED');
     
     
 	let currentFilter = 'all'; 
@@ -24,22 +24,22 @@
 
 	function updateFilterButtons() {
        
-	    const filterBtns = [btnFilterAll, btnFilterINPROGRESS, btnFilterAPPROVAL, btnFilterREJECT];
+	    const filterBtns = [btnFilterAll, btnFilterIN_PROGRESS, btnFilterAPPROVED, btnFilterREJECTED];
 
 	    filterBtns.forEach(btn => {
 	        if (btn) { 
                 btn.classList.remove('btn-primary');
-                btn.classList.add('btn-outline-dark'); //
+                btn.classList.add('btn-outline-dark'); 
             }
 	    });
 	
     
         let selectedBtn;
         switch(currentFilter) {
-            case 'all': selectedBtn = btnFilterAll; break;
-            case 'inprogress': selectedBtn = btnFilterINPROGRESS; break;
-            case 'approved': selectedBtn = btnFilterAPPROVAL; break; 
-            case 'rejected': selectedBtn = btnFilterREJECT; break;    
+            case 'ALL': selectedBtn = btnFilterAll; break;
+            case 'IN_PROGRESS': selectedBtn = btnFilterIN_PROGRESS; break;
+            case 'APPROVED': selectedBtn = btnFilterAPPROVED; break; 
+            case 'REJECTED': selectedBtn = btnFilterREJECTED; break;    
         }
 
         if (selectedBtn) {
@@ -58,16 +58,16 @@
         if (kind) {
             kind = kind.replace(/'/g, '').toLowerCase(); 
            
-            currentFilter = kind === 'in_progress' ? 'inprogress' : kind;
+            currentFilter = kind === 'IN_PROGRESS' ? 'IN_PROGRESS' : kind;
         } else {
-             currentFilter = 'all';
+             currentFilter = 'ALL';
         }
         
         if (btnFilterAll) {
-            btnFilterAll.addEventListener('click', () => changeFilter('all'));
-            btnFilterINPROGRESS.addEventListener('click', () => changeFilter('in_progress')); 
-            btnFilterAPPROVAL.addEventListener('click', () => changeFilter('approved'));   
-            btnFilterREJECT.addEventListener('click', () => changeFilter('rejected'));    
+            btnFilterAll.addEventListener('click', () => changeFilter('ALL'));
+            btnFilterIN_PROGRESS.addEventListener('click', () => changeFilter('IN_PROGRESS')); 
+            btnFilterAPPROVED.addEventListener('click', () => changeFilter('APPROVED'));   
+            btnFilterREJECTED.addEventListener('click', () => changeFilter('REJECTED'));    
         }
 
         updateFilterButtons();
@@ -100,15 +100,17 @@
 		</div>
 		<div>
 			<a
-				href="${pageContext.request.contextPath}/approval/approvalList?kind='ALL'"
-				class="btn btn-outline-dark" id="btn-filter-all">전체</a> <a
-				href="${pageContext.request.contextPath}/approval/approvalList?kind='IN_PROGRESS'"
-				class="btn btn-outline-dark" id="btn-filter-inprogress">진행</a> <a
-				href="${pageContext.request.contextPath}/approval/approvalList?kind='APPROVED'"
-				class="btn btn-outline-dark" id="btn-filter-approval" >승인</a> <a
-				href="${pageContext.request.contextPath}/approval/approvalList?kind='REJECTED'"
-				class="btn btn-outline-dark" id="btn-filter-reject" >반려</a>
+				href="${pageContext.request.contextPath}/approval/approvalList?approval_kind=1"
+				class="btn btn-outline-dark" id="btn-filter-ALL">전체</a> <a
+				href="${pageContext.request.contextPath}/approval/approvalList?approval_kind=2"
+				class="btn btn-outline-dark" id="btn-filter-IN_PROGRESS">진행</a> <a
+				href="${pageContext.request.contextPath}/approval/approvalList?approval_kind=3"
+				class="btn btn-outline-dark" id="btn-filter-APPROVED" >승인</a> <a
+				href="${pageContext.request.contextPath}/approval/approvalList?approval_kind=4"
+				class="btn btn-outline-dark" id="btn-filter-REJECTED" >반려</a>
 		</div>
+		
+		
 
 		<hr>
 		<div class="card shadow-sm mb-3">
@@ -136,10 +138,10 @@
 								<td><a
 									href="${pageContext.request.contextPath}/approval/approvalView?no=${ item.approval_no}"
 									class="table-link"> ${item.approval_title } </a></td>
-								<td>${ item.user_id }</td>
+								<td>${ item.user_name }</td>
 								<td>
 					                <c:choose>
-					                    <c:when test="${item.approval_status eq 'INPROGRESS'}">
+					                    <c:when test="${item.approval_status eq 'IN_PROGRESS'}">
 					                        <span class="btn btn-sm btn-outline-success">진행</span>
 					                    </c:when>
 					                    <c:when test="${item.approval_status eq 'APPROVED'}">
@@ -148,6 +150,9 @@
 					                    <c:when test="${item.approval_status eq 'REJECTED'}">
 					                        <span class="btn btn-sm btn-outline-danger">반려</span>
 					                    </c:when>
+					                    <c:otherwise>
+                                            <span style="color: red; font-weight: bold;">[${item.approval_status}]</span>
+                                        </c:otherwise>
 					                </c:choose>
 					            </td>
 							</tr>

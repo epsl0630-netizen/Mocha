@@ -16,20 +16,26 @@
 
 	<select id="selectdraft" parameterType="mocha.ezen.com.approval.ApprovalDTO" resultType="mocha.ezen.com.approval.ApprovalDTO">
         SELECT
-        	approval_no, user_id, date(created_at) as created_at, approval_title, 
+        	approval_no, approval_status, user_id, date(created_at) as created_at, approval_title, 
         	(CASE approval_kind
             WHEN '1' THEN '연차신청'
             WHEN '2' THEN '업무지원요청'
             WHEN '3' THEN '예산신청'
             WHEN '4' THEN '출장신청'
         END) AS approval_kind, approval_note
+        	approval_kind, approval_note
         FROM approval
+        <choose>
+	        <when test = "approval_kind != 1">
+	        where approval_kind = ${ approval_kind }
+	        </when>
+        </choose>
         ORDER BY created_at DESC  
     </select>
     
     <select id="selectapproval" parameterType="mocha.ezen.com.approval.ApprovalDTO" resultType="mocha.ezen.com.approval.ApprovalDTO">
         SELECT
-        	approval_no, user_id, date(created_at) as created_at, approval_title, 
+        	approval_no, approval_status, user_id, date(created_at) as created_at, approval_title, 
     	    (CASE approval_kind
             WHEN '1' THEN '연차신청'
             WHEN '2' THEN '업무지원요청'
@@ -38,19 +44,25 @@
         END) AS approval_kind, approval_note
         	approval_kind, approval_note
         FROM approval
+        <choose>
+	        <when test = "approval_kind  != 1">
+	        where approval_kind = ${ approval_kind }
+	        </when>
+        </choose>
         ORDER BY created_at DESC  
     </select>
 	
-	<!-- 
-	<select id="view" parameterType="java.lang.String" 
-			resultType="mocha.ezen.com.schedule.ScheduleDTO">
+	
+	<select id="view" parameterType="mocha.ezen.com.approval.ApprovalDTO" 
+			resultType="mocha.ezen.com.approval.ApprovalDTO">
 		select 
-			schedule_no,user_id,schedule_title,schedule_kind,schedule_note,start_at,
+			approval_no,user_id,approval_title,approval_kind,approval_note,start_at,
 			(select name from user where user_id = board.user_id) as name
-		from schedule
-		where schedule_no = #{ no }
+		from approval
+		where approval_no = #{ no }
 	</select>
-
+	
+	<!-- 
 	<update id="update" parameterType="mocha.ezen.com.schedule.ScheduleDTO">
 		update schedule set
 		schedule_title = #{ schedule_title },

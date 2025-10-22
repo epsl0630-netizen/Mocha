@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import mocha.ezen.com.approver.ApproverDTO;
 import mocha.ezen.com.schedule.ScheduleDTO;
 
 @Repository
@@ -34,20 +35,24 @@ public class ApprovalRepository
 		return session.selectList(namespace + ".selectapproval", dto);
 	}
 	
-	/*
-	//게시물 정보를 읽는다.	
-	//IsHit = true : 조회수 증가, false : 조회수 증가 안함.
-	public ApprovalDTO Read(String no,boolean IsHit)
+	
+	//게시물 단건 조회
+	public ApprovalDTO Read(String no)
 	{
 		ApprovalDTO dto = session.selectOne(namespace + ".view",no);
 		
-		if(IsHit == true)
-		{
-			session.update(namespace + ".hit",no);
-		}
+	
 		return dto;
 	}	
 	
+	//결재선 조회
+	public List<ApproverDTO> approverList(String no) 
+	{
+		
+		return null;
+	}
+
+	/*
 	//게시물 정보를 변경한다.
 	//return true : 변경 성공, false : 변경 실패
 	public boolean Update(ApprovalDTO dto)
@@ -63,8 +68,10 @@ public class ApprovalRepository
 		//해당 게시글을 삭제
 		session.delete(namespace + ".delete",no);
 		return true;
-	}	
-		
+	}
+
+	
+	
 	
 
 

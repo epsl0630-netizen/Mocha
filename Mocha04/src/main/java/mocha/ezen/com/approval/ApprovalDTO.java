@@ -37,5 +37,9 @@ public class ApprovalDTO
 	public void setUser_id(String user_id) 						 { this.user_id = user_id; 					   	 }
 	public void setParent_approval_no(String parent_approval_no) { this.parent_approval_no = parent_approval_no; }
 	public void setApproverDTO(ApproverDTO approverDTO) 		 { this.approverDTO = approverDTO;				 }
+	
+	
 
+	
+	
 }

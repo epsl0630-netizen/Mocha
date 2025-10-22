@@ -43,6 +43,9 @@ public class ApprovalController
 		@RequestMapping(value = "/approvalList",  method = RequestMethod.GET)
 		public String ApprovalList(Model model, ApprovalDTO dto)
 		{
+			if(dto.getApproval_kind() == null) {
+				dto.setApproval_kind("1");
+			}
 			//페이징, 결재구분 
 			List<ApprovalDTO> allEvents = approvalRepository.selectapprovalList(dto);
 		    model.addAttribute("list", allEvents);
@@ -53,6 +56,9 @@ public class ApprovalController
 		@RequestMapping(value = "/draftList",  method = RequestMethod.GET)
 		public String DraftList(Model model, ApprovalDTO dto)
 		{
+			if(dto.getApproval_kind() == null) {
+				dto.setApproval_kind("1");
+			}
 			//페이징
 			List<ApprovalDTO> allEvents = approvalRepository.selectdraftList(dto);
 		    model.addAttribute("list", allEvents);
@@ -223,10 +229,10 @@ public class ApprovalController
 				Model model)
 		{
 			//게시물 정보 조회
-			ApprovalDTO dto = approvalRepository.Read(no, true);
+			ApprovalDTO dto = approvalRepository.Read(no);
 			
 			//결재선 목록을 조회
-			List<ApproverDTO> approver = approverRepository.GetList(no);
+			List<ApproverDTO> approver = approvalRepository.approverList(no);
 			
 			model.addAttribute("item",dto);
 			model.addAttribute("reply",approver);
@@ -241,8 +247,8 @@ public class ApprovalController
 			approvalRepository.Delete(no);
 			return "redirect:/DraftList";
 		}
-		
-			*/
+		*/
+			
 		
 	
 }
