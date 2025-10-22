@@ -1,4 +1,4 @@
-package mocha.ezen.com.position;
+package mocha.ezen.com.positions;
 
 public class PositionDTO {
 	private String position_no;	   // 직급번호

@@ -16,23 +16,34 @@
                       <br>
                       <h4 class="mb-3">사원관리 목록</h4>
                       <div class="search-container">
-                        <select id="select_user_kind" name="select_user_kind" class="select_search form-select">
-                          <option value="1">일반</option>
-                          <option value="2">관리</option>
-                        </select>
-                        <select id="select_user_depart" name="select_user_depart" class="select_search form-select">
-                          	<option value="0">부서선택</option>
-                          	<option value="1">경영지원팀</option>
-                     		<option value="2">디자인팀</option>
-                     		<option value="3">인사지원팀</option>
-                        </select>
-                        <label class="search-input">
-                          <input type="text" id="user-search" class="form-control" placeholder="사원번호, 이름">
-                          <button class="search-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
-                            </svg>
-                          </button>
-                        </label>
+                      	<form id="searchFrm" method="get" action="${pageContext.request.contextPath}/admin/adminUserList">
+	                        <select id="search_authority" name="authority" class="select_search form-select">
+	                          <option value="false"
+	                          	<c:if test="${search.authority == false}"> selected</c:if>
+	                          >일반</option>
+	                          <option value="true"
+	                          	<c:if test="${search.authority == true}"> selected</c:if>
+	                          >관리</option>
+	                        </select>
+	                        <select id="search__depart" name="dept_id" class="select_search form-select">
+	                        	<option value="0"
+	                        		<c:if test="${search.dept_id == item.dept_id}"> selected</c:if>
+	                        	>전체</option>
+	                        	<c:forEach begin="0" var="item" items="${departList}"  varStatus="status">
+		                          	<option value="${item.dept_id}"
+		                          		<c:if test="${search.dept_id == item.dept_id}"> selected</c:if> 
+		                          	>${item.dept_name} 팀 
+		                          	</option>
+	                        	</c:forEach>
+	                        </select>
+	                        <label class="search-input">
+	                          <input type="text" id="keyword" name="keyword" class="form-control" placeholder="사원번호, 이름" value="${search.keyword}">
+	                          <button type="submit" class="search-btn">
+	                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
+	                            </svg>
+	                          </button>
+	                        </label>
+                      	</form>
                         <button class="btn btn-outline-dark btn-right addUser-modalBtn" data-bs-toggle="modal" data-bs-target="#addUser-modal">사원 등록</button>
                       </div>
                     </div>
@@ -46,15 +57,17 @@
                         <td>부서</td>
                         <td>이름</td>
                       </tr>
-                      <c:forEach begin="0" end="${total}" var="item" items="${list}"  varStatus="status">
-                      	<c:choose>
-                      		<c:when test="${requestScope.user_id != null && requestScope.user_id != ''}">
-                      			<tr id="subTR" class="<c:if test="${requestScope.user_id == item.user_id}">selected</c:if>">
-                      		</c:when>
-                      		<c:otherwise>
-		                    	<tr id="subTR" class="<c:if test="${status.index == 0}">selected</c:if>">
-                      		</c:otherwise>
-                      	</c:choose>
+                      <c:forEach begin="0" end="${total}" var="item" items="${userList}"  varStatus="status">
+                      	<tr id="subTR"
+                      		<c:choose>
+                      			<c:when test="${requestScope.user_id != null && requestScope.user_id != ''}">
+                      				<c:if test="${requestScope.user_id == item.user_id}">class="selected"</c:if>
+                      			</c:when>
+                      			<c:otherwise>
+                      				<c:if test="${status.index == 0}"> class="selected"</c:if>
+                      			</c:otherwise>
+                      		</c:choose>
+                      	>
 	                        <td>
 	                        	<c:out value="${item.user_id}"/>
 	                        </td>
@@ -87,9 +100,9 @@
                           <td>부서</td>
                           <td>
                             <select id="dept_id" name="dept_id" class="select_user_kind form-select form-select-sm">
-                              <option value="1">경영지원팀</option>
-                              <option value="2">디자인팀</option>
-                              <option value="3">인사지원팀</option>
+                              	<c:forEach begin="0" var="item" items="${departList}"  varStatus="status">
+	                          		<option value="${item.dept_id}">${item.dept_name} 팀</option>
+                        		</c:forEach>
                             </select>
                           </td>
                           </tr>
@@ -165,11 +178,9 @@
                             <td>직급</td>
                             <td>
                               <select id="user_rank" name="user_rank" class="form-select form-select-sm">
-                                <option value="0">대표</option>
-                                <option value="1">부장</option>
-                                <option value="2">과장</option>
-                                <option value="3">대리</option>
-                                <option value="4">사원</option>
+                                <c:forEach begin="0" var="item" items="${positionList}"  varStatus="status">
+	                          		<option value="${item.position_no}">${item.position_name}</option>
+                    			</c:forEach>
                               </select>
                             </td>
                           </tr>
@@ -232,9 +243,9 @@
 			                		<td>부서</td>
 									<td>
 										<select name="dept_id" class="select_user_kind form-select form-select-sm">
-										    <option value="1">경영지원팀</option>
-										    <option value="2">디자인팀</option>
-										    <option value="3">인사지원팀</option>
+										    <c:forEach begin="0" var="item" items="${departList}"  varStatus="status">
+	                          					<option value="${item.dept_id}">${item.dept_name} 팀</option>
+                        					</c:forEach>
 									  	</select>
 									</td>
 			              		</tr>

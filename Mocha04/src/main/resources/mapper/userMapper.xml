@@ -14,19 +14,57 @@
  	from user 
  	where user_id = #{user_id} 
  </select>
- <select id="userList" resultType="mocha.ezen.com.user.UserDTO">
+ <select id="login" parameterType="java.lang.String">
+ 	select user_id, name, user_gender,is_active, dept_id, 
+ 	date(user_birth) as user_birth, 
+ 	email, mobile, user_addr, user_file_name, user_photo, 
+ 	date(created_at) as created_at, 
+ 	user_rank, 
+ 	authority 
+ 	from user 
+ 	where user_id = #{user_id} and
+ 	user_pw = md5(#{user_id})
+ </select>
+ <select id="userList" parameterType="mocha.ezen.com.common.dto.UserSearchDTO" resultType="mocha.ezen.com.user.UserDTO">
  	select user_id, name, is_active, 
  	(select dept_name from departments where dept_id = user.dept_id) as dept_name 
  	from user
+ 	where 1 = 1
+	<if test="dept_id != null">
+		and  dept_id = #{dept_id}
+	</if>
+	<if test="authority == true">
+		and  authority = #{authority}
+	</if>
+	<if test="keyword != null and keyword != ''">
+		and  (user_id like '%${keyword}%'
+		or name like '%${keyword}%' )
+	</if>
  </select>
- <select id="total" resultType="java.lang.Integer">
+ <select id="total" parameterType="mocha.ezen.com.common.dto.UserSearchDTO" resultType="java.lang.Integer">
  	select count(*) as total 
- 	from user 
+ 	from user
+ 	where 1 = 1
+	<if test="dept_id != null">
+		and  dept_id = #{dept_id}
+	</if>
+	<if test="authority == true">
+		and  authority = #{authority}
+	</if>
+	<if test="keyword != null and keyword != ''">
+		and  (user_id like '%${keyword}%'
+		or name like '%${keyword}%' )
+	</if> 	 
  </select>
  <select id="userCheck" parameterType="java.lang.String" resultType="mocha.ezen.com.user.UserDTO">
- 	select user_id, name, user_gender,is_active, dept_id, date(user_birth) as user_birth
- 	, email, mobile, user_addr, user_file_name, user_photo, date(created_at) as created_at , user_rank, authority 
- 	from user where user_id = #{user_id} 
+ 	select user_id, name, user_gender,is_active, dept_id, 
+ 	date(user_birth) as user_birth, 
+ 	email, mobile, user_addr, user_file_name, user_photo, 
+ 	date(created_at) as created_at, 
+ 	user_rank, 
+ 	authority 
+ 	from user 
+ 	where user_id = #{user_id} 
  </select>
  <update id="modify" parameterType="mocha.ezen.com.user.UserDTO">
  	update user set 

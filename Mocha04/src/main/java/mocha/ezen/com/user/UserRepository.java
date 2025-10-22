@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import mocha.ezen.com.common.dto.UserSearchDTO;
 import mocha.ezen.com.user.UserDTO;
 
 @Repository
@@ -49,14 +50,16 @@ public class UserRepository {
 		return dto;
 	}
 	
-	public int UserCount() {
-		int total = session.selectOne(namespace + ".total");
+	public int UserCount(UserSearchDTO dto) {
+		int total = session.selectOne(namespace + ".total",dto);
 		return total;
 	}
 	
 	//사원목록
-	public List<UserDTO> UserList() {
-		List<UserDTO> userList = session.selectList(namespace + ".userList");
+	public List<UserDTO> UserList(UserSearchDTO dto) {
+		
+		System.out.println("dept_id:" + dto.getDept_id());
+		List<UserDTO> userList = session.selectList(namespace + ".userList", dto);
 		return userList;
 	}
 	

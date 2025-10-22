@@ -4,7 +4,7 @@
 	<tr>
 		<!-- header -->
 		<td colspan="3" id="header"><a
-			href="${pageContext.request.contextPath}/index" class="m-logo"></a> <!-- headerlist start -->
+			href="${pageContext.request.contextPath}/" class="m-logo"></a> <!-- headerlist start -->
 			<div id="header-list">
 				<!-- alarm start -->
 				<div id="notification-dropdown" class="dropdown me-3">

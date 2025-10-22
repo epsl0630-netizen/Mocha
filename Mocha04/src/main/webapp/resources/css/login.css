@@ -48,14 +48,12 @@
   margin: 10px;
 
   font-weight: bold;
-  margin-top: 100px;
+  margin-top: 30px;
   background-color: var(--sub-color-1);
   
-  /* 아이콘 가운데 정렬 start */
     display : flex;
     justify-content: center;
     align-items : center;
-  /* 아이콘 가운데 정렬 end */
 }
 .login-img img{
   width: 100px;
@@ -70,4 +68,11 @@
   background-color: white;
   
   text-align: center;
+}
+.loginstr {
+	display: none;
+	color:grey;
+}
+.loginFail {
+	display: inline-block !important;
 }

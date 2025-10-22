@@ -33,7 +33,7 @@
 </head>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/index.css" />
-<script src="${pageContext.request.contextPath}/resources/js/index.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/login.js"></script>
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/login.css" />
@@ -45,20 +45,29 @@
 				<table>
 					<tr>
 						<td>
-
 							<div class="login-container">
 								<div class="login-img">
-									<a href="/index"> <img
-										src="${pageContext.request.contextPath}/resources/img/mocha_logo.png">
+									<a href="${pageContext.request.contextPath}/"> <img
+										src="${pageContext.request.contextPath}/resources/img/logo.png">
 									</a>
+									<c:choose>
+										<c:when test="${ sessionScope.login == null }">
+											로그인안됨
+										</c:when>
+										<c:otherwise>
+											로그인됨
+											${ sessionScope.login.name }
+										</c:otherwise>
+									</c:choose>
 								</div>
 								<div class="login-input-container">
 									<span class="h5"> 로그인 </span>
-									<form id="login">
-										<span>아이디</span> <input type="text" name="id"
+									<form id="loginFrm" onsubmit="return false;" method="post">
+										<span>아이디</span> <input type="text" id="user_id" name="user_id"
 											placeholder="아이디를 입력해주세요."> <span>비밀번호</span> <input
-											type="password" name="pw" placeholder="비밀번호를 입력해주세요.">
-										<button class="btn" id="login-btn">로그인</button>
+											type="password" id="user_pw" name="user_pw" placeholder="비밀번호를 입력해주세요.">
+										<span class="loginstr"></span>	
+										<button type="submit" class="btn" id="login-btn">로그인</button>
 									</form>
 								</div>
 							</div>
