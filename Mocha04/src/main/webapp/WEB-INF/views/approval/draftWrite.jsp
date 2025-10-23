@@ -174,7 +174,23 @@
 																	<li><details open>
 																			<summary>부서</summary>
 																		<ul class="list-unstyled ps-3">
-																																				
+																			<c:forEach var="depts" items="${dept}">
+																				<li>
+							                                                    <details open>
+							                                                      <summary>${depts.dept_name}</summary>
+							                                                      <ul class="list-unstyled ps-3">
+							                                                      	<c:forEach var="user" items="${depts.user}">
+								                                                        <li class="d-flex align-items-center gap-2">
+								                                                          <input type="checkbox" class="form-check-input person"
+								                                                            data-dept="${depts.dept_name}" data-rank="${user.user_rank}" data-name="${user.name}">
+								                                                          <span>${user.name}${user.user_rank}</span>
+								                                                        </li>
+							                                                        </c:forEach>
+							                                                      </ul>
+							                                                    </details>
+							                                                  </li>
+						                                                  </c:forEach>
+																			<%-- 																	
 																			<li><details open>
 																			<c:forEach var="dept" items="${dept}">
 																			<c:choose>
@@ -218,7 +234,7 @@
 																			</c:choose>		
 																			</c:forEach>		
 																			</details></li>
-																		
+																		 --%>
 																			
 																		</ul>
 																	</details></li>

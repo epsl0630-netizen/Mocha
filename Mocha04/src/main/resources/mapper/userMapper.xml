@@ -19,7 +19,7 @@
 		    <result property="mobile" column="mobile"/>
 		    <result property="user_birth" column="user_birth"/>
 		    <result property="user_addr" column="user_addr"/>
-		    <result property="user_rank" column="user_rank"/>
+		    <result property="user_rank" column="position_name"/>
 		    <result property="authority" column="authority"/>
 		    <result property="user_file_name" column="user_file_name"/>
 		    <result property="user_photo" column="user_photo"/>
@@ -120,8 +120,9 @@
  
  <!-- 부서에 해당하는 유저 목록 조인 -->
  <select id="deptWithUser" resultMap="deptUserMap">
-		select * from departments
-		inner join user on departments.dept_id  = user.dept_id;
+		select departments.*, user.*, positions.position_name from departments
+		inner join user on departments.dept_id = user.dept_id
+		inner join positions on user.user_rank = positions.position_no 
 </select>
  
 <!--	<select id="searchUser" parameterType="mocha.ezen.com.UserSearchDTO" resultType="mocha.ezen.com.UserDTO">

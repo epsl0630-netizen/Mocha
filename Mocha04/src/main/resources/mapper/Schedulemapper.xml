@@ -36,12 +36,12 @@
 		schedule_title = #{ schedule_title },
 		schedule_note = #{ schedule_note },				
 		schedule_kind = #{ schedule_kind }
-		where schedule_no = #{ no }		
+		where schedule_no = #{ schedule_no }		
 	</update>
 	 	
 	<delete id="delete" parameterType="java.lang.String">
 		delete from schedule
-		where no = #{ no }
+		where schedule_no = #{ schedule_no }
 	</delete>
 	
  

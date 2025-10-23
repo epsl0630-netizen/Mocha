@@ -29,10 +29,9 @@ function formatDateString(date) {
 // =================================================================
 /**
  * 일정 등록/수정 모달을 엽니다.
- * @param {object} event - 수정할 이벤트 객체. 없으면 등록 모드.
+ * @param {object} event 
  */
 function openEventModal(event = null) {
-    // ... (기존 openEventModal 코드 유지) ...
     const eventModalElement = document.getElementById('eventModal');
     if (!eventModalElement) {
         console.error("Error: Modal element with ID 'eventModal' not found.");
