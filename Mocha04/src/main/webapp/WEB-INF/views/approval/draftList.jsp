@@ -130,10 +130,10 @@
 							<tr>
 								<th scope="row">${ item.approval_no }</th>
 								<td>${ item.created_at }</td>
-								<td>${ item.created_at }</td>
+								<td>${ item.end_at }</td>
 								<td>${ item.approval_kind }</td>
 								<td><a
-									href="${pageContext.request.contextPath}/approval/approvalView?no=${ item.approval_no}"
+									href="${pageContext.request.contextPath}/approval/draftView?no=${ item.approval_no}"
 									class="table-link"> ${item.approval_title } </a></td>
 								<td>${ item.name}</td>
 								<td>

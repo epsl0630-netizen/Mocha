@@ -15,16 +15,12 @@ public class ApprovalDTO
 	private String updated_at;			 // 수정일시
 	private String user_id;				 // 사원번호
 	private String parent_approval_no;   // 부모결재번호
-	private String name;
-	private String user_rank;
-	private String dept_name;
-	
-	
-	public String getName() { return name; }
-	public void setName(String name) { this.name = name; }
-
-
-
+	private String name;                 // 유저이름
+	private String user_rank;            // 직급
+	private String dept_name;            // 부서이름
+	private String end_at;               // 마감일
+    private UserDTO user;                //useㄱㅇ썌  
+    private DepartmentDTO department;    //부서DTO
 	private ApproverDTO approverDTO;	 // 결재선DTO
 	
 	public String getApproval_no()     	  { return approval_no;   	   }
@@ -51,14 +47,26 @@ public class ApprovalDTO
 	
 
 	
-    private UserDTO user; 
+
     
     public UserDTO getUser() { return user; }
     public void setUser(UserDTO user) { this.user = user; }
 
-    private DepartmentDTO department;
+    
 
 	public DepartmentDTO getDepartment() { return department; }
 	public void setDepartment(DepartmentDTO department) { this.department = department; } 
+	
+
+	
+	public String getEnd_at() {
+		return end_at;
+	}
+	public void setEnd_at(String end_at) {
+		this.end_at = end_at;
+	}
+	public String getName() { return name; }
+	public void setName(String name) { this.name = name; }
+
 	
 }

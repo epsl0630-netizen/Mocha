@@ -23,6 +23,7 @@
 						<table class="table mb-4">
 							<tbody>
 								<tr>
+								<input type="hidden" name="item" value="${item}" />
 									<th scope="row">작성자</th>
 									<td>${ item.user_id }</td>
 								</tr>
@@ -82,9 +83,7 @@
 
 								<tr>
 									<th scope="row">내용</th>
-									<td><textarea class="form-control" rows="4" readonly>내용입니다 
-내용입니다 내용입니다 내용입니다 내용입니다 내용입니다
-내용입니다 내용입니다 내용입니다 내용입니다 내용입니다    
+									<td><textarea class="form-control" rows="4" readonly>
               </textarea></td>
 								</tr>
 

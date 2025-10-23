@@ -29,18 +29,19 @@
 							<table class="table mb-4">
 								<tbody>
 									<tr>
+									<input type="hidden" name="user_id" value="${login.user_id}" />
 										<th scope="row">작성자</th>
-										<td>${sessionScope.loginUser.name}</td>
+										<td>${loginUser.name}</td>
 									</tr>
 									<tr>
 										<th scope="row">부서</th>
-										<td>${sessionScope.loginUser.dept_name}</td>
+										<td>${loginUser.dept_name}</td>
 									</tr>
 									<tr>
 										<th scope="row">직급</th>
-										<td>${sessionScope.loginUser.user_rank}</td>
+										<td>${loginUser.user_rank}</td>
 									</tr>
-									<input type="hidden" name="user_id" value="${sessionScope.loginUser.user_id}" />
+									
 								</tbody>
 							</table>
 
@@ -190,53 +191,6 @@
 							                                                    </details>
 							                                                  </li>
 						                                                  </c:forEach>
-																			<%-- 																	
-																			<li><details open>
-																			<c:forEach var="dept" items="${dept}">
-																			<c:choose>
-																					
-																					<c:when test="${dept.dept_name == '경영지원'}">
-																					<summary>${dept.dept_name}</summary>
-																						<ul class="list-unstyled ps-3">
-																							<li class="d-flex align-items-center gap-2">
-																								<input type="checkbox"
-																								class="form-check-input person"
-																								data-dept="${dept.dept_name}" data-rank="${position.position_name}"
-																								data-name="${user.name}"> 
-																								<span>${user.name}${user.user_rank}</span>
-																							</li>
-																						</ul>
-																						</c:when>
-																						<c:when test="${dept.dept_name == '디자인'}">
-																						<summary>${dept.dept_name}</summary>
-																						<ul class="list-unstyled ps-3">
-																							<li class="d-flex align-items-center gap-2">
-																								<input type="checkbox"
-																								class="form-check-input person"
-																								data-dept="${dept.dept_name}" data-rank="${position.position_name}"
-																								data-name="${user.name}"> 
-																								<span>${user.name}${user.user_rank}</span>
-																							</li>
-																						</ul>
-																					</c:when>
-																					<c:when test="${dept.dept_name == '인사관리'}">
-																						<summary>${dept.dept_name}</summary>
-																						<ul class="list-unstyled ps-3">
-																							<li class="d-flex align-items-center gap-2">
-																								<input type="checkbox"
-																								class="form-check-input person"
-																								data-dept="${dept.dept_name}" data-rank="${position.position_name}"
-																								data-name="${user.name}"> 
-																								<span>${user.name}${user.user_rank}</span>
-																							</li>
-																						</ul>
-																					</c:when>
-																			</c:choose>		
-																			</c:forEach>		
-																			</details></li>
-																		 --%>
-																			
-																		</ul>
 																	</details></li>
 																</ul>
 																</li>		

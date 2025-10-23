@@ -23,20 +23,21 @@
 						<table class="table mb-4">
 							<tbody>
 								<tr>
+								<input type="hidden" name="user_id" value="${login.user_id}" />
 									<th scope="row">작성자</th>
-									<td>${approval.name}</td>
+									<td>${loginUser.name}</td>
 								</tr>
 								<tr>
 									<th scope="row">부서</th>
-									<td>${approval.dept_name}</td>
+									<td>${loginUser.dept_name}</td>
 								</tr>
 								<tr>
 									<th scope="row">직급</th>
-									<td>${approval.user_rank}</td>
+									<td>${loginUser.user_rank}</td>
 								</tr>
 								<tr>
 									<th scope="row">작성일</th>
-									<td><fmt:formatDate value="${approval.created_at}" pattern="yyyy-MM-dd" /></td>
+									<<td>${item.created_at}</td>
 								</tr>
 							</tbody>
 						</table>
