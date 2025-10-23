@@ -52,6 +52,9 @@
 		<interceptor>
 			<mapping path="/home/**"/>
 			<mapping path="/admin/**"/>
+			<mapping path="/schedule/**"/>
+			<mapping path="/approval/**"/>
+			<mapping path="/board/**"/>
 			
 			<beans:bean class="mocha.ezen.com.common.interceptor.LoginInterceptor" />
 		</interceptor>
