@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import mocha.ezen.com.common.dto.*;
 import mocha.ezen.com.departments.*;
 import mocha.ezen.com.positions.*;
+import mocha.ezen.com.schedule.*;
 import mocha.ezen.com.user.*;
 
 @Controller
@@ -22,6 +23,8 @@ public class AdminController {
 	DepartmentRepository departRepository;
 	@Autowired
 	PositionRepository positionRepository;
+	@Autowired
+	ScheduleRepository scheduleRepository;
 	
 	@RequestMapping("")
 	public String Admin()
@@ -41,9 +44,7 @@ public class AdminController {
 		{
 			dept_id = null;
 		}
-		System.out.println("[A]keyword:" + keyword);
-		System.out.println("[A]dept_id:" + dept_id);
-		System.out.println("[A]authority:" + authority);
+
 		//유저목록 불러오기
 		UserSearchDTO searchdto = new UserSearchDTO();
 		searchdto.setKeyword(keyword);
@@ -94,8 +95,24 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/adminScheduleList")
-	public String AdminScheduleLIst() {
+	public String AdminScheduleLIst(Model model) {
+		//부서목록 불러오기
+		List<DepartmentDTO> departList = departRepository.DepartList();
+		model.addAttribute("departList", departList);
+		
+		
+		
+		
+		
 		return "admin/adminScheduleList";
+	}
+	@RequestMapping(value = "/adminScheduleListShow")	
+	public String AdminScheduleLIstShow(Model model, @RequestBody ScheduleSearchDTO searchdto) {
+		System.out.println("??");
+		List<ScheduleDTO> scheduleList = scheduleRepository.selectAdminAllEvents(searchdto);
+		model.addAttribute("scheduleList", scheduleList);
+		
+		return "admin/adminScheduleListShow";
 	}
 	
 	@RequestMapping(value = "/adminApprovalList")

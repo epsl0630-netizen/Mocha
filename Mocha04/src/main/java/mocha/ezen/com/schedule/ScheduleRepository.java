@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import mocha.ezen.com.common.dto.ScheduleSearchDTO;
+
 @Repository
 public class ScheduleRepository 
 {
@@ -53,6 +55,13 @@ public class ScheduleRepository
 	{
 		session.update(namespace + ".update", dto);
 		return true;
+	}
+
+
+	public List<ScheduleDTO> selectAdminAllEvents(ScheduleSearchDTO searchdto) {
+		List<ScheduleDTO> scheduleList = session.selectList(namespace + ".selectAdminAllEvents", searchdto);
+		
+		return scheduleList;
 	}
 
 

@@ -14,81 +14,59 @@
 					<div class="container py-4">
 						<h2 class="mb-5">전체 일정 조회</h2>
 						<div class="card shadow-sm">
-							<div class="card-body">
-								<div class="row mb-3 align-items-center">
-									<label for="search-date" class="col-md-2 col-form-label">검색
-										기간</label>
-									<div class="col-md-4">
-										<div class="input-group">
-											<input type="date" class="form-control" id="start-date"
-												value="2025-09-27"> <span class="input-group-text">~</span>
-											<input type="date" class="form-control" id="end-date"
-												value="2025-10-04">
+							<form id="scheduleSearchFrm" onsubmit="return ShowSchedule();" method="get">
+								<div class="card-body">
+										<div class="row mb-3 align-items-center">
+											<label for="search-date" class="col-md-2 col-form-label">검색
+												기간
+											</label>
+											<div class="col-md-4">
+												<div class="input-group">
+													<input type="date" class="form-control" id="start-date" name="start_at"> <span class="input-group-text">~</span>
+													<input type="date" class="form-control" id="end-date" name="end_at">
+												</div>
+											</div>
 										</div>
-									</div>
-								</div>
-								<div class="row mb-3 align-items-center">
-									<label for="approval-form" class="col-md-2 col-form-label">일정
-										구분</label>
-									<div class="col-md-4">
-										<select class="form-select" id="approval-form">
-											<option selected>선택</option>
-											<option value="1">전체</option>
-											<option value="2">내일정</option>
-											<option option="3">팀일정</option>
-										</select>
-									</div>
-								</div>
-								<div class="row mb-3">
-									<label for="drafter" class="col-md-2 col-form-label">작성자</label>
-									<div class="col-md-10">
-										<input type="text" class="form-control" id="drafter" value="">
-									</div>
-								</div>
-								<div class="row mb-3">
-									<label for="drafter-dept" class="col-md-2 col-form-label">부서</label>
-									<div class="col-md-10">
-										<input type="text" class="form-control" id="drafter-dept">
-									</div>
-								</div>
-								<div class="row mb-3">
-									<label for="doc-num" class="col-md-2 col-form-label">글번호</label>
-									<div class="col-md-10">
-										<input type="text" class="form-control" id="doc-num">
-									</div>
-								</div>
-								<div class="row mb-3">
-									<label for="title" class="col-md-2 col-form-label">제목</label>
-									<div class="col-md-10">
-										<input type="text" class="form-control" id="title">
-									</div>
-								</div>
-								<hr class="my-4">
-								<div class="row mb-3">
-									<label class="col-md-2 col-form-label">일정 구분</label>
-									<div class="col-md-10 d-flex flex-wrap align-items-center pt-2">
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox" id="doc-all"
-												value="All"> <label class="form-check-label"
-												for="doc-all">전체</label>
+										<div class="row mb-3 align-items-center">
+											<label for="approval-form" class="col-md-2 col-form-label">일정
+												구분</label>
+											<div class="col-md-4">
+												<select class="form-select" id="schedule_kind" name="schedule_kind">
+													<option value="all">전체</option>
+													<option value="personal">내일정</option>
+													<option value="team">팀일정</option>
+												</select>
+											</div>
 										</div>
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox"
-												id="doc-general" value="General"> <label
-												class="form-check-label" for="doc-general">내 일정</label>
+										<div class="row mb-3">
+											<label for="drafter" class="col-md-2 col-form-label">작성자</label>
+											<div class="col-md-10">
+												<input type="text" class="form-control" name="name">
+											</div>
 										</div>
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox"
-												id="doc-receipt" value="Receipt"> <label
-												class="form-check-label" for="doc-receipt">팀 일정</label>
+										<div class="row mb-3">
+											<label for="drafter-dept" class="col-md-2 col-form-label">부서</label>
+											<div class="col-md-4">
+												<select class="form-select" id="drafter-dept" name="dept_id">
+														<option value="0">전체</option>
+													<c:forEach begin="0" var="item" items="${departList}"  varStatus="status">
+			                          					<option value="${item.dept_id}">${item.dept_name} 팀</option>
+		                        					</c:forEach>
+												</select>
+											</div>
 										</div>
-									</div>
+										<div class="row mb-3">
+											<label for="title" class="col-md-2 col-form-label">제목</label>
+											<div class="col-md-10">
+												<input type="text" class="form-control" id="title" name="schedule_title">
+											</div>
+										</div>
 								</div>
-							</div>
-						</div>
-						<div class="card-footer text-center">
-							<button class="btn btn-primary me-2">조회</button>
-							<button class="btn btn-secondary">초기화</button>
+								<div class="card-footer text-center mt-5">
+									<button type="submit" class="btn btn-primary me-2">조회</button>
+									<button type="reset"  class="btn btn-secondary">초기화</button>
+								</div>
+							</form>
 						</div>
 						<div>
 							<a href="approvalList.html" class="btn btn-outline-dark">삭제</a> <a
@@ -115,63 +93,8 @@
 												<th scope="col">등록일시</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr>
-												<td class="text-center"><input class="form-check-input"
-													type="checkbox" name="selectDoc"></td>
-												<th scope="row">1</th>
-												<td>2025-09-17</td>
-												<td>2025-09-17</td>
-												<td>내일정</td>
-												<td>주간회의</a></td>
-												<td>홍길동</td>
-												<td>2025.10.01 09:00</td>
-											</tr>
-											<tr>
-												<td class="text-center"><input class="form-check-input"
-													type="checkbox" name="selectDoc"></td>
-												<th scope="row">2</th>
-												<td>2025-09-17</td>
-												<td>2025-09-17</td>
-												<td>내일정</td>
-												<td>예산신청</td>
-												<td>홍길동</td>
-												<td>2025.10.01 09:00</td>
-											</tr>
-											<tr>
-												<td class="text-center"><input class="form-check-input"
-													type="checkbox" name="selectDoc"></td>
-												<th scope="row">3</th>
-												<td>2025-09-18</td>
-												<td>2025-09-18</td>
-												<td>내일정</td>
-												<td>연차신청서</td>
-												<td>홍길동</td>
-												<td>2025.10.01 09:00</td>
-											</tr>
-											<tr>
-												<td class="text-center"><input class="form-check-input"
-													type="checkbox" name="selectDoc"></td>
-												<th scope="row">4</th>
-												<td>2025-09-18</td>
-												<td>2025-09-18</td>
-												<td>내일정</td>
-												<td>연차신청서</td>
-												<td>홍길동</td>
-												<td>2025.10.01 09:00</td>
-											</tr>
-											<tr>
-												<td class="text-center"><input class="form-check-input"
-													type="checkbox" name="selectDoc"></td>
-												<th scope="row">5</th>
-												<td>2025-09-18</td>
-												<td>2025-09-18</td>
-												<td>내일정</td>
-												<td>연차신청서</td>
-												<td>홍길동</td>
-												<td>2025.10.01 09:00</td>
-											</tr>
-
+										<tbody id="adminScheduleList">
+										
 										</tbody>
 									</table>
 								</div>

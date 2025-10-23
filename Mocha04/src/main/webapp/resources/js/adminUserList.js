@@ -104,12 +104,6 @@ function AdminUserView(user_id) {
 			$("#userInfoFrm #user_rank").val(data.user_rank);
 			$("#userInfoFrm #created_at").text(data.created_at);
 			
-			if(data.mobile != "" && data.mobile != null) {
-				const back = data.mobile.slice(-4);
-				$("mobile1").val(data.mobile.substr(0,3));
-				$("mobile2").val(data.mobile.substr(3, data.mobile.length - back.length - 3));
-				$("mobile3").val(back);
-			}
 		},
 		error: function(a,b,c) {
 			alert("실패");

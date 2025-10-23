@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import mocha.ezen.com.user.UserDTO;
 
 @Controller
 @RequestMapping("/schedule")
@@ -57,8 +61,11 @@ public class ScheduleController
 	
 	@RequestMapping(value = "/ScheduleWrite", method = RequestMethod.POST)
 	@ResponseBody 
-	public Map<String, Object> ScheduleWrite(ScheduleDTO dto)
+	public Map<String, Object> ScheduleWrite(ScheduleDTO dto,HttpSession session)
 	{
+		UserDTO Userdto = (UserDTO)session.getAttribute("login");
+		
+		dto.setUser_id(Userdto.getUser_id());
 		scheduleRepository.Insert(dto);
 		
 		Map<String, Object> response = new HashMap<String, Object>();

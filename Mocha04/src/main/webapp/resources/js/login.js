@@ -34,9 +34,7 @@ function Login(path) {
         }else {
           loginstr="아이디 또는 비밀번호가 일치하지 않습니다.";
           $("#loginFrm .loginstr").text(loginstr);
-          alert(loginstr);
         }
-      	alert("성공 했습니다.");
       },
       error: function() {
       	alert("오류가 발생했습니다.");

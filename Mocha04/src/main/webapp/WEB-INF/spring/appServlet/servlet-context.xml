@@ -47,7 +47,15 @@
 
 	<context:component-scan
 		base-package="mocha.ezen.com" />
-
+		
+	<interceptors>
+		<interceptor>
+			<mapping path="/home/**"/>
+			<mapping path="/admin/**"/>
+			
+			<beans:bean class="mocha.ezen.com.common.interceptor.LoginInterceptor" />
+		</interceptor>
+	</interceptors>
 
 
 </beans:beans>

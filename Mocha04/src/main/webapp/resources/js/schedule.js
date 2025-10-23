@@ -139,7 +139,7 @@ $(document).ready(function() {
                 end: item.end_at ? item.end_at.substring(11, 16) : '',          
                 memo: item.schedule_note,
                
-                type: item.schedule_kind === '개인' ? 'personal' : 'team',
+                type: item.schedule_kind === '개인' ? 'personal' : item.schedule_kind === '팀' ? 'team' : item.schedule_kind,
                 author: item.user_id 
             }));
             
@@ -384,7 +384,7 @@ $(document).ready(function() {
                 eventItem.classList.add('d-block', 'text-decoration-none', 'text-dark', 'p-2', 'mb-2', 'border', 'rounded', 'shadow-sm', 'event-detail-item');
                 
                 const badgeClass = event.type === 'personal' ? 'bg-primary' : 'bg-success'; 
-                const typeText = event.type === 'personal' ? '내 일정' : '팀 일정';
+                const typeText = event.type === 'personal' ? 'personal' : 'team';
 
                eventItem.innerHTML = `
     <strong>${event.title}</strong>
@@ -476,7 +476,7 @@ $(document).ready(function() {
             const clientType = typeElement ? typeElement.value : 'personal'; // 'personal' 또는 'team'
 
 			// ⭐️ 이 부분이 수정되었습니다: 클라이언트 값 -> 서버 DB 값으로 변환
-            const serverKind = clientType === 'personal' ? '개인' : '팀';
+            const serverKind = clientType;
 
             if (title.trim() === '') {
                 alert('일정 제목을 입력해주세요.');
