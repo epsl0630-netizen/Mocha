@@ -25,11 +25,11 @@
 								<tr>
 								<input type="hidden" name="item" value="${item}" />
 									<th scope="row">작성자</th>
-									<td>${ item.user_id }</td>
+									<td>${ item.name }</td>
 								</tr>
 								<tr>
 									<th scope="row">부서</th>
-									<td>${ item.detp_name }</td>
+									<td>${ item.dept_name }</td>
 								</tr>
 								<tr>
 									<th scope="row">직급</th>
@@ -52,10 +52,10 @@
 									<td><select class="form-select"
 										aria-label="Default select example">
 											<option selected>--선택--</option>
-											<option value="1">연차신청</option>
-											<option value="2">업무지원요청</option>
-											<option value="3">예산신청</option>
-											<option value="4">출장신청</option>
+											<option value="1" ${item.approval_kind == 1 ? 'selected' : ''}>연차신청</option>
+											<option value="2" ${item.approval_kind == 2 ? 'selected' : ''}>업무지원요청</option>
+											<option value="3" ${item.approval_kind == 3 ? 'selected' : ''}>예산신청</option>
+											<option value="4" ${item.approval_kind == 4 ? 'selected' : ''}>출장신청</option>
 									</select></td>
 								</tr>
 
@@ -70,12 +70,12 @@
 										<div class="d-flex align-items-center gap-2">
 											<div class="input-group">
 												<input type="date" class="form-control input-date"
-													id="startDate" required>
+													id="startDate" required value="${item.created_at}">
 											</div>
 											<span>~</span>
 											<div class="input-group">
 												<input type="date" class="form-control input-date"
-													id="endDate" required>
+													id="endDate" required value="${item.end_at}">
 											</div>
 										</div>
 									</td>
@@ -83,8 +83,7 @@
 
 								<tr>
 									<th scope="row">내용</th>
-									<td><textarea class="form-control" rows="4" readonly>
-              </textarea></td>
+									<td><textarea class="form-control" rows="4" readonly>${item.approval_note}</textarea></td>
 								</tr>
 
 								<tr>

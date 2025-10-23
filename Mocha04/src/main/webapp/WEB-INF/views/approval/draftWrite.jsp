@@ -39,7 +39,7 @@
 									</tr>
 									<tr>
 										<th scope="row">직급</th>
-										<td>${loginUser.user_rank}</td>
+										<td>${loginUser.position_name}</td>
 									</tr>
 									
 								</tbody>

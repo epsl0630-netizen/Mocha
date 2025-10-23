@@ -33,7 +33,8 @@ public class ApprovalDTO
 	public String getUser_id()			  { return user_id; 		   }
 	public String getParent_approval_no() { return parent_approval_no; }
 	public ApproverDTO getApproverDTO()   { return approverDTO;		   }
-		
+	
+	
 	public void setApproval_no(String approval_no) 			     { this.approval_no = approval_no;				 }
 	public void setApproval_title(String approval_title) 		 { this.approval_title = approval_title;   		 }
 	public void setApproval_note(String approval_note) 			 { this.approval_note = approval_note; 			 }
@@ -69,4 +70,17 @@ public class ApprovalDTO
 	public void setName(String name) { this.name = name; }
 
 	
+	
+	public String getUser_rank() {
+		return user_rank;
+	}
+	public void setUser_rank(String user_rank) {
+		this.user_rank = user_rank;
+	}
+	public String getDept_name() {
+		return dept_name;
+	}
+	public void setDept_name(String dept_name) {
+		this.dept_name = dept_name;
+	}
 }

@@ -54,7 +54,7 @@ public class ApprovalRepository
 
 	public ApprovalDTO raftRead(String no) 
 	{
-		ApprovalDTO dto = session.selectOne(namespace + ".view",no);
+		ApprovalDTO dto = session.selectOne(namespace + ".draftview",no);
 		return dto;
 	}
 

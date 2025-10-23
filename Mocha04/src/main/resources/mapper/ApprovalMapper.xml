@@ -8,9 +8,9 @@
 	<insert id="insert" parameterType="mocha.ezen.com.approval.ApprovalDTO" 
 	    useGeneratedKeys="true" keyProperty="approval_no">
 	    INSERT INTO approval 
-	    (approval_no,approval_title, approval_kind, approval_note, created_at) 
+	    (user_id, approval_no,approval_title, approval_kind, approval_note, created_at) 
 	    VALUES 
-	    (#{approval_no}, #{approval_title}, #{approval_kind}, #{approval_note}, #{created_at}) 
+	    (#{user_id},#{approval_no}, #{approval_title}, #{approval_kind}, #{approval_note}, #{created_at}) 
 	</insert>
 	
 	<!-- 결재선 insert -->
@@ -22,12 +22,15 @@
 	    (#{approver_no}, #{approval_no}, #{approval_orther}, #{approval_status}, #{aproval_at}, #{user_id}) 
 	</insert>
 	
-	<!-- 내 기안목록 -->
+	
+	
+	
+	<!-- 내 기안목록    -->
 	<select id="selectdraft" parameterType="mocha.ezen.com.approval.ApprovalDTO" resultType="mocha.ezen.com.approval.ApprovalDTO">
          SELECT
         	approval_no, approval_status, 
         	(select name from user where user_id = approval.user_id) as name, 
-        	date(created_at) as created_at, approval_title, 
+        	date(created_at) as created_at, date(end_at) as end_at, approval_title, 
         	(CASE approval_kind
             WHEN '1' THEN '연차신청'
             WHEN '2' THEN '업무지원요청'
@@ -36,28 +39,32 @@
         END) AS approval_kind, approval_note
         	approval_kind, approval_note
         FROM approval
+        where user_id = #{ user_id }
         <choose>
 	        <when test = "approval_kind != 1">
-	        where approval_kind = ${ approval_kind }
+	        and approval_kind = ${ approval_kind }
 	        </when>
         </choose>
         ORDER BY created_at DESC  
     </select>
+ 
     
     <!-- 결재 목록 -->
     <select id="selectapproval" parameterType="mocha.ezen.com.approval.ApprovalDTO" resultType="mocha.ezen.com.approval.ApprovalDTO">
        SELECT
-        	approval_no, approval_status, 
-        	(select name from user where user_id = approval.user_id) as name, 
-        	date(created_at) as created_at, approval_title, 
-        	(CASE approval_kind
-            WHEN '1' THEN '연차신청'
-            WHEN '2' THEN '업무지원요청'
-            WHEN '3' THEN '예산신청'
-            WHEN '4' THEN '출장신청'
-        END) AS approval_kind, approval_note
-        	approval_kind, approval_note
-        FROM approval
+		approval.approval_no, approval.approval_status, 
+		(select name from user where user_id = approval.user_id) as name, 
+		date(created_at) as created_at, date(end_at) as end_at, approval_title, 
+		(CASE approval_kind
+	    WHEN '1' THEN '연차신청'
+	    WHEN '2' THEN '업무지원요청'
+	    WHEN '3' THEN '예산신청'
+	    WHEN '4' THEN '출장신청'
+	END) AS approval_kind, approval_note
+		approval_kind, approval_note
+	FROM approval right join approver on approval.approval_no = approver.approval_no
+	where approver.user_id = #{user_id}
+       
         <choose>
 	        <when test = "approval_kind != 1">
 	        where approval_kind = ${ approval_kind }
@@ -69,11 +76,37 @@
 	<!-- 결재 상세조회 -->
 	<select id="view" parameterType="java.lang.String" 
 			resultType="mocha.ezen.com.approval.ApprovalDTO">
-		select 
+		<!-- select 
 			approval_no,user_id,approval_title,approval_kind,approval_note,date(created_at) as created_at,
 			(select name from user where user_id = approval.user_id) as name
 		from approval
+		where approval_no = #{ approval_no } -->
+		
+		select 
+			approval_no,
+			approval.user_id,
+			approval_title,
+			approval_kind,
+			approval_note,
+			date(approval.created_at) as created_at,
+			date(approval.end_at) as end_at,
+			name, 
+			(select position_name from positions where position_no = user_rank) as user_rank,
+			(select dept_name from departments where dept_id = user.dept_id) as dept_name
+		from approval left join user on approval.user_id = user.user_id
 		where approval_no = #{ approval_no }
+	</select>
+	
+	<!-- 기안조회 -->
+	<select id="draftview" parameterType="java.lang.String" 
+			resultType="mocha.ezen.com.approval.ApprovalDTO">
+		select 
+			approval_no,user_id,approval_title,approval_kind,approval_note,date(created_at) as created_at,
+			(select name from user where user_id = approval.user_id) as name,
+			(select position_name from positions where position_no = user_rank) as user_rank,
+		from approval left join user on approval.user_id = user.user_id
+		where approval_no = #{ approval_no }
+		
 	</select>
 	
 	<!-- 결재선 조회 -->
@@ -85,6 +118,13 @@
 		from approver
 		
 	</select>
+	
+<!-- 	
+SELECT 
+u.user_id, 
+u.name FROM user u JOIN positions p ON u.user_rank = p.position_level WHERE u.dept_id  =  1 AND p.position_level > 1 ORDER BY p.position_level ASC LIMIT 3;
+ -->
+	
 	
 	<!-- 
 	<update id="update" parameterType="mocha.ezen.com.schedule.ScheduleDTO">

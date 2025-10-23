@@ -44,10 +44,15 @@ public class ApprovalController
 		
 		
 		@RequestMapping(value = "/approvalList",  method = RequestMethod.GET)
-		public String ApprovalList(Model model, ApprovalDTO dto)
+		public String ApprovalList(Model model, ApprovalDTO dto, HttpSession session)
 		{
+			UserDTO loginUser = (UserDTO) session.getAttribute("login");
+			
 			if(dto.getApproval_kind() == null) {
 				dto.setApproval_kind("1");
+			}
+			if(loginUser != null) {
+				dto.setUser_id(loginUser.getUser_id());
 			}
 			//페이징, 결재구분 
 			List<ApprovalDTO> allEvents = approvalRepository.selectapprovalList(dto);
@@ -59,20 +64,29 @@ public class ApprovalController
 		@RequestMapping(value = "/draftList",  method = RequestMethod.GET)
 		public String DraftList(Model model, ApprovalDTO dto, HttpSession session)
 		{
-//		    UserDTO loginUser = (UserDTO) session.getAttribute("login");
+		    UserDTO loginUser = (UserDTO) session.getAttribute("login");
 //		    
 //		    if (loginUser != null) {
 //		        dto.setUser_id(loginUser.getUser_id()); 
 //		    } else {
 //		         return "redirect:/user/login"; 
 //		    }
-			
+//			
+//		    dto.setUser_id(loginUser.getUser_id());  
+//		    
 			if(dto.getApproval_kind() == null) {
 				dto.setApproval_kind("1");
+			}
+			if(loginUser != null) {
+				dto.setUser_id(loginUser.getUser_id());
 			}
 			//페이징
 			List<ApprovalDTO> allEvents = approvalRepository.selectdraftList(dto);
 		    model.addAttribute("list", allEvents);
+		    
+		    //UserDTO filteredDrafts = UserRepository.login(dto);
+		   // model.addAttribute("list", filteredDrafts);
+		    
 			return "approval/draftList";
 		}
 	
@@ -133,6 +147,66 @@ public class ApprovalController
 		    
 			return response;
 		}
+
+		
+		@RequestMapping(value = "/draftView", method = RequestMethod.GET)
+		public String DraftlView(@RequestParam(required = true) String no,
+				Model model,  HttpSession session)
+		{
+			//게시물 정보 조회
+			ApprovalDTO dto = approvalRepository.Read(no);
+			
+			//결재선 목록을 조회
+			List<ApproverDTO> approver = approvalRepository.approverviewList(no);
+			UserDTO loginUser = (UserDTO) session.getAttribute("login");
+			model.addAttribute("loginUser", loginUser);
+			
+			if (loginUser == null) {
+		        System.out.println("ERROR: loginUser is NULL in session!");
+		    }
+		
+			
+			model.addAttribute("item",dto);
+			model.addAttribute("reply",approver);
+			
+			
+			return "approval/draftView";
+		}
+			
+		@RequestMapping(value = "/approvalView", method = RequestMethod.GET)
+		public String ApprovalView(@RequestParam(required = true) String no,
+				Model model,  HttpSession session)
+		{
+			//게시물 정보 조회
+			ApprovalDTO dto = approvalRepository.Read(no);
+			
+			//결재선 목록을 조회
+			List<ApproverDTO> approver = approvalRepository.approverviewList(no);
+			UserDTO loginUser = (UserDTO) session.getAttribute("login");
+			
+			model.addAttribute("loginUser", loginUser);
+			
+			if (loginUser == null) {
+		        System.out.println("ERROR: loginUser is NULL in session!");
+		    }
+		
+			
+			model.addAttribute("item",dto);
+			model.addAttribute("reply",approver);
+			
+			
+			return "approval/approvalView";
+		}
+			
+		
+	
+		@RequestMapping(value = "/approvalDelete.do")
+		public String ApprovalDelete(@RequestParam(required = true)String no)
+		{
+			approvalRepository.Delete(no);
+			return "redirect:/DraftList";
+		}
+	
 
 		/*	
 		@RequestMapping(value = "/draftWriteOK", method = RequestMethod.POST)
@@ -272,64 +346,6 @@ public class ApprovalController
 			return "approval/draftView";
 		}
 				*/
-		@RequestMapping(value = "/draftView", method = RequestMethod.GET)
-		public String DraftlView(@RequestParam(required = true) String no,
-				Model model,  HttpSession session)
-		{
-			//게시물 정보 조회
-			ApprovalDTO dto = approvalRepository.Read(no);
-			
-			//결재선 목록을 조회
-			List<ApproverDTO> approver = approvalRepository.approverviewList(no);
-			UserDTO loginUser = (UserDTO) session.getAttribute("login");
-			model.addAttribute("loginUser", loginUser);
-			
-			if (loginUser == null) {
-		        System.out.println("ERROR: loginUser is NULL in session!");
-		    }
-		
-			
-			model.addAttribute("item",dto);
-			model.addAttribute("reply",approver);
-			
-			
-			return "approval/draftView";
-		}
-			
-		@RequestMapping(value = "/approvalView", method = RequestMethod.GET)
-		public String ApprovalView(@RequestParam(required = true) String no,
-				Model model,  HttpSession session)
-		{
-			//게시물 정보 조회
-			ApprovalDTO dto = approvalRepository.Read(no);
-			
-			//결재선 목록을 조회
-			List<ApproverDTO> approver = approvalRepository.approverviewList(no);
-			UserDTO loginUser = (UserDTO) session.getAttribute("login");
-			
-			model.addAttribute("loginUser", loginUser);
-			
-			if (loginUser == null) {
-		        System.out.println("ERROR: loginUser is NULL in session!");
-		    }
-		
-			
-			model.addAttribute("item",dto);
-			model.addAttribute("reply",approver);
-			
-			
-			return "approval/draftView";
-		}
-			
-		
-	
-		@RequestMapping(value = "/approvalDelete.do")
-		public String ApprovalDelete(@RequestParam(required = true)String no)
-		{
-			approvalRepository.Delete(no);
-			return "redirect:/DraftList";
-		}
-	
 		
 	
 }
