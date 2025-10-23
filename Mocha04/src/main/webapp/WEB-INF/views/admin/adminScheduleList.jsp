@@ -87,6 +87,7 @@
 												<th scope="col" style="width: 60px;">번호</th>
 												<th scope="col">기안일</th>
 												<th scope="col">마감일</th>
+												<th scope="col">부서</th>
 												<th scope="col">유형</th>
 												<th scope="col">제목</th>
 												<th scope="col">작성자</th>

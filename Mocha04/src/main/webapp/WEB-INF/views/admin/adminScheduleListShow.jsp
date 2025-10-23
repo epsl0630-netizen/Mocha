@@ -8,6 +8,7 @@
 		<th scope="row">${status.count}</th>
 		<td>${item.start_at}</td>
 		<td>${item.end_at}</td>
+		<td>${item.dept_name}</td>
 		<td>
 			<c:choose>
 				<c:when test="${item.schedule_kind=='team'}">

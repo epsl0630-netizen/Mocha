@@ -62,8 +62,9 @@
 			schedule_no, 
 			start_at, end_at, 
 			date(schedule.created_at) as created_at, 
-			schedule_title, schedule_kind, schedule_note, user.name
-		from schedule left join user on schedule.user_id = user.user_id
+			schedule_title, schedule_kind, schedule_note, user.name, 
+			(select dept_name from departments where  dept_id= user.dept_id) as dept_name
+		from schedule left join user on schedule.user_id = user.user_id left join departments on user.dept_id = departments.dept_id
      	<where>
 	     	<if test="start_at != null and !start_at.equals('')">
 			and  start_at &gt; STR_TO_DATE(concat(#{start_at}, ' ', '00:00:00'), '%Y-%m-%d %H:%i:%s') 
@@ -71,19 +72,19 @@
 	     	<if test="end_at != null and !end_at.equals('')">
 			and  end_at &lt; STR_TO_DATE(concat(#{end_at}, ' ', '00:00:00'), '%Y-%m-%d %H:%i:%s') 
 			</if>
-	     	<!-- 
-	     	<if test="name != null and !dept_id.equals('') and dept_id != 0">
-			and  dept_id = #{dept_id}
+	     	 
+	     	<if test="dept_id != null and !dept_id.equals('') and dept_id != 0">
+			and  departments.dept_id = #{dept_id}
 			</if>
-			-->
+			
 	     	<if test="schedule_kind != null and !schedule_kind.equals('') and !schedule_kind.equals('all')">
 			and  schedule_kind = #{schedule_kind}
 			</if>
 	     	<if test="name != null and !name.equals('')">
-			and  user.name = #{name}
+			and  user.name like '%${name}%'
 			</if>
 	     	<if test="schedule_title != null and !schedule_title.equals('')">
-			and  schedule_title = #{schedule_title}
+			and  schedule_title like '%${schedule_title}%'
 			</if> 
 		</where>
        
