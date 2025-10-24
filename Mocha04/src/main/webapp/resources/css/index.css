@@ -36,9 +36,11 @@
 .gadget-buttons {
   height: 200px;
 }
-
+.g-long {
+	height: 430px;
+}
 .gadget-noti  {
-  height: 280px;
+  height: 330px;
 }
 .gadget-alarm {
   height: 400px;
