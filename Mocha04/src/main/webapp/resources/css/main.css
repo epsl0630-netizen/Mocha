@@ -100,8 +100,8 @@ display: inline-block;
 }
 
 .profile-img-md {
-  width : 100px;
-  height : 100px;
+  width : 150px;
+  height : 150px;
   content : url("../img/profile.png");
   object-fit: cover;
 }

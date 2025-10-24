@@ -261,7 +261,7 @@ $(document).ready(function() {
             for (let j = 0; j < 7; j++) {
                 const cell = document.createElement('td');
                 cell.classList.add('p-2', 'align-top', 'calendar-day'); 
-                
+                cell.style.height = '62px'; 
                 if (i === 0 && j < firstDayWeek) {
                     cell.classList.add('bg-light'); 
                 } else if (date > lastDate) {
@@ -290,7 +290,7 @@ $(document).ready(function() {
 
                     const eventMarkerContainer = document.createElement('div');
                     eventMarkerContainer.classList.add('small', 'event-markers');
-                    eventMarkerContainer.style.cssText = 'max-height: 80px; overflow-y: auto; overflow-x: hidden;';
+                    eventMarkerContainer.style.cssText = 'max-height: 35px; overflow-y: hidden; overflow-x: hidden;';
                     
                     const dayEvents = filteredEvents.filter(e => {
                         return e.startDate <= dateString && e.endDate >= dateString;
