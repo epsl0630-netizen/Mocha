@@ -1,14 +1,19 @@
 package mocha.ezen.com.home;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import mocha.ezen.com.schedule.ScheduleDTO;
+import mocha.ezen.com.schedule.ScheduleRepository;
 import mocha.ezen.com.user.UserDTO;
 import mocha.ezen.com.user.UserRepository;
 
@@ -16,13 +21,19 @@ import mocha.ezen.com.user.UserRepository;
 public class HomeController {
 	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	ScheduleRepository  scheduleRepository;
 	
 	@RequestMapping(value = "/")
-	public String Index(HttpServletRequest request)
+	public String Index(HttpServletRequest request, Model model)
 	{
 		//로그인 정보를 조회한다.
 		UserDTO login = (UserDTO)request.getSession().getAttribute("login");
 		if(login != null) {
+			ScheduleDTO dto = new ScheduleDTO();
+			List<ScheduleDTO> allEvents = scheduleRepository.selectAllEvents(dto);
+		    model.addAttribute("scheduleList", allEvents);
+			
 			return "home/index";
 		}
 		//return "home/index";

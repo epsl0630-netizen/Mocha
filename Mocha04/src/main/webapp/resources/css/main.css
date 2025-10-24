@@ -483,3 +483,7 @@ a.link.action-blue:hover,
 a.link.action-red:hover {
     text-decoration: underline !important;
 }
+
+.quick-btn:visited {
+	color:black;
+}
