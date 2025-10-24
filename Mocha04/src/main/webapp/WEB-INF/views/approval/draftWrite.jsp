@@ -18,13 +18,13 @@
 			<!-- contents start-->
 			<br>
 			<td>
-				<form name="approvalForm" method="post" action="${pageContext.request.contextPath}/approval/write" enctype="multipart/form-data">
+				<form name="approvalForm" method="post" action="${pageContext.request.contextPath}/approval/draftWrite" enctype="multipart/form-data">
 
 					<h4 class="mb-3">새 결재 진행</h4>
 
 					<div class="card shadow-sm mb-3">
 						<div class="card-body">
-
+						<form action="/approval/draftWrite" method="post">
 							<!-- 1) 기본 정보 -->
 							<table class="table mb-4">
 								<tbody>
@@ -71,12 +71,12 @@
 											<div class="d-flex align-items-center gap-2">
 												<div class="input-group">
 													<input type="date" class="form-control input-date"
-														id="startDate" name="startDate" required>
+														id="startDate" name="created_at" required>
 												</div>
 												<span>~</span>
 												<div class="input-group">
 													<input type="date" class="form-control input-date"
-														id="endDate" name="endDate" required>
+														id="endDate" name="end_at" required>
 												</div>
 											</div>
 										</td>
@@ -133,8 +133,8 @@
 										class="btn btn-outline-dark">목록</a> 
 									<a href="${pageContext.request.contextPath}/approval/draftList"
 										class="btn btn-outline-dark">취소</a>
-									<a href="${pageContext.request.contextPath}/approval/draftView"
-										class="btn btn-outline-dark">완료</a>
+									<button type="submit"
+										class="btn btn-outline-dark">완료</button>
 								</div>
 							</div>
 							
@@ -183,7 +183,7 @@
 							                                                      	<c:forEach var="user" items="${depts.user}">
 								                                                        <li class="d-flex align-items-center gap-2">
 								                                                          <input type="checkbox" class="form-check-input person"
-								                                                            data-dept="${depts.dept_name}" data-rank="${user.user_rank}" data-name="${user.name}">
+								                                                            data-user_id="${user.user_id}" data-dept="${depts.dept_name}" data-rank="${user.user_rank}" data-name="${user.name}">
 								                                                          <span>${user.name}${user.user_rank}</span>
 								                                                        </li>
 							                                                        </c:forEach>
@@ -198,7 +198,7 @@
 															</div>
 														</div>
 													</div>
-	
+												</from>
 													<div class="col-md-6">
 														<div
 															class="border rounded-3 p-3 bg-white h-100 d-flex flex-column">

@@ -1,6 +1,7 @@
 package mocha.ezen.com.approval;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,21 @@ public class ApprovalRepository
 		return insertedRows;
 	}	
 	
-	public int Insert(ApproverDTO dto)
+	//결재선 insert
+	public int approverInsert(ApproverDTO dto)
 	{
 		int insertedRows = session.insert(namespace + ".approverinsert", dto);
 		return insertedRows;
-	}	
+	}
+	
+	//결재선 정렬 조회
+	public List<String> selectApproverUserList(String[] arr) {
+		return session.selectList(namespace + ".selectApproverUserList", arr); 
+	}
+	
+	public void insertApprover(Map<String, Object> map) {
+		session.insert(namespace + ".insertApprover", map);
+	}
 	
 	
 	public List<ApprovalDTO> selectdraftList(ApprovalDTO dto) 
@@ -89,12 +100,14 @@ public class ApprovalRepository
 	}
 
 	public List<ApproverDTO> approverviewList(String no) {
-		// TODO Auto-generated method stub
-		return null;
+		return session.selectList(namespace + ".approverviewList", no);
 	}
 
 	
-	
+	public void approverProcess(ApproverDTO dto) {
+		session.update(namespace + ".approverProcess", dto);
+	}
+
 	
 
 

@@ -141,9 +141,10 @@ $('#approvalLineModal').on('show.bs.modal', function () {
         const dept = $(this).data('dept').trim();
         const rank = $(this).data('rank').trim();
         const name = $(this).data('name').trim();
+        const id = $(this).data('user_id').toString().trim();
         
         // 부서|직급|이름을 조합하여 고유 키 생성
-        const key = `${dept}|${rank}|${name}`;
+        const key = `${dept}|${rank}|${name}|${id}`;
         
         const $tableBody = $('#selectedTableBody');
         const escapedKey = escapeSelector(key); // 키 이스케이프 처리
@@ -184,13 +185,13 @@ $('#approvalLineModal').on('show.bs.modal', function () {
         const keyToRemove = $row.data('key');
         
         // key를 파싱하여 개별 데이터 추출 (부서|직급|이름)
-        const [dept, rank, name] = keyToRemove.split('|');
+        const [dept, rank, name, id] = keyToRemove.split('|');
 
         // 우측 테이블에서 행 제거
         $row.remove();
 
         // 좌측 조직도에서 해당 체크박스 찾아서 해제 동기화
-        $(`.person[data-dept="${escapeSelector(dept)}"][data-rank="${escapeSelector(rank)}"][data-name="${escapeSelector(name)}"]`).prop('checked', false);
+        $(`.person[data-dept="${escapeSelector(dept)}"][data-rank="${escapeSelector(rank)}"][data-name="${escapeSelector(name)}"][data-user_id="${escapeSelector(id)}"]`).prop('checked', false);
     });
     
     // 4. 검색 (간단 필터) 로직 (DOMContentLoaded에서 이관)
@@ -224,8 +225,8 @@ $('#approvalLineModal').on('show.bs.modal', function () {
                     console.error("데이터 키(data-key)가 누락되었습니다.");
                     return null;
                 }
-                const [dept, rank, name] = key.split('|');
-                return { dept: dept, rank: rank, name: name, key: key };
+                const [dept, rank, name, id] = key.split('|');
+                return { dept: dept, rank: rank, name: name, key: key, id : id };
             })
             .get() // jQuery map 결과를 배열로 변환
             .filter(p => p !== null); 
@@ -249,6 +250,7 @@ selectedRows.forEach((person) => {
             <td>${person.rank}</td>
             <td>${person.name}</td>
             <td class="${statusClass}">${status}</td>
+            <input type="hidden" name="approver_user_id" value="${person.id}">
             <td>-</td>
             <td>-</td>
             <td class="text-center delete-cell"> 

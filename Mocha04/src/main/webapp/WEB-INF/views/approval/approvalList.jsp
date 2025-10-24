@@ -51,7 +51,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         let kind = urlParams.get('kind');
         
-        /
+        
         if (kind) {
             kind = kind.replace(/'/g, '').toLowerCase(); 
            

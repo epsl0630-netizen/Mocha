@@ -83,4 +83,14 @@ public class ApprovalDTO
 	public void setDept_name(String dept_name) {
 		this.dept_name = dept_name;
 	}
+	@Override
+	public String toString() {
+		return "ApprovalDTO [approval_no=" + approval_no + ", approval_title=" + approval_title + ", approval_note="
+				+ approval_note + ", approval_kind=" + approval_kind + ", approval_status=" + approval_status
+				+ ", created_at=" + created_at + ", updated_at=" + updated_at + ", user_id=" + user_id
+				+ ", parent_approval_no=" + parent_approval_no + ", name=" + name + ", user_rank=" + user_rank
+				+ ", dept_name=" + dept_name + ", end_at=" + end_at + ", user=" + user + ", department=" + department
+				+ ", approverDTO=" + approverDTO + "]";
+	}
+	
 }

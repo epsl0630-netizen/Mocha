@@ -20,7 +20,7 @@ public class UserDTO {
 	
 	//참조키로 가져오는 컬럼
 	private String dept_name;		// 부서 이름
-	private String position_name;	//
+	private String position_name;	// 직급
 	
 	
 	//getter & setter

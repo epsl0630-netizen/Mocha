@@ -49,7 +49,7 @@
 							<tbody>
 								<tr>
 									<th scope="row">결재종류</th>
-									<td><select class="form-select"
+									<td><select class="form-select" disabled="disabled"
 										aria-label="Default select example">
 											<option selected>--선택--</option>
 											<option value="1" ${item.approval_kind == 1 ? 'selected' : ''}>연차신청</option>
@@ -88,7 +88,7 @@
 
 								<tr>
 									<th scope="row">첨부파일</th>
-									<td><input type="file" id="bf-file" class="form-control"
+									<td><input type="file" disabled="disabled" id="bf-file" class="form-control"
 										multiple>
 
 										<div id="bf-file-list" class="mt-2"></div>
@@ -109,39 +109,64 @@
 										<th scope="col">상태</th>
 										<th scope="col">일시</th>
 										<th scope="col">의견</th>
-										<th></th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-									<tr>
-										<td>1</td>
-										<td>팀장</td>
-										<td>김철수</td>
-										<td>결재완료</td>
-										<td>2025.09.30</td>
-										<td>확인했습니다.</td>
-										<td></td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td>팀장</td>
-										<td>홍길동</td>
-										<td>결재대기</td>
-										<td>-</td>
-										<td><input class="form-control" value=""></td>
-										<td><a href="approvalAddView.html"
-											class="btn btn-outline-dark">등록</a></td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>팀장</td>
-										<td>이철수</td>
-										<td>결재예정</td>
-										<td>-</td>
-										<td>결재예정</td>
-										<td></td>
-									</tr>
+									<form action="" method="post">
+										<c:forEach var="applover" items="${apploverList}" varStatus="status">
+											<c:if test="${status.index == 0}">
+												<input name="approver_no" type="hidden" value="${applover.approver_no}">
+											</c:if>
+											<tr>
+												<td>${status.count}</td>
+												<td>${applover.user_rank}</td>
+												<td>${applover.user_name}</td>
+												<c:choose>
+													<c:when test="${applover.approval_status == 'IN_PROGRESS'}">
+														<td>
+															<select <c:if test="${sessionScope.login.user_id == applover.user_id}">name="approval_status"</c:if>>
+																<option value="IN_PROGRESS" selected>진행중</option>
+																<option value="APPROVED">승인</option>
+																<option value="REJECTED">반려</option>
+															</select>
+														</td>
+													</c:when>
+													<c:when test="${applover.approval_status == 'APPROVED'}">
+														<td>
+															<select <c:if test="${sessionScope.login.user_id == applover.user_id}">name="approval_status"</c:if>>
+																<option value="IN_PROGRESS">진행중</option>
+																<option value="APPROVED" selected>승인</option>
+																<option value="REJECTED">반려</option>
+															</select>
+														</td>
+													</c:when>
+													<c:otherwise>
+														<td>
+															<select <c:if test="${sessionScope.login.user_id == applover.user_id}">name="approval_status"</c:if>>
+																<option value="IN_PROGRESS">진행중</option>
+																<option value="APPROVED">승인</option>
+																<option value="REJECTED" selected>반려</option>
+															</select>
+														</td>
+													</c:otherwise>
+												</c:choose>
+												
+												<td>${applover.approval_at}</td>
+												<c:choose>
+													<c:when test="${sessionScope.login.user_id == applover.user_id}">
+														<td><input name="approval_comment" class="form-control" value="${applover.approval_comment}"></td>
+														<td><button type="submit"
+															class="btn btn-outline-dark">등록</button></td>
+													</c:when>
+													<c:otherwise>
+														<td>${applover.approval_comment}</td>
+														<td></td>
+													</c:otherwise>
+												</c:choose>
+												
+											</tr>
+										</c:forEach>
+									</form>
 								</tbody>
 							</table>
 						</div>

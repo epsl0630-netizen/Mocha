@@ -8,6 +8,8 @@ public class ApproverDTO {
 	private String approval_at;		 // 결재일시
 	private String approval_comment; // 의견
 	private String user_id;			 // 사원번호
+	private String user_name;
+	private String user_rank;
 	
 	public String getApprover_no()		 { return approver_no;		 }
 	public String getApproval_no()		 { return approval_no;		 }
@@ -24,6 +26,18 @@ public class ApproverDTO {
 	public void setApproval_at(String approval_at)			 { this.approval_at = approval_at;			 }
 	public void setApproval_comment(String approval_comment) { this.approval_comment = approval_comment; }
 	public void setUser_id(String user_id)					 { this.user_id = user_id;					 }
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+	public String getUser_rank() {
+		return user_rank;
+	}
+	public void setUser_rank(String user_rank) {
+		this.user_rank = user_rank;
+	}
 	
 	
 	

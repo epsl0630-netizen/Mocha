@@ -3,6 +3,7 @@ package mocha.ezen.com.approval;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -128,24 +129,30 @@ public class ApprovalController
 		}
 		
 		@RequestMapping(value = "/draftWrite",  method = RequestMethod.POST)
-		@ResponseBody
-		public Map<String, Object> DraftWrite(ApprovalDTO dto)
+		public String DraftWrite(ApprovalDTO dto, @RequestParam("approver_user_id") String[] ids)
 		{
+			for (int i = 0; i < ids.length; i++) {
+				System.out.println(ids[i]);
+			}
+			System.out.println(dto);
+			
+			
 			int result = approvalRepository.Insert(dto);
 			
-			Map<String, Object> response = new HashMap<String, Object>();
-			if (result > 0) {
-		        
-		        response.put("result", "success");
-		        response.put("approval_no", dto.getApproval_no()); 
-		        
-		    } else {
-		       
-		        response.put("result", "fail");
-		        response.put("message", "결재 상신에 실패했습니다.");
-		    }
-		    
-			return response;
+			
+			
+			List<String> userIds = approvalRepository.selectApproverUserList(ids);
+			
+			System.out.println(userIds);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("doc_id", dto.getApproval_no());
+			map.put("list", userIds);
+			
+			approvalRepository.insertApprover(map);
+			
+			return "approval/draftList";
 		}
 
 		
@@ -192,12 +199,28 @@ public class ApprovalController
 		
 			
 			model.addAttribute("item",dto);
-			model.addAttribute("reply",approver);
+			model.addAttribute("apploverList",approver);
 			
 			
 			return "approval/approvalView";
 		}
+
+		@RequestMapping(value = "/approvalView", method = RequestMethod.POST)
+		public String ApprovalProcess(@RequestParam(required = true) String no,
+				ApproverDTO dto,
+				Model model,  HttpSession session)
+		{
+			UserDTO loginUser = (UserDTO) session.getAttribute("login");
 			
+			
+			dto.setApproval_no(no);
+			dto.setUser_id(loginUser.getUser_id());
+			approvalRepository.approverProcess(dto);
+			
+			
+			return "approval/approvalView";
+		}
+		
 		
 	
 		@RequestMapping(value = "/approvalDelete.do")
