@@ -1,92 +1,165 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="board">
 
-	<!-- 목록 조회 -->
-	<select id="selectBoardList"
-		resultType="mocha.ezen.com.board.BoardDTO">
-		select
-		board_no, board_title, board_note, board_kind, created_at,
-		updated_at,deleted_at, user_id, alarm_no
-		FROM board
+	<resultMap id="BoardMap" type="mocha.ezen.com.board.BoardDTO">
+		<id property="board_no" column="board_no" />
+		<result property="board_title" column="board_title" />
+		<result property="board_note" column="board_note" />
+		<result property="board_kind" column="board_kind" />
+		<result property="created_at" column="created_at" />
+		<result property="updated_at" column="updated_at" />
+		<result property="deleted_at" column="deleted_at" />
+		<result property="user_id" column="user_id" />
+	</resultMap>
+
+	<sql id="whereFilter">
 		<where>
+			deleted_at IS NULL
 			<if
-				test="type != null and type == 'title' and keyword != null and keyword != ''">
-				AND board_title LIKE CONCAT('%', #{keyword}, '%')
+				test="type != null and type != '' and keyword != null and keyword != ''">
+				AND
+				<choose>
+					<when test="type eq 'title'">
+						board_title LIKE CONCAT('%', #{keyword}, '%')
+					</when>
+					<when test="type eq 'note'">
+						board_note LIKE CONCAT('%', #{keyword}, '%')
+					</when>
+					<otherwise>
+						board_title LIKE CONCAT('%', #{keyword}, '%')
+					</otherwise>
+				</choose>
 			</if>
-			<if
-				test="type != null and type == 'writer' and keyword != null and keyword != ''">
-				AND user_id = #{keyword}
+			<if test="kind != null and kind != ''">
+				and board_kind = #{kind} 
 			</if>
-			<if
-				test="type != null and type == 'kind' and keyword != null and keyword != ''">
-				AND board_kind = #{keyword}
-			</if>
-			AND (deleted_at IS NULL OR deleted_at = '')
 		</where>
-		ORDER BY board_no DESC
-		LIMIT #{limit} OFFSET #{offset}
-	</select>
-	<!-- 전체 카운트 -->
+	</sql>
+
 	<select id="countBoardList" resultType="long">
-		SELECT COUNT(*)
-		FROM board
-		<where>
-			<if
-				test="type != null and type == 'title' and keyword != null and keyword != ''">
-				AND board_title LIKE CONCAT('%', #{keyword}, '%')
-			</if>
-			<if
-				test="type != null and type == 'writer' and keyword != null and keyword != ''">
-				AND user_id = #{keyword}
-			</if>
-			<if
-				test="type != null and type == 'kind' and keyword != null and keyword != ''">
-				AND board_kind = #{keyword}
-			</if>
-			AND (deleted_at IS NULL OR deleted_at = '')
-		</where>
+		SELECT COUNT(board_no) FROM board_posts
+		<include refid="whereFilter" />
 	</select>
-	<!-- 단건 조회 -->
-	<select id="selectBoardById" parameterType="long"
-		resultType="mocha.ezen.com.board.BoardDTO">
-		select
-		board_no, board_title, board_note, board_kind,
+
+	<select id="selectBoardList" resultMap="BoardMap">
+		SELECT board_no, board_title, board_note, board_kind,
 		created_at,
-		updated_at, deleted_at, user_id, alarm_no
-		FROM board
-		WHERE
-		board_no = #{no}
+		updated_at, deleted_at, user_id
+		FROM board_posts
+		<include refid="whereFilter" />
+		ORDER BY created_at DESC
+		LIMIT #{offset}, #{limit}
 	</select>
-	<!-- 등록 -->
+
+	<select id="selectBoardById" parameterType="long" resultMap="BoardMap">
+		SELECT
+		board_no, board_title, board_note, board_kind,
+		created_at, updated_at,
+		deleted_at, user_id
+		FROM board_posts
+		WHERE
+		board_no = #{id}
+	</select>
+
 	<insert id="insertBoard"
 		parameterType="mocha.ezen.com.board.BoardDTO" useGeneratedKeys="true"
 		keyProperty="board_no">
-		INSERT INTO board
-		(board_title, board_note, board_kind,
-		user_id, created_at)
-		VALUES
-		(#{board_title}, #{board_note},
-		#{board_kind}, #{user_id}, NOW())
+		INSERT INTO board_posts (
+		board_title, board_note,
+		board_kind,
+		created_at, updated_at, user_id
+		) VALUES (
+		#{board_title}, #{board_note}, #{board_kind},
+		NOW(), NOW(), #{user_id}
+		)
 	</insert>
-	<!-- 수정 -->
+
 	<update id="updateBoard"
 		parameterType="mocha.ezen.com.board.BoardDTO">
-		UPDATE board
+		UPDATE board_posts
 		SET board_title = #{board_title},
-		board_note
-		= #{board_note},
+		board_note = #{board_note},
 		board_kind = #{board_kind},
-		updated_at = NOW()
-		WHERE
-		board_no = #{board_no}
+		updated_at =
+		NOW()
+		WHERE board_no = #{board_no}
 	</update>
-	<!-- (소프트) 삭제 -->
+
 	<update id="deleteBoard" parameterType="long">
-		UPDATE board SET
-		deleted_at = NOW() WHERE board_no = #{value}
+		UPDATE board_posts
+		SET
+		deleted_at = NOW()
+		WHERE board_no = #{value}
 	</update>
+
+	<resultMap id="AttachMap"
+		type="mocha.ezen.com.attachment.AttachmentDTO">
+		<id property="attach_no" column="attach_no" />
+		<result property="path" column="path" />
+		<result property="mime_type" column="mime_type" />
+		<result property="ext" column="ext" />
+		<result property="file_size" column="file_size" />
+		<result property="pname" column="pname" />
+		<result property="fname" column="fname" />
+		<result property="board_no" column="board_no" />
+	</resultMap>
+
+	<insert id="insertAttach"
+		parameterType="mocha.ezen.com.attachment.AttachmentDTO">
+		INSERT INTO board_attach (path, mime_type, ext,
+		file_size, pname, fname, board_no)
+		VALUES (#{path}, #{mime_type},
+		#{ext}, #{file_size}, #{pname}, #{fname}, #{board_no})
+	</insert>
+
+	<select id="findAttachByBoard" parameterType="long"
+		resultMap="AttachMap">
+		SELECT attach_no, path, mime_type, ext, file_size, pname,
+		fname, board_no
+		FROM board_attach
+		WHERE board_no = #{value}
+		ORDER BY
+		attach_no ASC
+	</select>
+
+	<delete id="deleteAttachByBoard" parameterType="long">
+		DELETE FROM
+		board_attach WHERE board_no = #{value}
+	</delete>
+	
+	<!-- <resultMap id="ReplyMap" type="mocha.ezen.com.board.ReplyDTO">
+		<id property="reply_no" column="reply_no" />
+		<result property="reply_note" column="reply_note" /> <result property="created_at" column="created_at" />
+		<result property="delete_at" column="delete_at" />
+		<result property="board_no" column="board_no" />
+		<result property="user_id" column="user_id" />
+	</resultMap>
+	
+	<insert id="insertReply" 
+			parameterType="mocha.ezen.com.board.ReplyDTO" 
+			useGeneratedKeys="true" 
+			keyProperty="reply_no">
+		INSERT INTO reply_table (board_no, user_id, reply_note, created_at)
+		VALUES (#{board_no}, #{user_id}, #{reply_note}, NOW())
+	</insert>
+	<select id="findRepliesByBoardNo" parameterType="mocha.ezen.com.board.ReplyDTO" resultMap="ReplyMap">
+		SELECT 
+			reply_no, 
+			board_no, 
+			user_id, 
+			reply_note, 
+			created_at
+		FROM 
+			reply_table
+		WHERE 
+			board_no = #{value} 
+		AND 
+			delete_at IS NULL
+		ORDER BY 
+			created_at ASC
+	</select>  -->
+	
 
 </mapper>

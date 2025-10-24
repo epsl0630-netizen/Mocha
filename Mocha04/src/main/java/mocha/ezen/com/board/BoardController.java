@@ -1,216 +1,164 @@
 package mocha.ezen.com.board;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-//import java.util.List;
-//
-//import javax.servlet.http.HttpSession;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.ui.Model;
-//import org.springframework.validation.BindingResult;
-//import org.springframework.web.bind.annotation.*;
-//import org.springframework.web.multipart.MultipartFile;
-//
-//import mocha.ezen.com.board.*;
-//import mocha.ezen.com.attachment.AttachmentDTO;
-//import mocha.ezen.com.user.UserDTO;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import mocha.ezen.com.attachment.AttachmentDTO;
+import mocha.ezen.com.user.UserDTO;
 
 @Controller
 @RequestMapping("/board")
 public class BoardController {
 
-	// /board/ ¡æ /board/list·Î º¸³»±â (¼±ÅÃ)
-	@RequestMapping(value = "/boardView", method = RequestMethod.GET)
-	public String BoardView() {
-		return "board/boardView";
-	}
+	@Autowired
+	private BoardRepository boardRepository;
 
-	// ¸ñ·Ï JSP ¿­±â (µ¥ÀÌÅÍ ¾øÀÌ È­¸é¸¸)
+	// =========================================================================
+	// 1. ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ (GET)
+	// =========================================================================
 	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
-	public String BoardList() {
+	public String boardList(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size,
+			@RequestParam(required = false, defaultValue = "") String type,
+			@RequestParam(required = false, defaultValue = "") String keyword,
+			@RequestParam(required = false) String kind, Model model) {
+
+		// 1. ï¿½ï¿½Ã¼ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ ï¿½ï¿½È¸ (MyBatis ï¿½ï¿½ï¿½ï¿½ ï¿½Ø°ï¿½ï¿½ ID ï¿½ï¿½ï¿½)
+		long totalCount = boardRepository.countAll(type, keyword);
+
+		// 2. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
+		List<BoardDTO> items = boardRepository.findAll(page, size, type, keyword, kind);
+
+		// 3. ï¿½ğµ¨¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+		model.addAttribute("items", items);
+		model.addAttribute("page", page);
+		model.addAttribute("size", size);
+		model.addAttribute("totalPages", (int) Math.ceil((double) totalCount / size));
+		model.addAttribute("type", type);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("kind", kind);
+
 		return "board/boardList";
 	}
-	
-	//¼öÁ¤
-	@RequestMapping(value = "/boardModify", method = RequestMethod.GET)
-	public String BoardModify() {
-		return "board/boardModify";
-	}
-	
+
+	// =========================================================================
+	// 2. ï¿½Ô½Ã±ï¿½ ï¿½Û¼ï¿½ ï¿½ï¿½ Ç¥ï¿½ï¿½ (GET)
+	// =========================================================================
 	@RequestMapping(value = "/boardWrite", method = RequestMethod.GET)
-	public String BoardWrite() {
+	public String writeForm(Model model) {
 		return "board/boardWrite";
 	}
 
-//	private final BoardService boardService;
-//
-//	@Autowired
-//	// »ı¼ºÀÚ ÁÖÀÔ (Lombok ¾øÀÌ)
-//	public BoardController(BoardService boardService) {
-//		this.boardService = boardService;
-//	}
-//
-//	// ¸ñ·Ï
-//
-//	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
-//	public String BoardList(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size,
-//			@RequestParam(required = false) String type, // title | content | writer
-//			@RequestParam(required = false) String keyword, Model model) {
-//
-//		Page<BoardDTO> result = boardService.getList(page, size, type, keyword);
-//
-//		model.addAttribute("list", result.getContent());
-//		model.addAttribute("page", result.getPage());
-//		model.addAttribute("size", result.getSize());
-//		model.addAttribute("totalPages", result.getTotalPages());
-//		model.addAttribute("totalCount", result.getTotalCount());
-//		model.addAttribute("type", type);
-//		model.addAttribute("keyword", keyword);
-//
-//		return "board/boardList";
-//	}
-//
-//	// »ó¼¼
-//
-//	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-//	public String read(@PathVariable("id") Long id, Model model) {
-//		BoardDTO board = boardService.getOne(id);
-//		List<AttachmentDTO> files = boardService.getAttachments(id);
-//
-//		model.addAttribute("board", board);
-//		model.addAttribute("files", files);
-//		return "board/read";
-//	}
-//
-//	// ÀÛ¼º Ç°
-//
-//	@RequestMapping(value = "/boardWrite", method = RequestMethod.GET)
-//	public String writeForm(Model model) {
-//		model.addAttribute("board", new BoardDTO());
-//		return "board/write";
-//	}
-//
-//	// ÀÛ¼ºÃ³¸®
-//
-//	@RequestMapping(value = "/boardWrite", method = RequestMethod.POST)
-//	public String boardWrite(@ModelAttribute("board") BoardDTO board, BindingResult bindingResult,
-//			@RequestParam(value = "files", required = false) List<MultipartFile> files, HttpSession session,
-//			Model model) {
-//
-//		if (bindingResult.hasErrors()) {
-//			return "board/write";
-//		}
-//
-//		// ·Î±×ÀÎ »ç¿ëÀÚ Á¤º¸ (¼¼¼Ç Å°´Â ÇÁ·ÎÁ§Æ®¿¡ ¸Â°Ô »ç¿ë)
-//		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-//		if (loginUser != null) {
-//			// ·Î±×ÀÎÇÑ »ç¿ëÀÚÀÇ ¾ÆÀÌµğ¸¦ ÀÛ¼ºÀÚ·Î ¼³Á¤
-//			board.setUser_id(loginUser.getUser_id());
-//		}
-//
-//		Long newId = boardService.create(board, files);
-//		return "/board/" + newId;
-//	}
-//
-//	// ¼öÁ¤ Æû
-//
-//	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-//	public String editForm(@PathVariable("id") Long id, Model model) {
-//		BoardDTO board = boardService.getOne(id);
-//		List<AttachmentDTO> files = boardService.getAttachments(id);
-//
-//		model.addAttribute("board", board);
-//		model.addAttribute("files", files);
-//		return "board/edit";
-//	}
-//
-//	// ¼öÁ¤ Ã³¸®
-//
-//	@RequestMapping(value = "/board/boardModify", method = RequestMethod.POST)
-//	public String BoardModify(@PathVariable("id") Long id, @ModelAttribute("board") BoardDTO board,
-//			BindingResult bindingResult,
-//			@RequestParam(value = "addFiles", required = false) List<MultipartFile> addFiles,
-//			@RequestParam(value = "deleteFileIds", required = false) List<Long> deleteFileIds) {
-//
-//		if (bindingResult.hasErrors())
-//			return "board/edit";
-//
-//		board.setBoard_no(String.valueOf(id)); 
-//		boardService.update(board, addFiles, deleteFileIds);
-//
-//		return "redirect:/board/" + id;
-//	}
-//
-//	// »èÁ¦
-//
-//	@RequestMapping(value = "board/boarddelete", method = RequestMethod.POST)
-//	public String boardDelete(@PathVariable("id") Long id) {
-//		boardService.delete(id);
-//		return "redirect:/board/list";
-//	}
-//
-//	// Ã·ºÎ ´Ü°Ç »èÁ¦ (AJAX)
-//
-//	@ResponseBody
-//	@RequestMapping(value = "/board/boarddelete", method = RequestMethod.POST)
-//	public String boardk(@PathVariable("id") Long postId, @PathVariable("attachId") Long attachId) {
-//		boardService.deleteAttachment(postId, attachId);
-//		return "OK";
-//	}
-//
-//	// ¸ñ·Ï JSON (AJAX)
-//
-//	@ResponseBody
-//	@RequestMapping(value = "/board/boardList", method = RequestMethod.GET)
-//	public Page<BoardDTO> apiList(@RequestParam(defaultValue = "1") int page,
-//			@RequestParam(defaultValue = "10") int size, @RequestParam(required = false) String type,
-//			@RequestParam(required = false) String keyword) {
-//		return boardService.getList(page, size, type, keyword);
-//	}
-//
-//	// °£´ÜÇÑ ÆäÀÌÂ¡ ÄÁÅ×ÀÌ³Ê (ºä/JSON °ø¿ë)
-//	public static class Page<T> {
-//		private List<T> content;
-//		private int page;
-//		private int size;
-//		private int totalPages;
-//		private long totalCount;
-//
-//		public Page() {
-//		}
-//
-//		public Page(List<T> content, int page, int size, int totalPages, long totalCount) {
-//			this.content = content;
-//			this.page = page;
-//			this.size = size;
-//			this.totalPages = totalPages;
-//			this.totalCount = totalCount;
-//		}
-//
-//		public List<T> getContent() { return content; }	
-//		public int getPage() { return page;	}	
-//		public int getSize() { return size; }
-//		public int getTotalPages() { return totalPages;	}		
-//		public long getTotalCount() { return totalCount; }
-//		
-//		public void setContent(List<T> content) { this.content = content; }
-//		public void setPage(int page) { this.page = page; }
-//		public void setSize(int size) { this.size = size; }
-//		public void setTotalPages(int totalPages) { this.totalPages = totalPages; }
-//		public void setTotalCount(long totalCount) { this.totalCount = totalCount; }
-//		
-//	}
-//
-//	public static interface BoardService {
-//		Page<BoardDTO> getList(int page, int size, String type, String keyword);
-//		BoardDTO getOne(Long id);
-//		List<AttachmentDTO> getAttachments(Long boardId);
-//		Long create(BoardDTO board, List<MultipartFile> files);
-//		void update(BoardDTO board, List<MultipartFile> addFiles, List<Long> deleteFileIds);
-//		void delete(Long id);
-//		void deleteAttachment(Long postId, Long attachId);
-//	}
+	// =========================================================================
+	// 3. ï¿½Ô½Ã±ï¿½ ï¿½Û¼ï¿½ Ã³ï¿½ï¿½ (POST) - 405 ï¿½ï¿½ï¿½ï¿½ ï¿½Ø°ï¿½
+	// =========================================================================
+	@RequestMapping(value = "/boardWrite", method = RequestMethod.POST)
+	public String writeSubmit(BoardDTO boardDto, @RequestParam(value = "files", required = false) MultipartFile[] files,
+			HttpSession session) {
+
+		// 1. DBï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ PK(board_no) ï¿½Ş±ï¿½
+		// *Attachment logic omitted, only board insert shown*
+
+		UserDTO user = (UserDTO) session.getAttribute("login");
+
+		boardDto.setUser_id(user.getUser_id());
+		Long newBoardNo = boardRepository.insert(boardDto);
+
+		// 2. ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½Æ®
+		if (newBoardNo != null) {
+			return "redirect:/board/boardView?board_no=" + newBoardNo;
+		} else {
+			return "redirect:/board/boardWrite";
+		}
+	}
+
+	// =========================================================================
+	// 4. ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (GET)
+	// =========================================================================
+	@RequestMapping(value = "/boardView", method = RequestMethod.GET)
+	public String view(@RequestParam("board_no") Long boardNo, Model model) {
+
+		// 1. ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
+		BoardDTO item = boardRepository.findById(boardNo);
+
+		// 2. Ã·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
+		List<AttachmentDTO> atts = boardRepository.findAttachments(boardNo);
+
+		// 3. ï¿½ğµ¨¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+		model.addAttribute("item", item);
+		model.addAttribute("atts", atts);
+
+		return "board/boardView";
+	}
+
+	// =========================================================================
+	// 5. ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ç¥ï¿½ï¿½ (GET)
+	// =========================================================================
+	@RequestMapping(value = "/boardModify", method = RequestMethod.GET)
+	public String modifyForm(@RequestParam("id") Long boardNo, Model model) {
+		model.addAttribute("item", boardRepository.findById(boardNo));
+		model.addAttribute("atts", boardRepository.findAttachments(boardNo));
+
+		return "board/boardModify";
+	}
+
+	// =========================================================================
+	// 6. ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ (POST)
+	// =========================================================================
+	@RequestMapping(value = "/boardUpdate", method = RequestMethod.POST)
+	public String modifySubmit(BoardDTO boardDto) {
+
+		boardRepository.update(boardDto);
+
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½Æ®
+		return "redirect:/board/boardView?board_no=" + boardDto.getBoard_no();
+	}
+
+	// =========================================================================
+	// 7. ê²Œì‹œê¸€ ì‚­ì œ ì²˜ë¦¬ (POST)
+	// =========================================================================
+	@RequestMapping(value = "/boarDdelete", method = RequestMethod.POST)
+	public String deleteSubmit(@RequestParam("board_no") Long boardNo, // JSPì—ì„œ ë„˜ì–´ì˜¤ëŠ” íŒŒë¼ë¯¸í„° ì´ë¦„ì€ board_noì…ë‹ˆë‹¤.
+			HttpSession session, RedirectAttributes rttr) { // ë¦¬ë‹¤ì´ë ‰íŠ¸ ì‹œ ë©”ì‹œì§€ ì „ë‹¬ì„ ìœ„í•´ ì¶”ê°€
+
+		UserDTO user = (UserDTO) session.getAttribute("login");
+
+		// 1. ë¡œê·¸ì¸ ì—¬ë¶€ í™•ì¸
+		if (user == null) {
+			rttr.addFlashAttribute("errorMsg", "ë¡œê·¸ì¸ í›„ ì´ìš©í•´ ì£¼ì„¸ìš”.");
+			return "redirect:/user/login"; // ë˜ëŠ” ìƒì„¸ ë³´ê¸° í˜ì´ì§€ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸
+		}
+
+		// 2. ê²Œì‹œê¸€ ì •ë³´ ì¡°íšŒ (ì‘ì„±ì í™•ì¸ìš©)
+		BoardDTO item = boardRepository.findById(boardNo);
+
+		// 3. ì‘ì„±ì ë³¸ì¸ í™•ì¸ ë° ì‚­ì œ
+		if (item != null && item.getUser_id().equals(user.getUser_id())) {
+			try {
+				boardRepository.delete(boardNo); // DB ì‚­ì œ ì²˜ë¦¬
+				rttr.addFlashAttribute("msg", "âœ… ê²Œì‹œê¸€ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.");
+			} catch (Exception e) {
+				rttr.addFlashAttribute("errorMsg", "âŒ ì‚­ì œ ì²˜ë¦¬ ì¤‘ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.");
+				// ë¡œê¹… í•„ìš”: System.err.println("ì‚­ì œ ì˜¤ë¥˜: " + e.getMessage());
+			}
+		} else if (item != null) {
+			// ì‘ì„±ìê°€ ì•„ë‹Œ ê²½ìš°
+			rttr.addFlashAttribute("errorMsg", "âš ï¸ ì‚­ì œ ê¶Œí•œì´ ì—†ìŠµë‹ˆë‹¤.");
+		} else {
+			// ê²Œì‹œê¸€ì´ ì—†ëŠ” ê²½ìš°
+			rttr.addFlashAttribute("errorMsg", "âš ï¸ ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ê²Œì‹œê¸€ì…ë‹ˆë‹¤.");
+		}
+
+		// 4. ê²Œì‹œê¸€ ëª©ë¡ í˜ì´ì§€ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸
+		return "redirect:/board/boardList";
+	}
 }
