@@ -1,4 +1,7 @@
 $(document).ready(function() {
+	    
+    selectedNav();
+
     // 프로필 창 열기 버튼
     $(".profile-nav-open-btn").click(
         function() {
@@ -29,6 +32,7 @@ $(document).ready(function() {
             PwChangeOn();
         }
     );
+
 });
 
 
@@ -48,3 +52,20 @@ function PwChangeOff() {
     $(".pw-change").hide();
 }
 
+function selectedNav() {
+	let menuClass = $("#menu").attr('class');
+	
+	switch(menuClass) {
+		case "admin_menu" : $("#admin_nav").addClass("icon-selected"); 
+			break;
+		case "board_menu" : $("#board_nav").addClass("icon-selected"); 
+			break;
+		case "approval_menu" : $("#approval_nav").addClass("icon-selected");
+			break;
+		case "schedule_menu" : $("#schedule_nav").addClass("icon-selected"); 
+			break;
+		default : $("#home_nav").addClass("icon-selected");
+			break;
+	}
+
+}

@@ -1,5 +1,7 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <body>
 	<!-- myinfo start -->
 	<!-- Modal -->
@@ -30,13 +32,15 @@
 								<td><span>${sessionScope.login.name}</span></td>
 							<tr>
 								<td>부서</td>
-								<td><span id="user_depart" name="user_depart"
-									class="select_user_depart"> ${sessionScope.login.dept_name} </span></td>
-							</tr>
+								<td>
+									<span id="user_depart" class="select_user_depart">
+								 		${sessionScope.login.dept_name} 
+								 	</span>
+						 		</td>
 							</tr>
 							<tr>
 								<td>사원번호</td>
-								<td><span>${sessionScope.login.user_id}</span></td>
+								<td><span >${sessionScope.login.user_id}</span></td>
 							</tr>
 							<tr>
 								<td>내선번호</td>

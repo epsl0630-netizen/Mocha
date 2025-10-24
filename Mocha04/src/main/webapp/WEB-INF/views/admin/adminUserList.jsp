@@ -14,7 +14,7 @@
                   <td colspan="2">
                     <div>
                       <br>
-                      <h4 class="mb-3">사원관리 목록</h4>
+                      <h4 class="mb-3">사원목록</h4>
                       <div class="search-container">
                       	<form id="searchFrm" method="get" action="${pageContext.request.contextPath}/admin/adminUserList">
 	                        <select id="search_authority" name="authority" class="select_search form-select">
@@ -28,7 +28,7 @@
 	                        <select id="search__depart" name="dept_id" class="select_search form-select">
 	                        	<option value="0"
 	                        		<c:if test="${search.dept_id == item.dept_id}"> selected</c:if>
-	                        	>전체</option>
+	                        	>부서</option>
 	                        	<c:forEach begin="0" var="item" items="${departList}"  varStatus="status">
 		                          	<option value="${item.dept_id}"
 		                          		<c:if test="${search.dept_id == item.dept_id}"> selected</c:if> 

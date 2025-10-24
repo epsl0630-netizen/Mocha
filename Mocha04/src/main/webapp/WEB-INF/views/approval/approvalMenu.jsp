@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- menu start -->
-<td id="menu">
+<td id="menu" class="approval_menu">
 	<div>
 		<span class="menu-title">전자결재</span> <a
 			href="${pageContext.request.contextPath}/approval/draftWrite"

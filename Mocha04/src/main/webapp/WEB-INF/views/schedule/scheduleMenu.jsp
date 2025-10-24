@@ -5,7 +5,7 @@
 	href="${pageContext.request.contextPath}/resources/css/schedule.css" />	
 <!-- menu start -->
 
-<td id="menu">
+<td id="menu" class="schedule_menu">
 	<div>
 		<span class="menu-title">일정관리</span> <a
 			href="#"
