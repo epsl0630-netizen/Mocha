@@ -321,7 +321,7 @@ $(document).ready(function() {
                 }
                 currentRow.appendChild(cell);
             }
-            if (date > lastDate && i !== 0) break;
+         
             
             calBody.appendChild(currentRow);
         }

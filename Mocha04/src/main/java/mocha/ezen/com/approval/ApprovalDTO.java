@@ -19,7 +19,7 @@ public class ApprovalDTO
 	private String user_rank;            // 직급
 	private String dept_name;            // 부서이름
 	private String end_at;               // 마감일
-    private UserDTO user;                //useㄱㅇ썌  
+    private UserDTO user;                //user
     private DepartmentDTO department;    //부서DTO
 	private ApproverDTO approverDTO;	 // 결재선DTO
 	

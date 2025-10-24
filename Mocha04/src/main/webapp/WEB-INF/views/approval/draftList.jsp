@@ -97,13 +97,13 @@
 		</div>
 		<div>
 			<a
-				href="${pageContext.request.contextPath}/approval/approvalList?approval_kind=1"
+				href="${pageContext.request.contextPath}/approval/draftList?approval_kind=1"
 				class="btn btn-outline-dark" id="btn-filter-ALL">전체</a> <a
-				href="${pageContext.request.contextPath}/approval/approvalList?approval_kind=2"
+				href="${pageContext.request.contextPath}/approval/draftList?approval_kind=2"
 				class="btn btn-outline-dark" id="btn-filter-IN_PROGRESS">진행</a> <a
-				href="${pageContext.request.contextPath}/approval/approvalList?approval_kind=3"
+				href="${pageContext.request.contextPath}/approval/draftList?approval_kind=3"
 				class="btn btn-outline-dark" id="btn-filter-APPROVED" >승인</a> <a
-				href="${pageContext.request.contextPath}/approval/approvalList?approval_kind=4"
+				href="${pageContext.request.contextPath}/approval/draftList?approval_kind=4"
 				class="btn btn-outline-dark" id="btn-filter-REJECTED" >반려</a>
 		</div>
 		

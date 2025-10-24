@@ -29,7 +29,7 @@ function formatDateString(date) {
 // =================================================================
 /**
  * 일정 등록/수정 모달을 엽니다.
- * @param {object} event 
+ * @param {object} event 
  */
 function openEventModal(event = null) {
     const eventModalElement = document.getElementById('eventModal');
@@ -213,7 +213,7 @@ $(document).ready(function() {
 
 
     /**
-     * 달력에 날짜를 그립니다. (내용 변경 없음)
+     * 달력에 날짜를 그립니다. (수정됨: 날짜 누락 문제 해결)
      */
     function renderCalendar() {
         // ... (기존 renderCalendar 코드 유지) ...
@@ -251,7 +251,7 @@ $(document).ready(function() {
                 if (i === 0 && j < firstDayWeek) {
                     cell.classList.add('bg-light'); 
                 } else if (date > lastDate) {
-                    cell.classList.add('bg-light'); 
+                    cell.classList.add('bg-light');
                 } else {
                     const day = date;
                     const cellDate = new Date(currentYear, currentMonth, day);
@@ -307,9 +307,10 @@ $(document).ready(function() {
                 }
                 currentRow.appendChild(cell);
             }
-            if (date > lastDate && i !== 0) break;
-            
-            calBody.appendChild(currentRow);
+            
+            // ⭐️ 최종 수정 부분: 행을 추가한 후, 날짜가 마지막 날짜를 초과했는지 확인하고 루프를 종료합니다.
+            calBody.appendChild(currentRow); 
+            if (date > lastDate) break; 
         }
         
         if (selectedDateElement) {
@@ -476,7 +477,7 @@ $(document).ready(function() {
             const clientType = typeElement ? typeElement.value : 'personal'; // 'personal' 또는 'team'
 
 			// ⭐️ 이 부분이 수정되었습니다: 클라이언트 값 -> 서버 DB 값으로 변환
-            const serverKind = clientType;
+            const serverKind = clientType;
 
             if (title.trim() === '') {
                 alert('일정 제목을 입력해주세요.');
